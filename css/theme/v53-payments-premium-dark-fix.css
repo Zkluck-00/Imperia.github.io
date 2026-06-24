@@ -1,0 +1,77 @@
+/* IMPERIA v53 - Pagos por curso, beneficios PRO y corrección modo oscuro */
+html[data-theme="dark"] #app .exclusive-feature-card,
+body[data-theme="dark"] #app .exclusive-feature-card,
+html[data-theme="dark"] #app .plan-card,
+body[data-theme="dark"] #app .plan-card {
+  background: linear-gradient(145deg, rgba(15, 23, 42, .94), rgba(8, 20, 40, .86)) !important;
+  color: #dbeafe !important;
+  border-color: rgba(125, 211, 252, .20) !important;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .24) !important;
+}
+
+html[data-theme="dark"] #app .exclusive-feature-card h3,
+body[data-theme="dark"] #app .exclusive-feature-card h3,
+html[data-theme="dark"] #app .plan-card h3,
+body[data-theme="dark"] #app .plan-card h3 {
+  color: #f1f5f9 !important;
+  -webkit-text-fill-color: #f1f5f9 !important;
+}
+
+html[data-theme="dark"] #app .exclusive-feature-card p,
+body[data-theme="dark"] #app .exclusive-feature-card p,
+html[data-theme="dark"] #app .plan-card p,
+body[data-theme="dark"] #app .plan-card p {
+  color: #cbd5e1 !important;
+  -webkit-text-fill-color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] #app .payment-card,
+body[data-theme="dark"] #app .payment-card,
+html[data-theme="dark"] #app .checkout-resume,
+body[data-theme="dark"] #app .checkout-resume {
+  background: linear-gradient(145deg, rgba(15, 23, 42, .96), rgba(7, 17, 31, .90)) !important;
+  color: #dbeafe !important;
+  border-color: rgba(148, 163, 184, .24) !important;
+}
+
+html[data-theme="dark"] #app .payment-method,
+body[data-theme="dark"] #app .payment-method {
+  background: rgba(15, 23, 42, .86) !important;
+  color: #dbeafe !important;
+  border-color: rgba(148, 163, 184, .28) !important;
+}
+
+html[data-theme="dark"] #app .payment-method.active,
+body[data-theme="dark"] #app .payment-method.active {
+  background: linear-gradient(135deg, rgba(16, 185, 129, .26), rgba(59, 130, 246, .18)) !important;
+  color: #ecfeff !important;
+  border-color: rgba(45, 212, 191, .46) !important;
+}
+
+html[data-theme="dark"] #app .input,
+html[data-theme="dark"] #app .select,
+html[data-theme="dark"] #app textarea,
+body[data-theme="dark"] #app .input,
+body[data-theme="dark"] #app .select,
+body[data-theme="dark"] #app textarea {
+  background: rgba(2, 6, 23, .72) !important;
+  color: #e2e8f0 !important;
+  border-color: rgba(148, 163, 184, .32) !important;
+}
+
+html[data-theme="dark"] #app .input::placeholder,
+body[data-theme="dark"] #app .input::placeholder {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] #app .course-checkout-page .checkout-shell,
+body[data-theme="dark"] #app .course-checkout-page .checkout-shell {
+  margin-top: 18px;
+}
+
+html[data-theme="dark"] #app .course-checkout-page .checkout-total,
+body[data-theme="dark"] #app .course-checkout-page .checkout-total {
+  background: rgba(8, 47, 73, .42) !important;
+  color: #ecfeff !important;
+  border-color: rgba(125, 211, 252, .25) !important;
+}

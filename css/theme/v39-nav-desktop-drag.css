@@ -1,0 +1,87 @@
+
+/* V39 · navegación desktop con arrastre tipo móvil */
+.imperia-fixed-nav-dock {
+  width: min(520px, calc(100vw - 24px)) !important;
+}
+
+.imperia-fixed-nav-dock .figma-bottom-nav {
+  cursor: grab !important;
+  user-select: none !important;
+  scrollbar-width: none !important;
+  overscroll-behavior-x: contain !important;
+  scroll-behavior: smooth;
+  mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+}
+
+.imperia-fixed-nav-dock .figma-bottom-nav.is-dragging {
+  cursor: grabbing !important;
+  scroll-behavior: auto !important;
+}
+
+.imperia-fixed-nav-dock .figma-bottom-nav button {
+  touch-action: pan-x !important;
+}
+
+.imperia-fixed-nav-dock .figma-bottom-nav.is-dragging button {
+  pointer-events: none !important;
+}
+
+/* Flechas laterales visuales para indicar que se puede deslizar */
+.imperia-fixed-nav-dock::before,
+.imperia-fixed-nav-dock::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 24px;
+  height: 54px;
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+  opacity: .9;
+}
+
+.imperia-fixed-nav-dock::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,.98), rgba(255,255,255,0));
+  border-radius: 24px 0 0 24px;
+}
+
+.imperia-fixed-nav-dock::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(255,255,255,.98), rgba(255,255,255,0));
+  border-radius: 0 24px 24px 0;
+}
+
+:root[data-theme="dark"] .imperia-fixed-nav-dock::before {
+  background: linear-gradient(90deg, rgba(4,14,29,.98), rgba(4,14,29,0));
+}
+
+:root[data-theme="dark"] .imperia-fixed-nav-dock::after {
+  background: linear-gradient(270deg, rgba(4,14,29,.98), rgba(4,14,29,0));
+}
+
+/* En pantallas grandes sigue centrada, pero con mejor área de deslizamiento */
+@media (min-width: 700px) {
+  .imperia-fixed-nav-dock {
+    width: min(540px, calc(100vw - 64px)) !important;
+  }
+
+  .imperia-fixed-nav-dock .figma-bottom-nav button {
+    flex-basis: 96px !important;
+    min-width: 96px !important;
+    max-width: 96px !important;
+  }
+}
+
+/* En móvil conserva el comportamiento táctil */
+@media (max-width: 520px) {
+  .imperia-fixed-nav-dock {
+    width: min(430px, calc(100vw - 16px)) !important;
+  }
+
+  .imperia-fixed-nav-dock::before,
+  .imperia-fixed-nav-dock::after {
+    width: 14px;
+  }
+}

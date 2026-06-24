@@ -1,0 +1,430 @@
+/* IMPERIA v4 - correccion responsive real y segura para pantallas pequenas.
+   Esta hoja se carga al final para evitar desbordes horizontales. */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-width: 0;
+}
+
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-left: clamp(10px, 2.6vw, 18px);
+  padding-right: clamp(10px, 2.6vw, 18px);
+  padding-bottom: 118px;
+}
+
+.app-header,
+.section,
+.premium-page,
+.premium-hero-card,
+.checkout-shell,
+.checkout-resume,
+.payment-card,
+.plan-compare,
+.course-grid,
+.two-grid,
+.three-grid,
+.form-grid,
+.content-grid,
+.module-grid,
+.auth-grid,
+.bottom-nav,
+.topbar,
+.top-stats,
+.brand,
+.app-card {
+  min-width: 0;
+}
+
+.app-card,
+.auth-panel,
+.auth-hero,
+.course-card,
+.module-item,
+.store-item,
+.payment-card,
+.checkout-resume,
+.premium-hero-card {
+  overflow-wrap: anywhere;
+}
+
+/* La pantalla premium ya no usa dos columnas rigidas por defecto. */
+.checkout-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.checkout-resume {
+  position: relative;
+  top: auto;
+  width: 100%;
+}
+
+.payment-card {
+  width: 100%;
+}
+
+.plan-compare,
+.two-grid.plan-compare {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+
+.payment-methods {
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+}
+
+.premium-title {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 260px);
+  align-items: center;
+}
+
+.premium-price-card {
+  width: 100%;
+  max-width: 260px;
+  justify-self: end;
+}
+
+.course-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 285px), 1fr));
+}
+
+.three-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+}
+
+/* Tablet y celulares grandes */
+@media (max-width: 900px) {
+  .content-grid,
+  .module-grid,
+  .auth-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .topbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .top-stats {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .top-stats > * {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .premium-cta,
+  .status-chip.premium {
+    grid-column: 1 / -1;
+  }
+
+  .premium-title {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .premium-price-card {
+    max-width: none;
+    justify-self: stretch;
+    grid-template-columns: 72px minmax(0, 1fr) auto;
+    text-align: left;
+    align-items: center;
+    justify-items: start;
+  }
+
+  .premium-price-card img {
+    grid-row: 1 / span 2;
+  }
+
+  .premium-price-card .badge,
+  .premium-price-card em.badge {
+    grid-column: 3 / 4;
+    grid-row: 1 / span 2;
+    align-self: center;
+    justify-self: end;
+  }
+
+  .premium-price-card span {
+    grid-column: 2 / 3;
+  }
+}
+
+/* Celular: una columna limpia, sin desbordes ni contenido cortado. */
+@media (max-width: 640px) {
+  .app-shell {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+  }
+
+  .app-header {
+    top: 0;
+    padding: 6px 0 10px;
+  }
+
+  .topbar {
+    border-radius: 22px;
+    padding: 10px;
+  }
+
+  .brand {
+    gap: 10px;
+  }
+
+  .brand .muted {
+    display: none;
+  }
+
+  .logo-mark {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    flex: 0 0 auto;
+  }
+
+  .top-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .top-stats .user-pill {
+    grid-column: 1 / -1;
+  }
+
+  .top-stats .stat-pill:nth-of-type(4) {
+    display: none;
+  }
+
+  .stat-pill,
+  .status-chip,
+  .premium-cta {
+    min-height: 36px;
+    font-size: .72rem;
+    padding: 7px 8px;
+  }
+
+  .page-title {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 12px;
+  }
+
+  .page-title .btn {
+    width: 100%;
+  }
+
+  .premium-hero-card,
+  .app-card,
+  .auth-panel,
+  .auth-hero,
+  .checkout-resume,
+  .payment-card {
+    border-radius: 22px;
+    padding: 16px;
+  }
+
+  .premium-title {
+    gap: 16px;
+  }
+
+  .premium-price-card {
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 10px 12px;
+    padding: 14px;
+    border-radius: 22px;
+  }
+
+  .premium-price-card img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .premium-price-card strong {
+    font-size: clamp(1.65rem, 9vw, 2.25rem);
+  }
+
+  .premium-price-card .badge,
+  .premium-price-card em.badge {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    justify-self: stretch;
+    justify-content: center;
+  }
+
+  .plan-card {
+    min-height: unset;
+  }
+
+  .checkout-resume::after {
+    right: -62px;
+    top: 18px;
+    font-size: .68rem;
+    padding-inline: 48px;
+  }
+
+  .checkout-total {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .payment-methods {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .payment-method {
+    min-height: 74px;
+    padding: 10px 8px;
+    border-radius: 18px;
+  }
+
+  .payment-form .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .form-grid .wide {
+    grid-column: auto;
+  }
+
+  .card-preview {
+    min-height: 150px;
+    border-radius: 22px;
+    padding: 16px;
+  }
+
+  .wallet-banner,
+  .secure-line {
+    border-radius: 18px;
+  }
+
+  .bottom-nav {
+    width: calc(100% - 16px);
+    left: 8px;
+    right: 8px;
+    transform: none;
+    bottom: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    padding: 7px;
+    border-radius: 22px;
+  }
+
+  .bottom-nav button {
+    min-width: 0;
+    padding: 8px 4px;
+    font-size: .68rem;
+    border-radius: 16px;
+  }
+
+  .bottom-nav button span {
+    font-size: 1rem;
+  }
+
+  .path-map {
+    padding: 14px;
+    border-radius: 22px;
+  }
+
+  .node,
+  .node:nth-child(even),
+  .node:nth-child(odd) {
+    width: 100%;
+    transform: none;
+    grid-template-columns: 54px minmax(0, 1fr);
+  }
+
+  .node-bubble {
+    width: 54px;
+    height: 54px;
+  }
+}
+
+/* Celulares estrechos */
+@media (max-width: 430px) {
+  .app-shell {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 126px;
+  }
+
+  .top-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .top-stats .user-pill,
+  .premium-cta,
+  .status-chip.premium {
+    grid-column: 1 / -1;
+  }
+
+  .top-stats .stat-pill:nth-of-type(3) {
+    display: none;
+  }
+
+  .payment-methods {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .payment-method span {
+    font-size: 1.35rem;
+  }
+
+  .h1,
+  .h2 {
+    letter-spacing: -.04em;
+  }
+
+  .premium-page .h2 {
+    font-size: clamp(1.7rem, 10vw, 2.15rem);
+  }
+
+  .course-card {
+    min-height: unset;
+  }
+}
+
+@media (max-width: 340px) {
+  .payment-methods {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bottom-nav button {
+    font-size: .62rem;
+  }
+}

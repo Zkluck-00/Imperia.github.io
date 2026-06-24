@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>IMPERIA Pro | Plataforma Financiera Gamificada</title>
+  <meta name="description" content="IMPERIA: plataforma gamificada de educación financiera con plan gratuito y premium, cursos, quizzes, prácticas y mentor virtual." />
+  <meta name="theme-color" content="#11194f" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon.png?v=48.0.0" />
+  <link rel="shortcut icon" href="./assets/favicon.png?v=48.0.0" />
+  <link rel="apple-touch-icon" href="./assets/icon-180.png?v=48.0.0" />
+  <link rel="manifest" href="./assets/manifest.json" />
+  <link rel="stylesheet" href="./css/base/tokens.css" />
+  <link rel="stylesheet" href="./css/base/layout.css" />
+  <link rel="stylesheet" href="./css/base/components.css" />
+  <link rel="stylesheet" href="./css/base/responsive.css" />
+  <link rel="stylesheet" href="./css/legacy/pro-polish.css" />
+  <link rel="stylesheet" href="./css/legacy/pro-final-fixes.css" />
+  <link rel="stylesheet" href="./css/legacy/responsive-v4.css?v=4" />
+  <link rel="stylesheet" href="./css/legacy/fluid-responsive-v5.css?v=5.1" />
+  <link rel="stylesheet" href="./css/legacy/mobile-hard-fix-v6.css?v=6.0.1" />
+  <link rel="stylesheet" href="./css/legacy/imperia-ui.css?v=9.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="./css/app/v12-app-professional.css?v=23.0.0" />
+  <link rel="stylesheet" href="./css/screens/v24-mobile-figma.css?v=26.0.0" />
+  <link rel="stylesheet" href="./css/screens/v27-contrast-audit.css?v=35.0.0" />
+  <link rel="stylesheet" href="./css/theme/v31-theme-toggle.css?v=31.0.0" />
+  <link rel="stylesheet" href="./css/screens/v32-responsive-universal.css?v=32.0.0" />
+  <link rel="stylesheet" href="./css/theme/v34-dark-nav-fix.css?v=34.0.0" />
+  <link rel="stylesheet" href="./css/theme/v37-nav-body-fixed.css?v=37.0.0" />
+  <link rel="stylesheet" href="./css/theme/v38-dark-text-adaptive.css?v=38.0.0" />
+  <link rel="stylesheet" href="./css/theme/v39-nav-desktop-drag.css?v=39.0.0" />
+  <link rel="stylesheet" href="./css/theme/v40-dark-mode-total-fix.css?v=40.0.0" />
+  <link rel="stylesheet" href="./css/theme/v41-nav-pc-click-fix.css?v=41.0.0" />
+  <link rel="stylesheet" href="./css/theme/v42-dark-payment-methods-fix.css?v=42.0.0" />
+  <link rel="stylesheet" href="./css/theme/v43-guest-access.css?v=43.0.0" />
+  <link rel="stylesheet" href="./css/theme/v44-premium-redesign.css?v=44.0.0" />
+  <link rel="stylesheet" href="./css/theme/v45-design-system-tailwind-premium.css?v=45.0.0" />
+  <link rel="stylesheet" href="./css/theme/v46-contrast-semantic-wcag.css?v=46.0.0" />
+  <link rel="stylesheet" href="./css/theme/v47-logo-refresh.css?v=48.0.0" />
+  <link rel="stylesheet" href="./css/theme/v50-dark-soft-text-fix.css?v=50.0.0" />
+  <link rel="stylesheet" href="./css/theme/v53-payments-premium-dark-fix.css?v=53.0.0" />
+  <link rel="stylesheet" href="./css/theme/v54-discounts-tools-youtube.css?v=54.0.0" />
+  <link rel="stylesheet" href="./css/theme/v56-mobile-nav-video-fix.css?v=56.0.0" />
+  <link rel="stylesheet" href="./css/theme/v57-quiz-flow-fix.css?v=57.0.0" />
+  <link rel="stylesheet" href="./css/theme/v58-dark-quiz-readable.css?v=58.0.0" />
+  <link rel="stylesheet" href="./css/theme/v59-quiz-feedback-near.css?v=59.0.0" />
+  <link rel="stylesheet" href="./css/theme/v62-nav-scroll-theme-fix.css?v=62.0.0" />
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <span class="orb orb-one"></span>
+    <span class="orb orb-two"></span>
+    <span class="orb orb-three"></span>
+  </div>
+
+  <div id="imperiaSplash" class="imperia-splash" aria-label="Cargando IMPERIA">
+    <div class="splash-glow" aria-hidden="true"></div>
+    <div class="splash-card animate__animated animate__zoomIn">
+      <img src="./img/LogoActual.png?v=49.0.0" onerror="this.onerror=null;this.src='./img/LogoActual.png?v=49.0.0'" alt="Logo IMPERIA" />
+      <h1>IMPERIA</h1>
+      <p>Construye tu futuro financiero</p>
+      <div class="splash-loader"><span></span></div>
+    </div>
+  </div>
+
+  <main id="app"></main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>if(window.AOS){AOS.init({duration:650, once:true, easing:"ease-out-cubic"});}</script>
+
+  <script src="./js/data/config.js?v=36.0.0"></script>
+  <script src="./js/data/courses-free.js?v=49.0.0"></script>
+  <script src="./js/data/courses-premium.js?v=49.0.0"></script>
+  <script src="./js/data/store-items.js?v=23.0.0"></script>
+  <script src="./js/data/missions.js?v=23.0.0"></script>
+  <script src="./js/data/index.js?v=23.0.0"></script>
+  <script src="./js/core/storage.js?v=49.0.0"></script>
+  <script src="./js/engines/courses.nodes.js?v=23.0.0"></script>
+  <script src="./js/engines/node.engine.js?v=23.0.0"></script>
+  <script src="./js/engines/map.renderer.js?v=23.0.0"></script>
+
+  <!-- View modules: separación funcional por pantalla -->
+  <script src="./js/views/layout/navigation.view.js?v=33.0.0"></script>
+  <script src="./js/views/auth/login.view.js?v=33.0.0"></script>
+  <script src="./js/views/auth/register.view.js?v=33.0.0"></script>
+  <script src="./js/views/courses/courses.view.js?v=33.0.0"></script>
+  <script src="./js/views/courses/course-detail.view.js?v=33.0.0"></script>
+  <script src="./js/views/profile/profile.view.js?v=33.0.0"></script>
+  <script src="./js/views/subscription/premium.view.js?v=33.0.0"></script>
+  <script src="./js/views/certificates/certificates.view.js?v=33.0.0"></script>
+  <script src="./js/views/tools/tools.view.js?v=33.0.0"></script>
+  <script src="./js/views/theme/theme.view.js?v=33.0.0"></script>
+  <script src="./js/views/ui/components.view.js?v=33.0.0"></script>
+  <script src="./js/views/index.js?v=33.0.0"></script>
+
+  <script src="./js/app/main.js?v=49.0.0"></script>
+  <script src="./js/app/ui-effects.js?v=23.0.0"></script>
+  <script src="./js/core/pwa.js?v=23.0.0"></script>
+
+</body>
+</html>

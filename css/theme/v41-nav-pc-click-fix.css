@@ -1,0 +1,19 @@
+
+/* V41 · Corrección de clics en barra de navegación para PC */
+.imperia-fixed-nav-dock .figma-bottom-nav button {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+.imperia-fixed-nav-dock .figma-bottom-nav {
+  cursor: grab !important;
+}
+
+.imperia-fixed-nav-dock .figma-bottom-nav.is-dragging {
+  cursor: grabbing !important;
+}
+
+/* El arrastre no debe desactivar botones cuando el usuario solo hace clic */
+.imperia-fixed-nav-dock .figma-bottom-nav.is-dragging button {
+  pointer-events: auto !important;
+}

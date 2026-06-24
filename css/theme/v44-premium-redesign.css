@@ -1,0 +1,793 @@
+/* V44 · Rediseño visual profesional tipo app premium / Figma-Lovable
+   Capa final de diseño: mejora estética global sin romper lógica existente. */
+
+:root {
+  --v44-blue-900: #072052;
+  --v44-blue-800: #0b3278;
+  --v44-blue-700: #123f92;
+  --v44-cyan: #21d4fd;
+  --v44-mint: #20e3b2;
+  --v44-gold: #f5c84c;
+  --v44-violet: #8b5cf6;
+  --v44-bg: #f4f8ff;
+  --v44-surface: rgba(255,255,255,.86);
+  --v44-surface-2: #ffffff;
+  --v44-text: #09265a;
+  --v44-muted: #62728c;
+  --v44-line: rgba(22, 52, 98, .12);
+  --v44-shadow: 0 24px 70px rgba(17, 45, 91, .14);
+  --v44-shadow-soft: 0 14px 34px rgba(17, 45, 91, .10);
+  --v44-radius-xl: 34px;
+  --v44-radius-lg: 26px;
+  --v44-radius-md: 18px;
+}
+
+:root[data-theme="dark"] {
+  --v44-bg: #050d1c;
+  --v44-surface: rgba(12, 25, 47, .86);
+  --v44-surface-2: #0d1a2e;
+  --v44-text: #f3f7ff;
+  --v44-muted: #b9c7df;
+  --v44-line: rgba(180, 200, 235, .16);
+  --v44-shadow: 0 28px 80px rgba(0,0,0,.46);
+  --v44-shadow-soft: 0 16px 42px rgba(0,0,0,.34);
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% 5%, rgba(33, 212, 253, .18), transparent 28rem),
+    radial-gradient(circle at 92% 12%, rgba(139, 92, 246, .13), transparent 30rem),
+    radial-gradient(circle at 50% 100%, rgba(32, 227, 178, .13), transparent 34rem),
+    linear-gradient(180deg, #f9fcff 0%, var(--v44-bg) 45%, #eef5ff 100%) !important;
+  color: var(--v44-text) !important;
+}
+
+:root[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at 12% 5%, rgba(33, 212, 253, .14), transparent 28rem),
+    radial-gradient(circle at 92% 12%, rgba(139, 92, 246, .14), transparent 30rem),
+    radial-gradient(circle at 50% 100%, rgba(32, 227, 178, .09), transparent 34rem),
+    linear-gradient(180deg, #050d1c 0%, #081427 45%, #070b22 100%) !important;
+}
+
+.ambient .orb {
+  filter: blur(3px);
+  opacity: .55;
+}
+
+#app.figma-shell,
+#app.auth-mobile-shell {
+  max-width: 430px;
+  margin-inline: auto;
+}
+
+.mobile-screen,
+.section {
+  padding-top: 14px !important;
+}
+
+/* App shell con efecto dispositivo premium */
+#app.figma-shell {
+  position: relative;
+  min-height: 100dvh;
+  background: linear-gradient(180deg, rgba(255,255,255,.50), rgba(255,255,255,.20)) !important;
+  border-left: 1px solid rgba(255,255,255,.55);
+  border-right: 1px solid rgba(22,52,98,.08);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.28), 0 28px 90px rgba(17,45,91,.12);
+}
+
+:root[data-theme="dark"] #app.figma-shell {
+  background: linear-gradient(180deg, rgba(10,24,46,.76), rgba(7,17,31,.92)) !important;
+  border-color: rgba(180,200,235,.12);
+  box-shadow: 0 0 0 1px rgba(180,200,235,.08), 0 28px 90px rgba(0,0,0,.38);
+}
+
+/* Pantalla de login más institucional y app-like */
+.auth-mobile-screen {
+  background:
+    radial-gradient(circle at 15% 0%, rgba(33,212,253,.18), transparent 20rem),
+    radial-gradient(circle at 100% 80%, rgba(139,92,246,.12), transparent 24rem),
+    linear-gradient(180deg, #f6fbff 0%, #eef5ff 100%) !important;
+  padding-bottom: 36px !important;
+}
+
+:root[data-theme="dark"] .auth-mobile-screen {
+  background:
+    radial-gradient(circle at 15% 0%, rgba(33,212,253,.15), transparent 20rem),
+    radial-gradient(circle at 100% 80%, rgba(139,92,246,.15), transparent 24rem),
+    linear-gradient(180deg, #071327 0%, #050d1c 100%) !important;
+}
+
+.auth-mobile-hero {
+  position: relative;
+  margin: 0 -18px 20px !important;
+  padding: 54px 22px 62px !important;
+  border-radius: 0 0 44px 44px !important;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(7,32,82,.96), rgba(18,63,146,.92)),
+    radial-gradient(circle at 20% 0%, rgba(33,212,253,.32), transparent 18rem) !important;
+  box-shadow: 0 20px 60px rgba(7,32,82,.24);
+}
+
+.auth-mobile-hero::before {
+  content: "";
+  position: absolute;
+  inset: auto -28px -82px auto;
+  width: 190px;
+  height: 190px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(245,200,76,.30), transparent 68%);
+}
+
+.auth-hero-logo {
+  width: 76px !important;
+  height: 76px !important;
+  border-radius: 22px;
+  padding: 10px;
+  background: rgba(255,255,255,.10);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.18), 0 18px 36px rgba(0,0,0,.18);
+  animation: v44Float 4s ease-in-out infinite;
+}
+
+.auth-mobile-hero h1 {
+  color: #f6d95b !important;
+  text-shadow: 0 8px 26px rgba(0,0,0,.22);
+}
+
+.auth-mobile-card,
+.auth-card-v13 {
+  position: relative;
+  background: rgba(255,255,255,.90) !important;
+  border: 1px solid rgba(255,255,255,.72) !important;
+  box-shadow: var(--v44-shadow) !important;
+  backdrop-filter: blur(22px);
+  overflow: hidden;
+}
+
+.auth-mobile-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--v44-cyan), var(--v44-mint), var(--v44-gold));
+}
+
+:root[data-theme="dark"] .auth-mobile-card,
+:root[data-theme="dark"] .auth-card-v13 {
+  background: rgba(13,26,46,.92) !important;
+  border-color: rgba(180,200,235,.16) !important;
+}
+
+.auth-mobile-copy h2,
+.auth-mobile-form .field label,
+.auth-profile-text strong {
+  color: var(--v44-text) !important;
+}
+
+.auth-mobile-copy p,
+.auth-mobile-note,
+.auth-profile-text small {
+  color: var(--v44-muted) !important;
+}
+
+.auth-mobile-tabs {
+  background: rgba(226, 236, 250, .80) !important;
+  border: 1px solid rgba(22,52,98,.08);
+  padding: 7px !important;
+}
+
+:root[data-theme="dark"] .auth-mobile-tabs {
+  background: rgba(18,35,59,.90) !important;
+  border-color: rgba(180,200,235,.14);
+}
+
+.auth-mobile-tabs button.active,
+.auth-tabs-v13 button.active {
+  background: linear-gradient(135deg, #071a38, #123f92) !important;
+  color: #ffffff !important;
+  box-shadow: 0 14px 28px rgba(7, 32, 82, .22) !important;
+}
+
+.input, .select, textarea,
+.auth-mobile-form .input,
+.auth-mobile-form .select {
+  background: rgba(255,255,255,.82) !important;
+  border: 1px solid rgba(22,52,98,.13) !important;
+  color: var(--v44-text) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72) !important;
+}
+
+.input:focus, .select:focus, textarea:focus {
+  border-color: rgba(33,212,253,.72) !important;
+  box-shadow: 0 0 0 4px rgba(33,212,253,.16), inset 0 1px 0 rgba(255,255,255,.72) !important;
+}
+
+:root[data-theme="dark"] .input,
+:root[data-theme="dark"] .select,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] .auth-mobile-form .input,
+:root[data-theme="dark"] .auth-mobile-form .select {
+  background: rgba(10,21,39,.94) !important;
+  border-color: rgba(180,200,235,.18) !important;
+  color: #f3f7ff !important;
+}
+
+/* Botones premium */
+.btn,
+.auth-mobile-submit,
+.course-list-card .btn,
+.home-course-card .btn,
+.payment-card .btn {
+  border-radius: 18px !important;
+  font-weight: 900 !important;
+  letter-spacing: .01em;
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease !important;
+}
+
+.btn.primary,
+.auth-mobile-submit {
+  background: linear-gradient(135deg, #22c96b 0%, #16c6c6 100%) !important;
+  color: #06101d !important;
+  border: 0 !important;
+  box-shadow: 0 16px 34px rgba(22,198,198,.22) !important;
+}
+
+.btn.primary:hover,
+.auth-mobile-submit:hover,
+.btn.guest:hover,
+.btn.purple:hover,
+.btn.gold:hover {
+  transform: translateY(-2px) !important;
+  filter: saturate(1.06) brightness(1.02);
+}
+
+.btn.ghost {
+  background: rgba(255,255,255,.58) !important;
+  border: 1px solid rgba(22,52,98,.12) !important;
+  color: var(--v44-text) !important;
+}
+
+:root[data-theme="dark"] .btn.ghost {
+  background: rgba(255,255,255,.07) !important;
+  border-color: rgba(180,200,235,.16) !important;
+  color: #eef5ff !important;
+}
+
+/* Home hero profesional */
+.home-hero,
+.profile-hero-mobile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 42px 42px !important;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(245,200,76,.28), transparent 18rem),
+    radial-gradient(circle at 8% 12%, rgba(33,212,253,.24), transparent 16rem),
+    linear-gradient(135deg, #072052 0%, #123f92 100%) !important;
+  box-shadow: 0 22px 60px rgba(7, 32, 82, .26);
+}
+
+.home-hero::after,
+.profile-hero-mobile::after {
+  content: "";
+  position: absolute;
+  right: -55px;
+  bottom: -70px;
+  width: 170px;
+  height: 170px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255,255,255,.22), transparent 70%);
+}
+
+.home-brand img,
+.logo-mark img {
+  border-radius: 14px;
+  box-shadow: 0 14px 28px rgba(0,0,0,.18);
+}
+
+.home-brand strong,
+.top-brand-copy strong {
+  letter-spacing: .10em;
+}
+
+.hero-progress-panel,
+.profile-summary-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,.12) !important;
+  border: 1px solid rgba(255,255,255,.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 20px 40px rgba(0,0,0,.12) !important;
+  backdrop-filter: blur(18px);
+}
+
+.hero-progress-copy p,
+.profile-summary-card p,
+.hero-progress-copy strong {
+  color: rgba(255,255,255,.78) !important;
+}
+
+.hero-progress-copy h1,
+.profile-summary-card h1 {
+  color: #ffffff !important;
+  text-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+
+/* Cards globales */
+.app-card,
+.activity-card,
+.course-list-card,
+.home-course-card,
+.quick-action-card,
+.tool-card-mobile,
+.mobile-cert-card,
+.mobile-account-card,
+.mobile-theme-card,
+.profile-info-card,
+.profile-stat-box,
+.certificate-course-card,
+.certificate-empty-card,
+.payment-card,
+.plan-card,
+.paywall-card,
+.premium-active-panel,
+.module-item,
+.quiz-card-duo {
+  background: var(--v44-surface) !important;
+  color: var(--v44-text) !important;
+  border: 1px solid var(--v44-line) !important;
+  box-shadow: var(--v44-shadow-soft) !important;
+  backdrop-filter: blur(18px);
+}
+
+.app-card,
+.activity-card,
+.course-list-card,
+.home-course-card,
+.quick-action-card,
+.tool-card-mobile,
+.mobile-cert-card,
+.mobile-account-card,
+.mobile-theme-card,
+.profile-info-card,
+.profile-stat-box,
+.certificate-course-card,
+.certificate-empty-card,
+.payment-card,
+.plan-card,
+.paywall-card,
+.premium-active-panel {
+  border-radius: var(--v44-radius-lg) !important;
+}
+
+.app-card:hover,
+.activity-card:hover,
+.course-list-card:hover,
+.home-course-card:hover,
+.quick-action-card:hover,
+.tool-card-mobile:hover,
+.plan-card:hover,
+.payment-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--v44-shadow) !important;
+  border-color: rgba(33,212,253,.28) !important;
+}
+
+#app h1,
+#app h2,
+#app h3,
+#app h4,
+#app strong {
+  color: var(--v44-text) !important;
+}
+
+#app p,
+#app .muted,
+#app small,
+#app .small,
+#app .progress-label,
+#app .course-list-meta,
+#app .course-meta-row {
+  color: var(--v44-muted) !important;
+}
+
+.mobile-section-head h2,
+.page-copy-block h1,
+.page-title h1 {
+  letter-spacing: -.035em;
+}
+
+.section-dot,
+.section-bar {
+  box-shadow: 0 0 0 7px rgba(33,212,253,.10);
+}
+
+/* Acciones rápidas */
+.quick-actions-grid {
+  gap: 14px !important;
+}
+
+.quick-action-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 116px;
+}
+
+.quick-action-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -18px -28px auto;
+  width: 90px;
+  height: 90px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(33,212,253,.18), transparent 68%);
+}
+
+.quick-action-icon,
+.tool-icon,
+.module-icon,
+.certificate-empty-icon {
+  background: linear-gradient(135deg, rgba(33,212,253,.15), rgba(32,227,178,.13)) !important;
+  color: #0f7fb4 !important;
+  border: 1px solid rgba(33,212,253,.16);
+}
+
+/* Cursos más limpios y modernos */
+.course-list-card,
+.home-course-card {
+  position: relative;
+  overflow: hidden;
+  gap: 16px !important;
+}
+
+.course-list-card::before,
+.home-course-card::before {
+  content: "";
+  position: absolute;
+  inset: -60px auto auto -60px;
+  width: 160px;
+  height: 160px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(33,212,253,.18), transparent 68%);
+  pointer-events: none;
+}
+
+.course-list-card.locked::before,
+.home-course-card.locked::before {
+  background: radial-gradient(circle, rgba(139,92,246,.20), transparent 68%);
+}
+
+.course-thumb,
+.course-visual,
+.home-course-visual {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.24), 0 18px 28px rgba(17,45,91,.12) !important;
+  border: 1px solid rgba(255,255,255,.22) !important;
+}
+
+.course-state-pill,
+.mini-chip,
+.badge,
+.tag,
+.status-chip {
+  border-radius: 999px !important;
+  border: 1px solid rgba(22,52,98,.12) !important;
+  background: rgba(255,255,255,.62) !important;
+  color: var(--v44-text) !important;
+  box-shadow: 0 10px 24px rgba(17,45,91,.08);
+}
+
+.course-state-pill.free,
+.badge.base {
+  background: linear-gradient(135deg, #20e3b2, #21d4fd) !important;
+  color: #052033 !important;
+}
+
+.course-state-pill.premium,
+.mini-chip.premium,
+.badge.premium {
+  background: linear-gradient(135deg, #8b5cf6, #21d4fd) !important;
+  color: #ffffff !important;
+}
+
+.progress-track {
+  height: 9px !important;
+  border-radius: 999px !important;
+  background: rgba(128, 148, 176, .18) !important;
+  overflow: hidden;
+}
+
+.progress-track span {
+  background: linear-gradient(90deg, var(--v44-mint), var(--v44-cyan), var(--v44-violet)) !important;
+  border-radius: 999px;
+  box-shadow: 0 0 20px rgba(33,212,253,.32);
+}
+
+/* Curso detalle */
+.module-grid {
+  gap: 18px !important;
+}
+
+.module-list {
+  gap: 12px !important;
+}
+
+.module-item {
+  border-radius: 22px !important;
+}
+
+.speech,
+.profile-speech,
+.einstein-card .speech {
+  background: linear-gradient(135deg, rgba(232,242,255,.96), rgba(241,248,255,.88)) !important;
+  border: 1px solid rgba(33, 91, 160, .12) !important;
+  color: var(--v44-text) !important;
+}
+
+:root[data-theme="dark"] .speech,
+:root[data-theme="dark"] .profile-speech,
+:root[data-theme="dark"] .einstein-card .speech {
+  background: linear-gradient(135deg, rgba(19,39,66,.96), rgba(12,25,47,.94)) !important;
+  color: #eaf3ff !important;
+}
+
+/* Premium y pago */
+.payment-methods {
+  gap: 12px !important;
+}
+
+.payment-method {
+  border-radius: 22px !important;
+  background: rgba(255,255,255,.72) !important;
+  border: 1px solid rgba(22,52,98,.12) !important;
+  box-shadow: 0 14px 30px rgba(17,45,91,.08) !important;
+}
+
+.payment-method strong,
+.payment-method span {
+  color: var(--v44-text) !important;
+  -webkit-text-fill-color: var(--v44-text) !important;
+  opacity: 1 !important;
+}
+
+.payment-method.active,
+.payment-method:hover {
+  background: linear-gradient(135deg, rgba(33,212,253,.18), rgba(32,227,178,.15)) !important;
+  border-color: rgba(33,212,253,.45) !important;
+}
+
+:root[data-theme="dark"] .payment-method {
+  background: rgba(19, 39, 66, .92) !important;
+  border-color: rgba(180,200,235,.18) !important;
+}
+
+:root[data-theme="dark"] .payment-method strong,
+:root[data-theme="dark"] .payment-method span {
+  color: #f3f7ff !important;
+  -webkit-text-fill-color: #f3f7ff !important;
+}
+
+.premium-card-visual,
+.card-preview {
+  box-shadow: 0 22px 50px rgba(7,32,82,.18) !important;
+}
+
+/* Perfil */
+.profile-stats-mobile {
+  gap: 14px !important;
+}
+
+.profile-stat-box strong {
+  font-size: 1.55rem !important;
+}
+
+.profile-info-card span {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(33,212,253,.14), rgba(32,227,178,.12));
+}
+
+.theme-toggle-card {
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.68) !important;
+  border: 1px solid rgba(22,52,98,.12) !important;
+  color: var(--v44-text) !important;
+}
+
+:root[data-theme="dark"] .theme-toggle-card {
+  background: rgba(255,255,255,.08) !important;
+  border-color: rgba(180,200,235,.16) !important;
+  color: #f3f7ff !important;
+}
+
+/* Certificados */
+.certificate-summary-card,
+.certificate-preview,
+.certificate-preview-utp {
+  border-radius: 24px !important;
+  box-shadow: var(--v44-shadow-soft) !important;
+}
+
+/* Nav final más premium */
+.imperia-fixed-nav-dock {
+  bottom: max(14px, env(safe-area-inset-bottom)) !important;
+}
+
+.imperia-fixed-nav-dock .figma-bottom-nav {
+  border-radius: 28px !important;
+  padding: 12px !important;
+  background: rgba(255,255,255,.84) !important;
+  border: 1px solid rgba(255,255,255,.72) !important;
+  box-shadow: 0 -14px 48px rgba(17,45,91,.16), inset 0 1px 0 rgba(255,255,255,.72) !important;
+  backdrop-filter: blur(22px) saturate(1.25) !important;
+}
+
+:root[data-theme="dark"] .imperia-fixed-nav-dock .figma-bottom-nav {
+  background: rgba(5,14,29,.84) !important;
+  border-color: rgba(180,200,235,.16) !important;
+  box-shadow: 0 -16px 48px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+
+.imperia-fixed-nav-dock .figma-bottom-nav button {
+  border-radius: 20px !important;
+  color: #60708d !important;
+}
+
+:root[data-theme="dark"] .imperia-fixed-nav-dock .figma-bottom-nav button {
+  color: #b9c7df !important;
+}
+
+.imperia-fixed-nav-dock .figma-bottom-nav button.active {
+  background: linear-gradient(135deg, #20e3b2, #21d4fd) !important;
+  color: #041727 !important;
+  box-shadow: 0 16px 34px rgba(33,212,253,.26) !important;
+}
+
+/* Splash con acabado más premium */
+.imperia-splash {
+  background:
+    radial-gradient(circle at 40% 30%, rgba(33,212,253,.20), transparent 28rem),
+    radial-gradient(circle at 60% 75%, rgba(32,227,178,.12), transparent 26rem),
+    linear-gradient(135deg, #050d1c 0%, #071f52 100%) !important;
+}
+
+.splash-card {
+  border: 1px solid rgba(255,255,255,.16) !important;
+  background: rgba(8, 21, 43, .78) !important;
+  backdrop-filter: blur(22px);
+  box-shadow: 0 30px 90px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.12) !important;
+}
+
+.splash-card img {
+  animation: v44Float 3.8s ease-in-out infinite;
+}
+
+/* PC: convertirlo en dashboard profesional, no solo celular estrecho */
+@media (min-width: 920px) {
+  #app.figma-shell,
+  #app.auth-mobile-shell {
+    max-width: min(1180px, calc(100vw - 72px)) !important;
+    border-radius: 34px;
+    margin-top: 24px;
+    margin-bottom: 34px;
+    overflow: hidden;
+  }
+
+  #app.auth-mobile-shell {
+    max-width: min(1040px, calc(100vw - 72px)) !important;
+  }
+
+  .auth-mobile-screen {
+    min-height: 760px !important;
+    display: grid !important;
+    grid-template-columns: .95fr 1.05fr;
+    align-items: stretch;
+    gap: 0;
+    padding: 0 !important;
+    border-radius: 34px;
+    overflow: hidden;
+  }
+
+  .auth-mobile-hero {
+    margin: 0 !important;
+    min-height: 100% !important;
+    border-radius: 0 !important;
+    justify-content: center !important;
+    padding: 64px 44px !important;
+  }
+
+  .auth-mobile-card {
+    align-self: center;
+    width: min(440px, calc(100% - 80px));
+    margin: 0 auto !important;
+  }
+
+  .mobile-screen,
+  .section {
+    max-width: 1180px !important;
+    padding-left: 28px !important;
+    padding-right: 28px !important;
+  }
+
+  .home-screen,
+  .profile-screen,
+  .courses-screen,
+  .certificates-screen,
+  .premium-page,
+  .tools-screen {
+    display: block;
+  }
+
+  .home-hero,
+  .profile-hero-mobile {
+    border-radius: 0 0 38px 38px !important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+
+  .mobile-content-area {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .quick-actions-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .home-courses-stack,
+  .course-list-wrap,
+  .tools-grid-mobile,
+  .certificate-course-list,
+  .profile-info-stack {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px !important;
+  }
+
+  .profile-stats-mobile,
+  .certificate-summary-grid {
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+  }
+
+  .home-course-card,
+  .course-list-card {
+    min-height: 214px;
+  }
+
+  .payment-methods {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .module-grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(320px, .85fr) !important;
+  }
+}
+
+@media (max-width: 430px) {
+  #app.figma-shell {
+    border-left: 0;
+    border-right: 0;
+    box-shadow: none;
+  }
+
+  .mobile-screen,
+  .section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .home-course-card,
+  .course-list-card {
+    border-radius: 24px !important;
+  }
+}
+
+@keyframes v44Float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}

@@ -1,0 +1,287 @@
+
+/* V31 · Modo claro / oscuro */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --imperia-blue: #6ee7ff;
+  --imperia-gold: #ffd166;
+  --imperia-bg: #07111f;
+  --imperia-card: #0f1b2d;
+  --imperia-text: #f4f8ff;
+  --imperia-muted: #a9b8d4;
+  --imperia-border: rgba(148, 163, 184, .24);
+  --imperia-teal: #22d3ee;
+  --imperia-purple: #b88cff;
+  --imperia-text-strong: #f8fbff;
+  --imperia-text-main: #e6eefc;
+  --imperia-text-soft: #a9b8d4;
+  --imperia-text-soft-2: #94a3b8;
+  --imperia-line: rgba(148, 163, 184, .24);
+  --imperia-card-2: #0f1b2d;
+}
+
+/* fondo general */
+:root[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at top left, rgba(46, 211, 238, .18), transparent 32rem),
+    radial-gradient(circle at bottom right, rgba(184, 140, 255, .14), transparent 26rem),
+    linear-gradient(180deg, #07111f 0%, #0b1630 52%, #07111f 100%) !important;
+  color: var(--imperia-text-main) !important;
+}
+
+:root[data-theme="dark"] #app.figma-shell,
+:root[data-theme="dark"] #app.auth-mobile-shell,
+:root[data-theme="dark"] .auth-mobile-screen {
+  background: transparent !important;
+}
+
+/* héroes y cabeceras */
+:root[data-theme="dark"] .home-hero,
+:root[data-theme="dark"] .auth-mobile-hero,
+:root[data-theme="dark"] .profile-hero-mobile {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(110, 231, 255, .18), transparent 32%),
+    radial-gradient(circle at 90% 0%, rgba(184, 140, 255, .16), transparent 28%),
+    linear-gradient(180deg, #101f4a 0%, #07183c 100%) !important;
+  box-shadow: 0 18px 36px rgba(0,0,0,.38) !important;
+}
+
+:root[data-theme="dark"] .hero-progress-panel,
+:root[data-theme="dark"] .profile-summary-card {
+  background: rgba(255,255,255,.08) !important;
+  border-color: rgba(255,255,255,.18) !important;
+}
+
+/* tarjetas */
+:root[data-theme="dark"] .app-card,
+:root[data-theme="dark"] .activity-card,
+:root[data-theme="dark"] .course-card,
+:root[data-theme="dark"] .course-list-card,
+:root[data-theme="dark"] .home-course-card,
+:root[data-theme="dark"] .tool-card-mobile,
+:root[data-theme="dark"] .quick-action-card,
+:root[data-theme="dark"] .profile-stat-box,
+:root[data-theme="dark"] .profile-info-card,
+:root[data-theme="dark"] .mobile-cert-card,
+:root[data-theme="dark"] .mobile-account-card,
+:root[data-theme="dark"] .mobile-theme-card,
+:root[data-theme="dark"] .certificate-summary-card,
+:root[data-theme="dark"] .certificate-empty-card,
+:root[data-theme="dark"] .certificate-course-card,
+:root[data-theme="dark"] .certificate-full-card,
+:root[data-theme="dark"] .auth-mobile-card,
+:root[data-theme="dark"] .payment-card,
+:root[data-theme="dark"] .checkout-shell,
+:root[data-theme="dark"] .premium-active-panel,
+:root[data-theme="dark"] .premium-price-card,
+:root[data-theme="dark"] .plan-card,
+:root[data-theme="dark"] .paywall-card,
+:root[data-theme="dark"] .module-item,
+:root[data-theme="dark"] .node-card,
+:root[data-theme="dark"] .quiz-card-duo,
+:root[data-theme="dark"] .quiz-result-card {
+  background: linear-gradient(180deg, rgba(15, 27, 45, .98), rgba(11, 22, 38, .96)) !important;
+  color: var(--imperia-text-main) !important;
+  border-color: var(--imperia-line) !important;
+  box-shadow: 0 14px 32px rgba(0,0,0,.32) !important;
+}
+
+/* texto fuerte */
+:root[data-theme="dark"] #app h1,
+:root[data-theme="dark"] #app h2,
+:root[data-theme="dark"] #app h3,
+:root[data-theme="dark"] #app h4,
+:root[data-theme="dark"] #app strong,
+:root[data-theme="dark"] .auth-mobile-copy h2,
+:root[data-theme="dark"] .page-copy-block .h2,
+:root[data-theme="dark"] .course-list-body h3,
+:root[data-theme="dark"] .home-course-content h3,
+:root[data-theme="dark"] .certificate-info h3,
+:root[data-theme="dark"] .certificate-course-body h3 {
+  color: var(--imperia-text-strong) !important;
+}
+
+/* texto secundario */
+:root[data-theme="dark"] #app p,
+:root[data-theme="dark"] #app .muted,
+:root[data-theme="dark"] #app .small,
+:root[data-theme="dark"] #app label,
+:root[data-theme="dark"] .auth-mobile-copy p,
+:root[data-theme="dark"] .home-course-content p,
+:root[data-theme="dark"] .course-list-body p,
+:root[data-theme="dark"] .quick-action-card small,
+:root[data-theme="dark"] .tool-card-mobile p,
+:root[data-theme="dark"] .profile-info-card p,
+:root[data-theme="dark"] .video-note,
+:root[data-theme="dark"] .progress-label {
+  color: var(--imperia-text-soft) !important;
+}
+
+:root[data-theme="dark"] .kicker,
+:root[data-theme="dark"] .page-copy-block .kicker,
+:root[data-theme="dark"] .link-button {
+  color: #8fdcff !important;
+}
+
+/* formularios */
+:root[data-theme="dark"] #app input,
+:root[data-theme="dark"] #app select,
+:root[data-theme="dark"] #app textarea,
+:root[data-theme="dark"] .auth-mobile-form .input,
+:root[data-theme="dark"] .auth-mobile-form .select {
+  background: #0b1728 !important;
+  color: #f4f8ff !important;
+  border-color: rgba(148,163,184,.28) !important;
+}
+
+:root[data-theme="dark"] #app input::placeholder,
+:root[data-theme="dark"] #app textarea::placeholder {
+  color: #7f8ca5 !important;
+}
+
+/* botones secundarios */
+:root[data-theme="dark"] .btn.ghost,
+:root[data-theme="dark"] .auth-mobile-form .btn.ghost,
+:root[data-theme="dark"] .certificate-actions .btn.ghost,
+:root[data-theme="dark"] .certificates-screen .btn.ghost {
+  background: rgba(255,255,255,.08) !important;
+  color: #e6eefc !important;
+  border-color: rgba(148,163,184,.28) !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="dark"] .btn.ghost:disabled,
+:root[data-theme="dark"] .certificate-actions .btn.ghost:disabled {
+  background: rgba(148,163,184,.12) !important;
+  color: #94a3b8 !important;
+  -webkit-text-fill-color: #94a3b8 !important;
+}
+
+/* badges */
+:root[data-theme="dark"] #app .badge,
+:root[data-theme="dark"] #app .tag,
+:root[data-theme="dark"] #app .mini-chip,
+:root[data-theme="dark"] #app .course-state-pill {
+  background: rgba(255,255,255,.08) !important;
+  color: #e6eefc !important;
+  border-color: rgba(148,163,184,.24) !important;
+}
+
+:root[data-theme="dark"] #app .badge.premium,
+:root[data-theme="dark"] #app .mini-chip.premium,
+:root[data-theme="dark"] #app .course-state-pill.premium,
+:root[data-theme="dark"] #app .course-state-pill.free {
+  color: #fff !important;
+}
+
+/* navegación inferior */
+:root[data-theme="dark"] .figma-bottom-nav {
+  background: rgba(6, 16, 31, .96) !important;
+  border-color: rgba(148,163,184,.22) !important;
+  box-shadow: 0 -16px 36px rgba(0,0,0,.42) !important;
+}
+
+:root[data-theme="dark"] #app .figma-bottom-nav button {
+  color: #8da0bd !important;
+}
+
+:root[data-theme="dark"] #app .figma-bottom-nav button.active {
+  background: linear-gradient(135deg, #22d3ee, #2dd4bf) !important;
+  color: #04111f !important;
+}
+
+/* certificados */
+:root[data-theme="dark"] .certificate-preview {
+  background: linear-gradient(180deg, #0e223d, #0b1728) !important;
+  border-color: rgba(148,163,184,.24) !important;
+}
+
+:root[data-theme="dark"] .certificate-label {
+  background: rgba(255,255,255,.08) !important;
+  color: #8fdcff !important;
+}
+
+:root[data-theme="dark"] .certificate-preview h4,
+:root[data-theme="dark"] .certificate-logo-line {
+  color: #8fdcff !important;
+}
+
+:root[data-theme="dark"] .certificate-preview p,
+:root[data-theme="dark"] .certificate-code {
+  color: #a9b8d4 !important;
+}
+
+/* checkout y tablas internas */
+:root[data-theme="dark"] .payment-method,
+:root[data-theme="dark"] .payment-summary-grid > div,
+:root[data-theme="dark"] .access-summary div,
+:root[data-theme="dark"] .attendance-grid > div {
+  background: rgba(255,255,255,.06) !important;
+  border-color: rgba(148,163,184,.22) !important;
+  color: var(--imperia-text-main) !important;
+}
+
+/* toggle */
+.topbar-actions,
+.home-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-mini-button {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,.18);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 900;
+  box-shadow: 0 8px 18px rgba(28,49,111,.12);
+}
+
+.screen-topbar .theme-mini-button {
+  background: #eef4ff;
+  color: #17306b;
+}
+
+:root[data-theme="dark"] .screen-topbar .theme-mini-button {
+  background: rgba(255,255,255,.08);
+  color: #f8fbff;
+  border: 1px solid rgba(148,163,184,.24);
+}
+
+.theme-toggle-card {
+  border: 1px solid var(--imperia-line);
+  border-radius: 18px;
+  background: #eef4ff;
+  color: #17306b;
+  padding: 12px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+}
+
+.theme-toggle-card span {
+  font-size: 1.15rem;
+}
+
+:root[data-theme="dark"] .theme-toggle-card {
+  background: rgba(255,255,255,.08);
+  color: #f4f8ff;
+  border-color: rgba(148,163,184,.24);
+}
+
+/* splash */
+:root[data-theme="dark"] .imperia-splash {
+  background:
+    radial-gradient(circle at 50% 38%, rgba(34,211,238,.18), transparent 26rem),
+    linear-gradient(180deg,#07111f,#0b1630) !important;
+}

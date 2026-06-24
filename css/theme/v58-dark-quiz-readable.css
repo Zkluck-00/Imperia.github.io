@@ -1,0 +1,136 @@
+/* IMPERIA v58 - Corrección definitiva de contraste en quizzes modo oscuro */
+:root[data-theme="dark"] #app .quiz-shell,
+html[data-theme="dark"] #app .quiz-shell,
+body[data-theme="dark"] #app .quiz-shell {
+  color: #eaf2ff !important;
+}
+
+:root[data-theme="dark"] #app .quiz-card-duo,
+html[data-theme="dark"] #app .quiz-card-duo,
+body[data-theme="dark"] #app .quiz-card-duo,
+:root[data-theme="dark"] #app .activity-card,
+html[data-theme="dark"] #app .activity-card,
+body[data-theme="dark"] #app .activity-card,
+:root[data-theme="dark"] #app .mini-tool-panel,
+html[data-theme="dark"] #app .mini-tool-panel,
+body[data-theme="dark"] #app .mini-tool-panel {
+  background: linear-gradient(145deg, rgba(8, 18, 34, .98), rgba(13, 28, 52, .94)) !important;
+  border-color: rgba(148, 163, 184, .28) !important;
+  color: #eaf2ff !important;
+}
+
+:root[data-theme="dark"] #app .quiz-card-duo h1,
+html[data-theme="dark"] #app .quiz-card-duo h1,
+body[data-theme="dark"] #app .quiz-card-duo h1,
+:root[data-theme="dark"] #app .quiz-card-duo h2,
+html[data-theme="dark"] #app .quiz-card-duo h2,
+body[data-theme="dark"] #app .quiz-card-duo h2,
+:root[data-theme="dark"] #app .quiz-card-duo h3,
+html[data-theme="dark"] #app .quiz-card-duo h3,
+body[data-theme="dark"] #app .quiz-card-duo h3,
+:root[data-theme="dark"] #app .quiz-card-duo strong,
+html[data-theme="dark"] #app .quiz-card-duo strong,
+body[data-theme="dark"] #app .quiz-card-duo strong {
+  color: #f3f8ff !important;
+  -webkit-text-fill-color: #f3f8ff !important;
+}
+
+:root[data-theme="dark"] #app .quiz-meta,
+html[data-theme="dark"] #app .quiz-meta,
+body[data-theme="dark"] #app .quiz-meta,
+:root[data-theme="dark"] #app .quiz-meta small,
+html[data-theme="dark"] #app .quiz-meta small,
+body[data-theme="dark"] #app .quiz-meta small {
+  color: #b9c8df !important;
+  -webkit-text-fill-color: #b9c8df !important;
+}
+
+:root[data-theme="dark"] #app .quiz-options-duo .quiz-choice,
+html[data-theme="dark"] #app .quiz-options-duo .quiz-choice,
+body[data-theme="dark"] #app .quiz-options-duo .quiz-choice,
+:root[data-theme="dark"] #app button.quiz-choice,
+html[data-theme="dark"] #app button.quiz-choice,
+body[data-theme="dark"] #app button.quiz-choice,
+:root[data-theme="dark"] #app button.question-option,
+html[data-theme="dark"] #app button.question-option,
+body[data-theme="dark"] #app button.question-option {
+  background: linear-gradient(180deg, rgba(19, 38, 68, .98), rgba(11, 26, 48, .98)) !important;
+  color: #eaf2ff !important;
+  -webkit-text-fill-color: #eaf2ff !important;
+  border: 2px solid rgba(125, 158, 205, .42) !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, .22), inset 0 1px 0 rgba(255,255,255,.06) !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+:root[data-theme="dark"] #app .quiz-options-duo .quiz-choice:hover,
+html[data-theme="dark"] #app .quiz-options-duo .quiz-choice:hover,
+body[data-theme="dark"] #app .quiz-options-duo .quiz-choice:hover,
+:root[data-theme="dark"] #app button.quiz-choice:hover,
+html[data-theme="dark"] #app button.quiz-choice:hover,
+body[data-theme="dark"] #app button.quiz-choice:hover,
+:root[data-theme="dark"] #app button.question-option:hover,
+html[data-theme="dark"] #app button.question-option:hover,
+body[data-theme="dark"] #app button.question-option:hover {
+  background: linear-gradient(180deg, rgba(27, 58, 98, .98), rgba(15, 39, 73, .98)) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-color: rgba(45, 212, 191, .7) !important;
+}
+
+:root[data-theme="dark"] #app .quiz-options-duo .quiz-choice:disabled,
+html[data-theme="dark"] #app .quiz-options-duo .quiz-choice:disabled,
+body[data-theme="dark"] #app .quiz-options-duo .quiz-choice:disabled,
+:root[data-theme="dark"] #app button.question-option:disabled,
+html[data-theme="dark"] #app button.question-option:disabled,
+body[data-theme="dark"] #app button.question-option:disabled {
+  opacity: 1 !important;
+}
+
+:root[data-theme="dark"] #app .quiz-options-duo .quiz-choice.correct,
+html[data-theme="dark"] #app .quiz-options-duo .quiz-choice.correct,
+body[data-theme="dark"] #app .quiz-options-duo .quiz-choice.correct,
+:root[data-theme="dark"] #app button.question-option.correct,
+html[data-theme="dark"] #app button.question-option.correct,
+body[data-theme="dark"] #app button.question-option.correct {
+  background: linear-gradient(180deg, rgba(6, 95, 70, .96), rgba(5, 72, 58, .96)) !important;
+  border-color: #34d399 !important;
+  color: #ecfdf5 !important;
+  -webkit-text-fill-color: #ecfdf5 !important;
+  box-shadow: 0 14px 30px rgba(16, 185, 129, .24) !important;
+}
+
+:root[data-theme="dark"] #app .quiz-options-duo .quiz-choice.wrong,
+html[data-theme="dark"] #app .quiz-options-duo .quiz-choice.wrong,
+body[data-theme="dark"] #app .quiz-options-duo .quiz-choice.wrong,
+:root[data-theme="dark"] #app button.question-option.wrong,
+html[data-theme="dark"] #app button.question-option.wrong,
+body[data-theme="dark"] #app button.question-option.wrong {
+  background: linear-gradient(180deg, rgba(127, 29, 29, .96), rgba(88, 28, 28, .96)) !important;
+  border-color: #fb7185 !important;
+  color: #fff1f2 !important;
+  -webkit-text-fill-color: #fff1f2 !important;
+  box-shadow: 0 14px 30px rgba(244, 63, 94, .22) !important;
+}
+
+:root[data-theme="dark"] #app .duo-feedback,
+html[data-theme="dark"] #app .duo-feedback,
+body[data-theme="dark"] #app .duo-feedback {
+  background: rgba(6, 16, 32, .98) !important;
+  color: #eaf2ff !important;
+  border-top-color: rgba(148, 163, 184, .28) !important;
+}
+
+:root[data-theme="dark"] #app .duo-feedback h3,
+html[data-theme="dark"] #app .duo-feedback h3,
+body[data-theme="dark"] #app .duo-feedback h3 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+:root[data-theme="dark"] #app .duo-feedback p,
+html[data-theme="dark"] #app .duo-feedback p,
+body[data-theme="dark"] #app .duo-feedback p {
+  color: #cbd5e1 !important;
+  -webkit-text-fill-color: #cbd5e1 !important;
+}

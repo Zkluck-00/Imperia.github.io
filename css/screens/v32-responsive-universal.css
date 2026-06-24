@@ -1,0 +1,173 @@
+
+/* V32 · Responsive universal y corrección de desbordes */
+*, *::before, *::after{box-sizing:border-box;}
+html,body{max-width:100%;overflow-x:hidden;}
+img,svg,video,canvas{max-width:100%;height:auto;}
+button,input,select,textarea{max-width:100%;font:inherit;}
+
+#app.figma-shell,
+#app.auth-mobile-shell{
+  width:100%;
+  max-width:430px;
+  overflow-x:hidden;
+}
+
+.mobile-screen,
+.mobile-content-area,
+.home-courses-stack,
+.course-list-wrap,
+.profile-info-stack,
+.tools-grid-mobile,
+.quick-actions-grid,
+.profile-stats-mobile,
+.module-grid,
+.module-list,
+.section,
+.app-card{
+  width:100%;
+  max-width:100%;
+}
+
+.home-course-card,
+.course-list-card{
+  width:100%;
+  max-width:100%;
+  grid-template-columns:minmax(88px,96px) minmax(0,1fr);
+  overflow:hidden;
+}
+
+.home-course-content,
+.course-list-body,
+.course-list-top,
+.course-list-footer,
+.course-list-meta,
+.course-top-row,
+.course-meta-row,
+.profile-info-card > div,
+.mobile-cert-card,
+.certificate-course-body,
+.certificate-info,
+.payment-card,
+.paywall-card,
+.plan-card,
+.quick-action-card,
+.tool-card-mobile,
+.profile-stat-box,
+.module-item,
+.quiz-card-duo,
+.quiz-result-card{
+  min-width:0;
+}
+
+.home-course-content h3,
+.course-list-body h3,
+.certificate-course-body h3,
+.certificate-info h3,
+.tool-card-mobile h3,
+.profile-info-card h3,
+#app h1,#app h2,#app h3,#app h4,
+#app p,#app strong,#app small,#app span,
+#app .muted,#app .progress-label{
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.course-list-top,
+.course-list-footer,
+.course-top-row{
+  flex-wrap:wrap;
+}
+
+.course-list-top h3,
+.home-course-content h3{
+  flex:1 1 170px;
+  min-width:0;
+}
+
+.course-state-pill,
+.mini-chip,
+.badge,
+.tag{
+  flex:0 1 auto;
+  max-width:100%;
+  white-space:normal;
+  text-align:center;
+}
+
+.course-list-meta span,
+.course-meta-row span{
+  display:inline-flex;
+  align-items:center;
+  min-width:0;
+}
+
+.course-list-footer .btn,
+.home-course-card .btn,
+.course-list-card .btn,
+.mobile-cert-card .btn,
+.mobile-account-card .btn,
+.payment-card .btn,
+.paywall-card .btn,
+.plan-card .btn{
+  width:100%;
+  min-width:0;
+}
+
+.figma-bottom-nav{
+  left:50% !important;
+  transform:translateX(-50%) !important;
+  width:min(430px, calc(100vw - 16px)) !important;
+  max-width:430px !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  padding-left:10px !important;
+  padding-right:10px !important;
+}
+.figma-bottom-nav button{
+  flex:0 0 clamp(78px, 20vw, 94px) !important;
+  min-width:clamp(78px, 20vw, 94px) !important;
+  max-width:none !important;
+}
+
+@media (max-width:390px){
+  .home-course-card,
+  .course-list-card{
+    grid-template-columns:80px minmax(0,1fr);
+    gap:12px;
+    padding:14px;
+  }
+  .course-thumb{
+    width:80px;
+    height:80px;
+    border-radius:18px;
+  }
+  .home-course-content h3,
+  .course-list-body h3{
+    font-size:1.08rem;
+    line-height:1.15;
+  }
+  .home-course-content p,
+  .course-list-body p{
+    font-size:.97rem;
+    line-height:1.4;
+  }
+  .course-list-meta,
+  .course-meta-row{
+    gap:8px;
+    font-size:.78rem;
+  }
+  .quick-actions-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+@media (max-width:340px){
+  .mobile-screen{padding-left:14px;padding-right:14px;}
+  .home-course-card,
+  .course-list-card{grid-template-columns:1fr;}
+  .course-thumb{width:100%;height:110px;}
+  .course-list-top h3,
+  .home-course-content h3{flex-basis:100%;}
+  .figma-bottom-nav button{
+    flex:0 0 76px !important;
+    min-width:76px !important;
+  }
+}

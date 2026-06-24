@@ -1,0 +1,345 @@
+/* Ajustes finales solicitados: premium realista, botones funcionales visibles y responsive profesional. */
+
+html, body {
+  width: 100%;
+}
+
+button, .btn, .payment-method, .question-option {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.btn.compact {
+  min-height: 38px;
+  padding: 9px 12px;
+  border-radius: 999px;
+  font-size: .78rem;
+  white-space: nowrap;
+}
+
+.premium-cta {
+  color: #100926;
+  background: linear-gradient(135deg, var(--premium), var(--accent));
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow: 0 12px 28px rgba(184,140,255,.18), inset 0 -3px 0 rgba(0,0,0,.14);
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 11px;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 950;
+  white-space: nowrap;
+  border: 1px solid rgba(255,255,255,.14);
+}
+.status-chip.premium {
+  color: #100926;
+  background: linear-gradient(135deg, var(--premium), var(--accent));
+}
+
+.badge.base {
+  color: #dce9ff;
+  background: rgba(110,231,255,.10);
+  border-color: rgba(110,231,255,.22);
+}
+
+.topbar {
+  overflow: hidden;
+}
+.brand {
+  min-width: 0;
+}
+.brand strong, .brand .muted {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.top-stats {
+  min-width: 0;
+}
+.user-pill {
+  max-width: 145px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-card, .course-card, .module-item, .store-item, .activity-card, .node-card {
+  will-change: transform;
+}
+
+.node-action {
+  align-items: center;
+  margin-top: 12px;
+}
+.node-action .progress-track {
+  flex: 1 1 auto;
+  min-width: 90px;
+}
+.node-head {
+  align-items: start;
+}
+.node-card strong {
+  line-height: 1.25;
+}
+
+.ad-card::after {
+  content: "Plan Base";
+}
+
+.plan-card h3 {
+  margin-top: 0;
+}
+.base-plan {
+  border-color: rgba(110,231,255,.24);
+  background: linear-gradient(145deg, rgba(110,231,255,.09), rgba(255,255,255,.045));
+}
+.premium-plan {
+  box-shadow: 0 22px 56px rgba(184,140,255,.10);
+}
+
+.premium-title {
+  align-items: center;
+  gap: 24px;
+}
+.premium-title > div:first-child {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.premium-price-card {
+  flex: 0 0 250px;
+}
+
+.lock-overlay {
+  z-index: 2;
+}
+.lock-overlay .btn {
+  position: relative;
+  z-index: 3;
+}
+
+.course-card .stack,
+.store-item .stack,
+.module-item > * {
+  position: relative;
+  z-index: 1;
+}
+
+.payment-card,
+.checkout-resume,
+.premium-active-panel {
+  border-color: rgba(184,140,255,.24);
+}
+.payment-method.active {
+  outline: 3px solid rgba(110,231,255,.14);
+}
+.payment-form .input,
+.payment-form .select {
+  min-height: 46px;
+}
+.pay-button[disabled] {
+  opacity: .78;
+  cursor: progress;
+}
+
+/* Estados de foco visibles para teclado y móviles. */
+.btn:focus-visible,
+.payment-method:focus-visible,
+.question-option:focus-visible,
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: 3px solid rgba(110,231,255,.32);
+  outline-offset: 2px;
+}
+
+/* Mejoras mobile-first: evita columnas apretadas como en la captura. */
+@media (max-width: 860px) {
+  .premium-title {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .premium-price-card {
+    width: 100%;
+    max-width: 100%;
+    flex: initial;
+    grid-template-columns: 68px 1fr auto;
+    justify-items: start;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+  }
+  .premium-price-card img {
+    width: 62px;
+    height: 62px;
+    grid-row: span 2;
+  }
+  .premium-price-card strong {
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+    line-height: 1;
+  }
+  .premium-price-card span {
+    grid-column: 2 / 3;
+  }
+  .premium-price-card .badge {
+    grid-column: 3 / 4;
+    grid-row: 1 / span 2;
+    align-self: center;
+  }
+  .plan-compare {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .app-shell {
+    width: min(100% - 16px, 1180px);
+    padding-bottom: 116px;
+  }
+  .app-header {
+    padding: 8px 0;
+  }
+  .topbar {
+    flex-direction: row;
+    align-items: center;
+    border-radius: 22px;
+    padding: 10px;
+  }
+  .brand {
+    flex: 1 1 auto;
+  }
+  .brand > div:not(.logo-mark) {
+    min-width: 0;
+  }
+  .top-stats {
+    width: auto;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+  }
+  .top-stats .user-pill,
+  .top-stats .stat-pill:nth-of-type(4) {
+    display: none;
+  }
+  .stat-pill {
+    min-height: 36px;
+  }
+  .premium-cta {
+    min-height: 36px;
+    padding-inline: 10px;
+  }
+  .page-title {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .path-map {
+    min-height: auto;
+    border-radius: 24px;
+  }
+  .path-map::before {
+    left: 43px;
+    transform: none;
+    width: 6px;
+  }
+  .node {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+  .node-card {
+    padding: 13px;
+  }
+  .node-head {
+    display: grid;
+    gap: 10px;
+  }
+  .node-action {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .node-action .btn {
+    width: 100%;
+  }
+  .course-card {
+    min-height: unset;
+  }
+  .module-item {
+    grid-template-columns: 44px 1fr;
+  }
+  .module-item .btn {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+  .payment-card .between {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .logo-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+  }
+  .brand strong {
+    font-size: .95rem;
+  }
+  .top-stats {
+    gap: 5px;
+  }
+  .top-stats .stat-pill:nth-of-type(2) {
+    display: none;
+  }
+  .stat-pill, .status-chip, .premium-cta {
+    font-size: .70rem;
+    padding: 7px 8px;
+  }
+  .premium-price-card {
+    grid-template-columns: 54px 1fr;
+    border-radius: 22px;
+  }
+  .premium-price-card img {
+    width: 52px;
+    height: 52px;
+  }
+  .premium-price-card .badge {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    width: 100%;
+    justify-content: center;
+  }
+  .checkout-shell,
+  .payment-card,
+  .checkout-resume,
+  .premium-hero-card {
+    border-radius: 22px;
+  }
+  .payment-methods {
+    grid-template-columns: 1fr 1fr;
+  }
+  .payment-method {
+    min-height: 66px;
+  }
+  .form-grid {
+    gap: 10px;
+  }
+  .card-preview strong {
+    font-size: 1.08rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .app-shell {
+    width: min(100% - 10px, 1180px);
+  }
+  .topbar {
+    padding: 8px;
+  }
+  .top-stats .stat-pill:nth-of-type(3) {
+    display: none;
+  }
+  .payment-methods {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,256 @@
+/* V38 · Adaptación completa de textos para modo oscuro
+   Todos los ajustes están limitados al modo oscuro para no afectar el modo claro. */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* Superficies oscuras coherentes */
+:root[data-theme="dark"] .app-card,
+:root[data-theme="dark"] .activity-card,
+:root[data-theme="dark"] .course-card,
+:root[data-theme="dark"] .course-list-card,
+:root[data-theme="dark"] .tool-card-mobile,
+:root[data-theme="dark"] .mobile-cert-card,
+:root[data-theme="dark"] .mobile-account-card,
+:root[data-theme="dark"] .profile-info-card,
+:root[data-theme="dark"] .profile-stat-box,
+:root[data-theme="dark"] .home-course-card,
+:root[data-theme="dark"] .quick-action-card,
+:root[data-theme="dark"] .module-item,
+:root[data-theme="dark"] .quiz-card-duo,
+:root[data-theme="dark"] .quiz-result-card,
+:root[data-theme="dark"] .payment-card,
+:root[data-theme="dark"] .plan-card,
+:root[data-theme="dark"] .premium-price-card,
+:root[data-theme="dark"] .paywall-card,
+:root[data-theme="dark"] .checkout-shell,
+:root[data-theme="dark"] .premium-active-panel,
+:root[data-theme="dark"] .attendance-card,
+:root[data-theme="dark"] .node-card,
+:root[data-theme="dark"] .certificate-course-card,
+:root[data-theme="dark"] .certificate-empty-card,
+:root[data-theme="dark"] .certificate-full-card,
+:root[data-theme="dark"] .ad-card,
+:root[data-theme="dark"] .course-detail-card,
+:root[data-theme="dark"] .content-card,
+:root[data-theme="dark"] .lesson-card,
+:root[data-theme="dark"] .practice-card,
+:root[data-theme="dark"] .summary-card {
+  background: #0d1a2e !important;
+  color: #eef5ff !important;
+  border-color: rgba(148, 163, 184, .28) !important;
+}
+
+/* Títulos y textos fuertes SIEMPRE visibles */
+:root[data-theme="dark"] .app-card h1,
+:root[data-theme="dark"] .app-card h2,
+:root[data-theme="dark"] .app-card h3,
+:root[data-theme="dark"] .app-card h4,
+:root[data-theme="dark"] .app-card strong,
+:root[data-theme="dark"] .app-card b,
+:root[data-theme="dark"] .activity-card h1,
+:root[data-theme="dark"] .activity-card h2,
+:root[data-theme="dark"] .activity-card h3,
+:root[data-theme="dark"] .activity-card h4,
+:root[data-theme="dark"] .activity-card strong,
+:root[data-theme="dark"] .activity-card b,
+:root[data-theme="dark"] .course-list-card h1,
+:root[data-theme="dark"] .course-list-card h2,
+:root[data-theme="dark"] .course-list-card h3,
+:root[data-theme="dark"] .course-list-card h4,
+:root[data-theme="dark"] .course-list-card strong,
+:root[data-theme="dark"] .tool-card-mobile h1,
+:root[data-theme="dark"] .tool-card-mobile h2,
+:root[data-theme="dark"] .tool-card-mobile h3,
+:root[data-theme="dark"] .tool-card-mobile strong,
+:root[data-theme="dark"] .mobile-cert-card h1,
+:root[data-theme="dark"] .mobile-cert-card h2,
+:root[data-theme="dark"] .mobile-cert-card h3,
+:root[data-theme="dark"] .mobile-cert-card strong,
+:root[data-theme="dark"] .mobile-account-card h1,
+:root[data-theme="dark"] .mobile-account-card h2,
+:root[data-theme="dark"] .mobile-account-card h3,
+:root[data-theme="dark"] .mobile-account-card strong,
+:root[data-theme="dark"] .profile-info-card h1,
+:root[data-theme="dark"] .profile-info-card h2,
+:root[data-theme="dark"] .profile-info-card h3,
+:root[data-theme="dark"] .profile-info-card strong,
+:root[data-theme="dark"] .profile-stat-box strong,
+:root[data-theme="dark"] .quick-action-card strong,
+:root[data-theme="dark"] .quick-action-card h3,
+:root[data-theme="dark"] .home-course-content h1,
+:root[data-theme="dark"] .home-course-content h2,
+:root[data-theme="dark"] .home-course-content h3,
+:root[data-theme="dark"] .home-course-content strong,
+:root[data-theme="dark"] .module-item h1,
+:root[data-theme="dark"] .module-item h2,
+:root[data-theme="dark"] .module-item h3,
+:root[data-theme="dark"] .module-item strong,
+:root[data-theme="dark"] .certificate-course-body h1,
+:root[data-theme="dark"] .certificate-course-body h2,
+:root[data-theme="dark"] .certificate-course-body h3,
+:root[data-theme="dark"] .certificate-course-body strong,
+:root[data-theme="dark"] .certificate-info h1,
+:root[data-theme="dark"] .certificate-info h2,
+:root[data-theme="dark"] .certificate-info h3,
+:root[data-theme="dark"] .certificate-info strong,
+:root[data-theme="dark"] .page-copy-block .h1,
+:root[data-theme="dark"] .page-copy-block .h2,
+:root[data-theme="dark"] .page-copy-block .h3,
+:root[data-theme="dark"] .mobile-section-head h2,
+:root[data-theme="dark"] .row > strong,
+:root[data-theme="dark"] .row strong,
+:root[data-theme="dark"] .einstein-card strong,
+:root[data-theme="dark"] .einstein-card .row strong,
+:root[data-theme="dark"] .content-card strong,
+:root[data-theme="dark"] .lesson-card strong,
+:root[data-theme="dark"] .practice-card strong,
+:root[data-theme="dark"] .summary-card strong {
+  color: #ffffff !important;
+}
+
+/* Textos descriptivos, spans y notas legibles */
+:root[data-theme="dark"] .app-card p,
+:root[data-theme="dark"] .app-card li,
+:root[data-theme="dark"] .app-card span,
+:root[data-theme="dark"] .app-card small,
+:root[data-theme="dark"] .activity-card p,
+:root[data-theme="dark"] .activity-card li,
+:root[data-theme="dark"] .activity-card span,
+:root[data-theme="dark"] .activity-card small,
+:root[data-theme="dark"] .course-list-card p,
+:root[data-theme="dark"] .course-list-card li,
+:root[data-theme="dark"] .course-list-card span,
+:root[data-theme="dark"] .course-list-card small,
+:root[data-theme="dark"] .tool-card-mobile p,
+:root[data-theme="dark"] .tool-card-mobile li,
+:root[data-theme="dark"] .tool-card-mobile span,
+:root[data-theme="dark"] .tool-card-mobile small,
+:root[data-theme="dark"] .mobile-cert-card p,
+:root[data-theme="dark"] .mobile-cert-card li,
+:root[data-theme="dark"] .mobile-cert-card span,
+:root[data-theme="dark"] .mobile-cert-card small,
+:root[data-theme="dark"] .mobile-account-card p,
+:root[data-theme="dark"] .mobile-account-card li,
+:root[data-theme="dark"] .mobile-account-card span,
+:root[data-theme="dark"] .mobile-account-card small,
+:root[data-theme="dark"] .profile-info-card p,
+:root[data-theme="dark"] .profile-info-card li,
+:root[data-theme="dark"] .profile-info-card span,
+:root[data-theme="dark"] .profile-info-card small,
+:root[data-theme="dark"] .quick-action-card p,
+:root[data-theme="dark"] .quick-action-card span,
+:root[data-theme="dark"] .quick-action-card small,
+:root[data-theme="dark"] .home-course-content p,
+:root[data-theme="dark"] .home-course-content li,
+:root[data-theme="dark"] .home-course-content span,
+:root[data-theme="dark"] .home-course-content small,
+:root[data-theme="dark"] .module-item p,
+:root[data-theme="dark"] .module-item li,
+:root[data-theme="dark"] .module-item span,
+:root[data-theme="dark"] .module-item small,
+:root[data-theme="dark"] .certificate-course-body p,
+:root[data-theme="dark"] .certificate-course-body li,
+:root[data-theme="dark"] .certificate-course-body span,
+:root[data-theme="dark"] .certificate-course-body small,
+:root[data-theme="dark"] .certificate-info p,
+:root[data-theme="dark"] .certificate-info li,
+:root[data-theme="dark"] .certificate-info span,
+:root[data-theme="dark"] .certificate-info small,
+:root[data-theme="dark"] .content-card p,
+:root[data-theme="dark"] .content-card li,
+:root[data-theme="dark"] .content-card span,
+:root[data-theme="dark"] .content-card small,
+:root[data-theme="dark"] .lesson-card p,
+:root[data-theme="dark"] .lesson-card li,
+:root[data-theme="dark"] .lesson-card span,
+:root[data-theme="dark"] .lesson-card small,
+:root[data-theme="dark"] .practice-card p,
+:root[data-theme="dark"] .practice-card li,
+:root[data-theme="dark"] .practice-card span,
+:root[data-theme="dark"] .practice-card small,
+:root[data-theme="dark"] .summary-card p,
+:root[data-theme="dark"] .summary-card li,
+:root[data-theme="dark"] .summary-card span,
+:root[data-theme="dark"] .summary-card small,
+:root[data-theme="dark"] .muted,
+:root[data-theme="dark"] .small,
+:root[data-theme="dark"] .video-note,
+:root[data-theme="dark"] .secure-line,
+:root[data-theme="dark"] .auth-mobile-note,
+:root[data-theme="dark"] .course-meta-row,
+:root[data-theme="dark"] .course-list-meta,
+:root[data-theme="dark"] .progress-label,
+:root[data-theme="dark"] .attendance-grid span,
+:root[data-theme="dark"] .access-summary span,
+:root[data-theme="dark"] .payment-summary-grid .muted {
+  color: #c7d4ec !important;
+}
+
+/* Speech bubble y bloques de consejo: prioridad alta */
+:root[data-theme="dark"] .speech,
+:root[data-theme="dark"] .speech *,
+:root[data-theme="dark"] .profile-speech,
+:root[data-theme="dark"] .profile-speech *,
+:root[data-theme="dark"] .einstein-card .speech,
+:root[data-theme="dark"] .einstein-card .speech *,
+:root[data-theme="dark"] .module-grid .speech,
+:root[data-theme="dark"] .module-grid .speech * {
+  background: #132742 !important;
+  color: #e9f2ff !important;
+  border-color: rgba(148, 163, 184, .25) !important;
+}
+
+/* Etiquetas especiales y chips */
+:root[data-theme="dark"] .kicker,
+:root[data-theme="dark"] .link-button,
+:root[data-theme="dark"] .auth-mobile-note strong {
+  color: #8cb8ff !important;
+}
+
+:root[data-theme="dark"] .badge,
+:root[data-theme="dark"] .tag,
+:root[data-theme="dark"] .mini-chip,
+:root[data-theme="dark"] .course-state-pill {
+  background: #16263d !important;
+  color: #dbeafe !important;
+  border-color: rgba(148, 163, 184, .28) !important;
+}
+
+:root[data-theme="dark"] .badge.premium,
+:root[data-theme="dark"] .mini-chip.premium,
+:root[data-theme="dark"] .course-state-pill.premium,
+:root[data-theme="dark"] .course-state-pill.free,
+:root[data-theme="dark"] .badge.base,
+:root[data-theme="dark"] .badge.lock {
+  color: #ffffff !important;
+}
+
+/* Iconos y mini cajas */
+:root[data-theme="dark"] .tool-icon,
+:root[data-theme="dark"] .quick-action-icon,
+:root[data-theme="dark"] .certificate-empty-icon,
+:root[data-theme="dark"] .module-icon {
+  background: #14233b !important;
+  border-color: rgba(148, 163, 184, .22) !important;
+}
+
+:root[data-theme="dark"] .tool-icon .ui-icon,
+:root[data-theme="dark"] .quick-action-icon .ui-icon,
+:root[data-theme="dark"] .certificate-empty-icon .ui-icon,
+:root[data-theme="dark"] .module-icon .ui-icon {
+  stroke: #7dd3fc !important;
+}
+
+/* Estados de éxito / error se mantienen visibles */
+:root[data-theme="dark"] .success,
+:root[data-theme="dark"] .success-burst,
+:root[data-theme="dark"] .duo-feedback.success {
+  color: #67f0b2 !important;
+}
+
+:root[data-theme="dark"] .danger,
+:root[data-theme="dark"] .duo-feedback.error {
+  color: #ff909d !important;
+}

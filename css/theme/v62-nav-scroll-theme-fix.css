@@ -1,0 +1,252 @@
+/* IMPERIA v62 - Barra movil deslizable + modo claro/oscuro reforzado */
+:root[data-theme="light"],
+html.theme-light {
+  color-scheme: light;
+  --app-bg-main: #f4f7fb;
+  --app-bg-card: #ffffff;
+  --app-text-main: #102033;
+  --app-text-muted: #52637a;
+  --app-border-main: rgba(15, 23, 42, .12);
+}
+
+:root[data-theme="dark"],
+html.theme-dark {
+  color-scheme: dark;
+  --app-bg-main: #07111f;
+  --app-bg-card: rgba(15, 27, 45, .92);
+  --app-text-main: #e7eefb;
+  --app-text-muted: #aebed4;
+  --app-border-main: rgba(148, 163, 184, .24);
+}
+
+html[data-theme="light"] body,
+body[data-theme="light"],
+body.theme-light {
+  background: linear-gradient(180deg, #f8fafc 0%, #eef4fb 100%) !important;
+  color: var(--app-text-main) !important;
+}
+
+html[data-theme="dark"] body,
+body[data-theme="dark"],
+body.theme-dark {
+  background:
+    radial-gradient(circle at top left, rgba(34, 211, 238, .14), transparent 26rem),
+    linear-gradient(180deg, #07111f 0%, #0b1630 55%, #07111f 100%) !important;
+  color: var(--app-text-main) !important;
+}
+
+html[data-theme="light"] #app.figma-shell,
+html[data-theme="light"] #app.auth-mobile-shell,
+body[data-theme="light"] #app.figma-shell,
+body[data-theme="light"] #app.auth-mobile-shell {
+  background: linear-gradient(180deg, #f8fafc, #edf4fb) !important;
+  color: #102033 !important;
+}
+
+html[data-theme="dark"] #app.figma-shell,
+html[data-theme="dark"] #app.auth-mobile-shell,
+body[data-theme="dark"] #app.figma-shell,
+body[data-theme="dark"] #app.auth-mobile-shell {
+  background: linear-gradient(180deg, #07111f, #08172c) !important;
+  color: #e7eefb !important;
+}
+
+html[data-theme="light"] .app-card,
+html[data-theme="light"] .course-list-card,
+html[data-theme="light"] .home-course-card,
+html[data-theme="light"] .tool-card-mobile,
+html[data-theme="light"] .profile-info-card,
+html[data-theme="light"] .profile-stat-box,
+html[data-theme="light"] .mobile-account-card,
+html[data-theme="light"] .mobile-theme-card,
+body[data-theme="light"] .app-card,
+body[data-theme="light"] .course-list-card,
+body[data-theme="light"] .home-course-card,
+body[data-theme="light"] .tool-card-mobile,
+body[data-theme="light"] .profile-info-card,
+body[data-theme="light"] .profile-stat-box,
+body[data-theme="light"] .mobile-account-card,
+body[data-theme="light"] .mobile-theme-card {
+  background: rgba(255, 255, 255, .94) !important;
+  color: #102033 !important;
+  border-color: rgba(15, 23, 42, .12) !important;
+}
+
+html[data-theme="light"] .muted,
+html[data-theme="light"] .small,
+html[data-theme="light"] p,
+body[data-theme="light"] .muted,
+body[data-theme="light"] .small,
+body[data-theme="light"] p {
+  color: #53647a !important;
+}
+
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] strong,
+body[data-theme="light"] h1,
+body[data-theme="light"] h2,
+body[data-theme="light"] h3,
+body[data-theme="light"] strong {
+  color: #102033 !important;
+}
+
+html[data-theme="dark"] .app-card,
+html[data-theme="dark"] .course-list-card,
+html[data-theme="dark"] .home-course-card,
+html[data-theme="dark"] .tool-card-mobile,
+html[data-theme="dark"] .profile-info-card,
+html[data-theme="dark"] .profile-stat-box,
+html[data-theme="dark"] .mobile-account-card,
+html[data-theme="dark"] .mobile-theme-card,
+body[data-theme="dark"] .app-card,
+body[data-theme="dark"] .course-list-card,
+body[data-theme="dark"] .home-course-card,
+body[data-theme="dark"] .tool-card-mobile,
+body[data-theme="dark"] .profile-info-card,
+body[data-theme="dark"] .profile-stat-box,
+body[data-theme="dark"] .mobile-account-card,
+body[data-theme="dark"] .mobile-theme-card {
+  background: rgba(15, 27, 45, .92) !important;
+  color: #e7eefb !important;
+  border-color: rgba(148, 163, 184, .24) !important;
+}
+
+html[data-theme="dark"] .muted,
+html[data-theme="dark"] .small,
+html[data-theme="dark"] p,
+body[data-theme="dark"] .muted,
+body[data-theme="dark"] .small,
+body[data-theme="dark"] p {
+  color: #aebed4 !important;
+}
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] strong,
+body[data-theme="dark"] h1,
+body[data-theme="dark"] h2,
+body[data-theme="dark"] h3,
+body[data-theme="dark"] strong {
+  color: #f1f6ff !important;
+}
+
+/* Barra movil como antes: compacta, fija y deslizable horizontalmente */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  #imperiaFixedNavDock,
+  .imperia-fixed-nav-dock {
+    position: fixed !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: 10px !important;
+    transform: translateX(-50%) !important;
+    z-index: 99999 !important;
+    display: block !important;
+    width: min(420px, calc(100vw - 20px)) !important;
+    max-width: calc(100vw - 20px) !important;
+    padding: 0 !important;
+    background: transparent !important;
+    pointer-events: auto !important;
+  }
+
+  #imperiaFixedNavDock .figma-bottom-nav,
+  .imperia-fixed-nav-dock .figma-bottom-nav,
+  .figma-bottom-nav {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    scroll-snap-type: x proximity !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    margin: 0 auto !important;
+    padding: 8px !important;
+    border-radius: 26px !important;
+    border: 1px solid rgba(148, 163, 184, .25) !important;
+    background: rgba(7, 17, 31, .94) !important;
+    box-shadow: 0 -18px 45px rgba(0, 0, 0, .30), inset 0 1px 0 rgba(255,255,255,.08) !important;
+    backdrop-filter: blur(18px) !important;
+  }
+
+  #imperiaFixedNavDock .figma-bottom-nav::-webkit-scrollbar,
+  .imperia-fixed-nav-dock .figma-bottom-nav::-webkit-scrollbar,
+  .figma-bottom-nav::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  #imperiaFixedNavDock .figma-bottom-nav button,
+  .imperia-fixed-nav-dock .figma-bottom-nav button,
+  .figma-bottom-nav button {
+    flex: 0 0 78px !important;
+    min-width: 78px !important;
+    max-width: 78px !important;
+    width: 78px !important;
+    height: 58px !important;
+    scroll-snap-align: start !important;
+    border: 0 !important;
+    border-radius: 20px !important;
+    background: transparent !important;
+    color: #b8c7dc !important;
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    font-weight: 800 !important;
+  }
+
+  #imperiaFixedNavDock .figma-bottom-nav button.active,
+  .imperia-fixed-nav-dock .figma-bottom-nav button.active,
+  .figma-bottom-nav button.active {
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #047857, #10b981) !important;
+    box-shadow: 0 12px 24px rgba(16, 185, 129, .24) !important;
+  }
+
+  #imperiaFixedNavDock .figma-bottom-nav button small,
+  .imperia-fixed-nav-dock .figma-bottom-nav button small,
+  .figma-bottom-nav button small {
+    display: block !important;
+    max-width: 72px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-size: 10px !important;
+    line-height: 1.05 !important;
+    color: currentColor !important;
+  }
+
+  html[data-theme="light"] #imperiaFixedNavDock .figma-bottom-nav,
+  body[data-theme="light"] #imperiaFixedNavDock .figma-bottom-nav,
+  html[data-theme="light"] .imperia-fixed-nav-dock .figma-bottom-nav,
+  body[data-theme="light"] .imperia-fixed-nav-dock .figma-bottom-nav {
+    background: rgba(255,255,255,.95) !important;
+    border-color: rgba(15,23,42,.12) !important;
+    box-shadow: 0 -18px 45px rgba(15,23,42,.15), inset 0 1px 0 rgba(255,255,255,.8) !important;
+  }
+
+  html[data-theme="light"] #imperiaFixedNavDock .figma-bottom-nav button,
+  body[data-theme="light"] #imperiaFixedNavDock .figma-bottom-nav button,
+  html[data-theme="light"] .imperia-fixed-nav-dock .figma-bottom-nav button,
+  body[data-theme="light"] .imperia-fixed-nav-dock .figma-bottom-nav button {
+    color: #475569 !important;
+  }
+
+  html[data-theme="light"] #imperiaFixedNavDock .figma-bottom-nav button.active,
+  body[data-theme="light"] #imperiaFixedNavDock .figma-bottom-nav button.active,
+  html[data-theme="light"] .imperia-fixed-nav-dock .figma-bottom-nav button.active,
+  body[data-theme="light"] .imperia-fixed-nav-dock .figma-bottom-nav button.active {
+    color: #ffffff !important;
+  }
+}

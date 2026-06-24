@@ -1,0 +1,198 @@
+/* IMPERIA v50 - Dark mode soft text fix
+   Objetivo: evitar blancos puros en modo oscuro y mantener legibilidad premium. */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] #app {
+  --dark-text: #d6e2f2;
+  --dark-text-strong: #edf4fb;
+  --dark-text-muted: #aebed4;
+  --dark-text-subtle: #8fa0ba;
+  --dark-border-soft: rgba(148, 163, 184, .26);
+}
+
+/* Global text softening - no pure white in dark mode */
+:root[data-theme="dark"] #app h1,
+:root[data-theme="dark"] #app h2,
+:root[data-theme="dark"] #app h3,
+:root[data-theme="dark"] #app h4,
+:root[data-theme="dark"] #app h5,
+:root[data-theme="dark"] #app h6,
+:root[data-theme="dark"] #app strong,
+:root[data-theme="dark"] #app b,
+:root[data-theme="dark"] #app .title,
+:root[data-theme="dark"] #app .section-title,
+:root[data-theme="dark"] #app .headline,
+:root[data-theme="dark"] #app .hero-title,
+:root[data-theme="dark"] #app .card-title,
+:root[data-theme="dark"] #app .course-title,
+:root[data-theme="dark"] #app .mentor-title,
+:root[data-theme="dark"] #app .badge,
+:root[data-theme="dark"] #app .pill,
+:root[data-theme="dark"] #app .chip,
+:root[data-theme="dark"] #app .btn,
+:root[data-theme="dark"] #app .nav-label,
+:root[data-theme="dark"] #app .sidebar-label,
+:root[data-theme="dark"] #app .stat-value,
+:root[data-theme="dark"] #app .metric-value,
+:root[data-theme="dark"] #app .profile-name,
+:root[data-theme="dark"] #app .mentor-name {
+  color: var(--dark-text-strong) !important;
+  -webkit-text-fill-color: var(--dark-text-strong) !important;
+}
+
+:root[data-theme="dark"] #app p,
+:root[data-theme="dark"] #app span,
+:root[data-theme="dark"] #app small,
+:root[data-theme="dark"] #app label,
+:root[data-theme="dark"] #app li,
+:root[data-theme="dark"] #app a,
+:root[data-theme="dark"] #app .muted,
+:root[data-theme="dark"] #app .subtle,
+:root[data-theme="dark"] #app .caption,
+:root[data-theme="dark"] #app .helper,
+:root[data-theme="dark"] #app .description,
+:root[data-theme="dark"] #app .course-summary,
+:root[data-theme="dark"] #app .mentor-copy,
+:root[data-theme="dark"] #app .toast,
+:root[data-theme="dark"] #app .note,
+:root[data-theme="dark"] #app .step-label,
+:root[data-theme="dark"] #app .nav-meta,
+:root[data-theme="dark"] #app .sidebar-meta,
+:root[data-theme="dark"] #app .progress-label,
+:root[data-theme="dark"] #app .stats-label,
+:root[data-theme="dark"] #app .card-meta,
+:root[data-theme="dark"] #app .course-meta,
+:root[data-theme="dark"] #app .mentor-meta,
+:root[data-theme="dark"] #app .empty-state,
+:root[data-theme="dark"] #app .empty-state p,
+:root[data-theme="dark"] #app .empty-state span,
+:root[data-theme="dark"] #app .empty-state small {
+  color: var(--dark-text-muted) !important;
+  -webkit-text-fill-color: var(--dark-text-muted) !important;
+}
+
+:root[data-theme="dark"] #app input,
+:root[data-theme="dark"] #app select,
+:root[data-theme="dark"] #app textarea,
+:root[data-theme="dark"] #app option,
+:root[data-theme="dark"] #app .input,
+:root[data-theme="dark"] #app .select,
+:root[data-theme="dark"] #app .textarea {
+  color: var(--dark-text-strong) !important;
+  -webkit-text-fill-color: var(--dark-text-strong) !important;
+}
+
+:root[data-theme="dark"] #app input::placeholder,
+:root[data-theme="dark"] #app textarea::placeholder {
+  color: var(--dark-text-subtle) !important;
+  opacity: 1 !important;
+}
+
+:root[data-theme="dark"] #app input,
+:root[data-theme="dark"] #app select,
+:root[data-theme="dark"] #app textarea,
+:root[data-theme="dark"] #app .input,
+:root[data-theme="dark"] #app .select,
+:root[data-theme="dark"] #app .textarea,
+:root[data-theme="dark"] #app .card,
+:root[data-theme="dark"] #app .panel,
+:root[data-theme="dark"] #app .surface,
+:root[data-theme="dark"] #app .mentor-card,
+:root[data-theme="dark"] #app .course-card,
+:root[data-theme="dark"] #app .module-card,
+:root[data-theme="dark"] #app .profile-card,
+:root[data-theme="dark"] #app .progress-card,
+:root[data-theme="dark"] #app .payment-card,
+:root[data-theme="dark"] #app .certificate-card,
+:root[data-theme="dark"] #app .sidebar,
+:root[data-theme="dark"] #app .figma-bottom-nav,
+:root[data-theme="dark"] #app .topbar,
+:root[data-theme="dark"] #app .hero,
+:root[data-theme="dark"] #app .hero-card {
+  border-color: var(--dark-border-soft) !important;
+}
+
+/* Buttons and chips should never render pure white text */
+:root[data-theme="dark"] #app .btn.primary,
+:root[data-theme="dark"] #app .btn.action,
+:root[data-theme="dark"] #app .btn.reward,
+:root[data-theme="dark"] #app .btn.gold,
+:root[data-theme="dark"] #app .btn.purple,
+:root[data-theme="dark"] #app .btn.success,
+:root[data-theme="dark"] #app .btn.warning,
+:root[data-theme="dark"] #app .btn.ghost,
+:root[data-theme="dark"] #app .sidebar-nav-v45 button.active,
+:root[data-theme="dark"] #app .quick-actions-v45 .quick-action-icon,
+:root[data-theme="dark"] #app .course-state-pill,
+:root[data-theme="dark"] #app .mini-chip,
+:root[data-theme="dark"] #app .badge,
+:root[data-theme="dark"] #app .tag,
+:root[data-theme="dark"] #app .pill,
+:root[data-theme="dark"] #app .chip {
+  color: var(--dark-text-strong) !important;
+  -webkit-text-fill-color: var(--dark-text-strong) !important;
+}
+
+:root[data-theme="dark"] #app .btn.reward,
+:root[data-theme="dark"] #app .btn.gold {
+  color: #2f1d00 !important;
+  -webkit-text-fill-color: #2f1d00 !important;
+}
+
+/* Specific branded dark hero / mentor text softened */
+:root[data-theme="dark"] #app .mentor-hero-v45 h1,
+:root[data-theme="dark"] #app .mentor-hero-v45 h2,
+:root[data-theme="dark"] #app .mentor-hero-v45 strong,
+:root[data-theme="dark"] #app .mentor-hero-v45 .mentor-copy-v45 h2,
+:root[data-theme="dark"] #app .mentor-hero-v45 .mentor-card-v45 strong,
+:root[data-theme="dark"] #app .mentor-hero-v45 .mentor-metrics-v45 span,
+:root[data-theme="dark"] #app .mentor-hero-v45 .btn {
+  color: var(--dark-text-strong) !important;
+  -webkit-text-fill-color: var(--dark-text-strong) !important;
+}
+
+:root[data-theme="dark"] #app .mentor-hero-v45 p,
+:root[data-theme="dark"] #app .mentor-hero-v45 small,
+:root[data-theme="dark"] #app .mentor-card-v45 small,
+:root[data-theme="dark"] #app .mentor-card-v45 p {
+  color: var(--dark-text-muted) !important;
+  -webkit-text-fill-color: var(--dark-text-muted) !important;
+}
+
+/* Course and card titles get a slightly brighter but still soft tone */
+:root[data-theme="dark"] #app .course-card h3,
+:root[data-theme="dark"] #app .course-card h4,
+:root[data-theme="dark"] #app .module-card h3,
+:root[data-theme="dark"] #app .module-card h4,
+:root[data-theme="dark"] #app .profile-card h3,
+:root[data-theme="dark"] #app .profile-card h4,
+:root[data-theme="dark"] #app .certificate-card h3,
+:root[data-theme="dark"] #app .payment-card h3,
+:root[data-theme="dark"] #app .progress-card h3,
+:root[data-theme="dark"] #app .sidebar h3,
+:root[data-theme="dark"] #app .topbar h3,
+:root[data-theme="dark"] #app .hero h3 {
+  color: #e9f1fa !important;
+  -webkit-text-fill-color: #e9f1fa !important;
+}
+
+/* Neutralize legacy pure-white inline text only in dark mode */
+:root[data-theme="dark"] #app [style*="color:white"],
+:root[data-theme="dark"] #app [style*="color: white"],
+:root[data-theme="dark"] #app [style*="color:#fff"],
+:root[data-theme="dark"] #app [style*="color: #fff"],
+:root[data-theme="dark"] #app [style*="color:#ffffff"],
+:root[data-theme="dark"] #app [style*="color: #ffffff"] {
+  color: var(--dark-text-strong) !important;
+  -webkit-text-fill-color: var(--dark-text-strong) !important;
+}
+
+/* Keep icon strokes inheriting current, without turning them white */
+:root[data-theme="dark"] #app svg,
+:root[data-theme="dark"] #app .ui-icon {
+  color: currentColor !important;
+  stroke: currentColor !important;
+}

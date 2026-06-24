@@ -1,0 +1,53 @@
+@media (max-width: 980px) {
+  .auth-grid, .content-grid, .module-grid { grid-template-columns: 1fr; }
+  .auth-hero { min-height: auto; }
+  .course-grid, .three-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 700px) {
+  .app-shell { width: min(100% - 18px, 1180px); padding-top: 8px; }
+  .topbar { align-items: flex-start; }
+  .top-stats { width: 100%; justify-content: flex-start; }
+  .brand .muted { display: none; }
+  .course-grid, .two-grid, .three-grid, .form-grid { grid-template-columns: 1fr; }
+  .form-grid .wide { grid-column: auto; }
+  .bottom-nav { grid-template-columns: repeat(3, 1fr); border-radius: 22px; }
+  .bottom-nav button { padding: 8px 4px; }
+  .path-map { padding: 16px; }
+  .node, .node:nth-child(even), .node:nth-child(odd) { width: 100%; transform: none; grid-template-columns: 58px 1fr; }
+  .node-bubble { width: 58px; height: 58px; border-radius: 20px; font-size: 1.5rem; }
+}
+
+@media (max-width: 1100px) {
+  .checkout-shell { grid-template-columns: 1fr; }
+  .checkout-resume { position: relative; top: auto; }
+  .payment-summary-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 860px) {
+  .premium-title { align-items: stretch; }
+  .premium-price-card { width: 100%; }
+  .payment-methods { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topbar { flex-direction: column; align-items: stretch; }
+  .brand { min-width: 0; }
+}
+@media (max-width: 560px) {
+  .auth-logo-lockup { align-items: flex-start; }
+  .auth-logo-lockup img { width: 58px; height: 58px; border-radius: 18px; }
+  .logo-mark { width: 44px; height: 44px; border-radius: 15px; }
+  .h1 { font-size: clamp(2.1rem, 16vw, 3.4rem); }
+  .app-card, .auth-panel, .auth-hero { border-radius: 20px; padding: 16px; }
+  .payment-methods { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .payment-method { min-height: 68px; font-size: .82rem; }
+  .card-preview { min-height: 158px; border-radius: 22px; padding: 16px; }
+  .premium-active-panel { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+  .payment-summary-grid { grid-template-columns: 1fr; width: 100%; }
+  .checkout-total { align-items: flex-start; flex-direction: column; }
+  .course-card { min-height: 245px; }
+}
+@media (max-width: 390px) {
+  .app-shell { width: min(100% - 12px, 1180px); }
+  .bottom-nav { width: calc(100% - 12px); grid-template-columns: repeat(3, 1fr); padding: 6px; gap: 4px; }
+  .bottom-nav button { font-size: .66rem; }
+  .top-stats { gap: 6px; }
+  .stat-pill, .badge { font-size: .72rem; padding: 6px 8px; }
+  .payment-methods { grid-template-columns: 1fr; }
+}

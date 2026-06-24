@@ -1,0 +1,29 @@
+/* V43 · Acceso como invitado */
+.btn.guest {
+  background: linear-gradient(135deg, #facc15, #fb923c) !important;
+  color: #07111f !important;
+  border: 0 !important;
+  box-shadow: 0 12px 26px rgba(251, 146, 60, .26) !important;
+  font-weight: 900 !important;
+}
+
+.btn.guest:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 32px rgba(251, 146, 60, .34) !important;
+}
+
+.mini-chip.guest {
+  background: linear-gradient(135deg, #facc15, #fb923c) !important;
+  color: #07111f !important;
+  border-color: rgba(251, 146, 60, .35) !important;
+}
+
+:root[data-theme="dark"] .btn.guest {
+  background: linear-gradient(135deg, #fde047, #fb923c) !important;
+  color: #06101d !important;
+}
+
+:root[data-theme="dark"] .mini-chip.guest {
+  background: linear-gradient(135deg, #fde047, #fb923c) !important;
+  color: #06101d !important;
+}

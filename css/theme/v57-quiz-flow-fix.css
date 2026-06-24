@@ -1,0 +1,57 @@
+
+/* IMPERIA v57 - Flujo mejorado del quiz final */
+.duo-feedback.show {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+.duo-feedback.show.success {
+  border-color: rgba(16, 185, 129, .38) !important;
+  background: linear-gradient(135deg, rgba(5, 150, 105, .18), rgba(15, 23, 42, .86)) !important;
+}
+
+.duo-feedback.show.danger {
+  border-color: rgba(251, 146, 60, .38) !important;
+  background: linear-gradient(135deg, rgba(251, 146, 60, .16), rgba(15, 23, 42, .86)) !important;
+}
+
+.duo-feedback .btn.pulse-next-v57 {
+  animation: imperiaPulseNextV57 1.05s ease-in-out infinite;
+}
+
+@keyframes imperiaPulseNextV57 {
+  0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 0 rgba(16,185,129,0); }
+  50% { transform: translateY(-1px) scale(1.025); box-shadow: 0 12px 28px rgba(16,185,129,.28); }
+}
+
+.quiz-options-duo .quiz-choice.correct {
+  border-color: #10b981 !important;
+  background: rgba(16, 185, 129, .18) !important;
+  color: #d1fae5 !important;
+}
+
+.quiz-options-duo .quiz-choice.wrong {
+  border-color: #fb7185 !important;
+  background: rgba(251, 113, 133, .16) !important;
+  color: #ffe4e6 !important;
+}
+
+html[data-theme="light"] .quiz-options-duo .quiz-choice.correct,
+body[data-theme="light"] .quiz-options-duo .quiz-choice.correct {
+  color: #065f46 !important;
+  background: #ecfdf5 !important;
+}
+
+html[data-theme="light"] .quiz-options-duo .quiz-choice.wrong,
+body[data-theme="light"] .quiz-options-duo .quiz-choice.wrong {
+  color: #9f1239 !important;
+  background: #fff1f2 !important;
+}
+
+.quiz-result-card.retry .quiz-actions .btn.primary {
+  background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+  color: #fff7ed !important;
+}

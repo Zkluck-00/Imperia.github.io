@@ -1,0 +1,330 @@
+/* V40 · Cobertura total del modo oscuro
+   Objetivo: que ningún texto, control o bloque quede ilegible en dark mode.
+   Todos los cambios están encapsulados para no afectar el modo claro. */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --imp-dark-bg: #07111f;
+  --imp-dark-surface: #0d1a2e;
+  --imp-dark-surface-2: #13233b;
+  --imp-dark-surface-3: #172942;
+  --imp-dark-text: #eef5ff;
+  --imp-dark-text-strong: #ffffff;
+  --imp-dark-muted: #c3d1e9;
+  --imp-dark-soft: #9fb0ca;
+  --imp-dark-line: rgba(148, 163, 184, .28);
+  --imp-dark-line-strong: rgba(148, 163, 184, .38);
+  --imp-dark-accent: #22d3ee;
+  --imp-dark-accent-2: #2dd4bf;
+}
+
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] #app {
+  background:
+    radial-gradient(circle at 0% 0%, rgba(34,211,238,.12), transparent 28rem),
+    radial-gradient(circle at 100% 100%, rgba(139,92,246,.14), transparent 28rem),
+    linear-gradient(180deg, #07111f 0%, #09162a 55%, #06101d 100%) !important;
+  color: var(--imp-dark-text) !important;
+}
+
+/* ---- Superficies generales ---- */
+:root[data-theme="dark"] .app-card,
+:root[data-theme="dark"] .activity-card,
+:root[data-theme="dark"] .course-card,
+:root[data-theme="dark"] .course-list-card,
+:root[data-theme="dark"] .tool-card-mobile,
+:root[data-theme="dark"] .mobile-cert-card,
+:root[data-theme="dark"] .mobile-account-card,
+:root[data-theme="dark"] .profile-info-card,
+:root[data-theme="dark"] .profile-stat-box,
+:root[data-theme="dark"] .home-course-card,
+:root[data-theme="dark"] .quick-action-card,
+:root[data-theme="dark"] .module-item,
+:root[data-theme="dark"] .payment-card,
+:root[data-theme="dark"] .checkout-shell,
+:root[data-theme="dark"] .premium-active-panel,
+:root[data-theme="dark"] .premium-price-card,
+:root[data-theme="dark"] .plan-card,
+:root[data-theme="dark"] .paywall-card,
+:root[data-theme="dark"] .payment-summary-grid > div,
+:root[data-theme="dark"] .access-summary div,
+:root[data-theme="dark"] .attendance-grid > div,
+:root[data-theme="dark"] .wallet-banner,
+:root[data-theme="dark"] .certificate-course-card,
+:root[data-theme="dark"] .certificate-empty-card,
+:root[data-theme="dark"] .certificate-full-card,
+:root[data-theme="dark"] .content-card,
+:root[data-theme="dark"] .lesson-card,
+:root[data-theme="dark"] .practice-card,
+:root[data-theme="dark"] .summary-card,
+:root[data-theme="dark"] .ad-card,
+:root[data-theme="dark"] .error-box,
+:root[data-theme="dark"] .empty-state,
+:root[data-theme="dark"] .profile-summary-card,
+:root[data-theme="dark"] .hero-progress-panel {
+  background: var(--imp-dark-surface) !important;
+  color: var(--imp-dark-text) !important;
+  border-color: var(--imp-dark-line) !important;
+}
+
+/* ---- Tipografía global ---- */
+:root[data-theme="dark"] #app h1,
+:root[data-theme="dark"] #app h2,
+:root[data-theme="dark"] #app h3,
+:root[data-theme="dark"] #app h4,
+:root[data-theme="dark"] #app h5,
+:root[data-theme="dark"] #app h6,
+:root[data-theme="dark"] #app strong,
+:root[data-theme="dark"] #app b,
+:root[data-theme="dark"] #app .h1,
+:root[data-theme="dark"] #app .h2,
+:root[data-theme="dark"] #app .h3 {
+  color: var(--imp-dark-text-strong) !important;
+}
+
+:root[data-theme="dark"] #app p,
+:root[data-theme="dark"] #app span,
+:root[data-theme="dark"] #app small,
+:root[data-theme="dark"] #app label,
+:root[data-theme="dark"] #app li,
+:root[data-theme="dark"] #app .muted,
+:root[data-theme="dark"] #app .small,
+:root[data-theme="dark"] #app .video-note,
+:root[data-theme="dark"] #app .progress-label,
+:root[data-theme="dark"] #app .auth-mobile-note,
+:root[data-theme="dark"] #app .page-copy-block p {
+  color: var(--imp-dark-muted) !important;
+}
+
+:root[data-theme="dark"] #app a,
+:root[data-theme="dark"] #app .link-button,
+:root[data-theme="dark"] #app .kicker {
+  color: #8fdcff !important;
+}
+
+/* ---- Formularios completos ---- */
+:root[data-theme="dark"] #app input,
+:root[data-theme="dark"] #app select,
+:root[data-theme="dark"] #app textarea,
+:root[data-theme="dark"] #app .input,
+:root[data-theme="dark"] #app .select,
+:root[data-theme="dark"] #app .textarea {
+  background: #0a1527 !important;
+  color: var(--imp-dark-text) !important;
+  border: 1px solid var(--imp-dark-line-strong) !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="dark"] #app input::placeholder,
+:root[data-theme="dark"] #app textarea::placeholder {
+  color: var(--imp-dark-soft) !important;
+  opacity: 1 !important;
+}
+
+:root[data-theme="dark"] #app input:focus,
+:root[data-theme="dark"] #app select:focus,
+:root[data-theme="dark"] #app textarea:focus,
+:root[data-theme="dark"] #app .input:focus,
+:root[data-theme="dark"] #app .select:focus,
+:root[data-theme="dark"] #app .textarea:focus {
+  border-color: rgba(34,211,238,.7) !important;
+  box-shadow: 0 0 0 4px rgba(34,211,238,.12) !important;
+}
+
+:root[data-theme="dark"] #app select option,
+:root[data-theme="dark"] #app select optgroup,
+:root[data-theme="dark"] #app .select option,
+:root[data-theme="dark"] #app .select optgroup {
+  background: #0d1a2e !important;
+  color: #eef5ff !important;
+}
+
+:root[data-theme="dark"] #app select option:checked,
+:root[data-theme="dark"] #app .select option:checked {
+  background: #16314f !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] #app select:disabled,
+:root[data-theme="dark"] #app input:disabled,
+:root[data-theme="dark"] #app textarea:disabled,
+:root[data-theme="dark"] #app .btn:disabled {
+  background: #13233b !important;
+  color: #8ea0bb !important;
+  -webkit-text-fill-color: #8ea0bb !important;
+  opacity: 1 !important;
+}
+
+:root[data-theme="dark"] #app input[type="checkbox"] {
+  accent-color: #20d39b;
+}
+
+:root[data-theme="dark"] #app input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.25);
+  opacity: .9;
+}
+
+/* ---- Métodos de pago y checkout ---- */
+:root[data-theme="dark"] .payment-method {
+  background: var(--imp-dark-surface-2) !important;
+  color: var(--imp-dark-text) !important;
+  border: 1px solid var(--imp-dark-line) !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="dark"] .payment-method span,
+:root[data-theme="dark"] .payment-method strong,
+:root[data-theme="dark"] .payment-method .muted,
+:root[data-theme="dark"] .payment-method .small {
+  color: var(--imp-dark-text) !important;
+}
+
+:root[data-theme="dark"] .payment-method .ui-icon,
+:root[data-theme="dark"] .payment-method svg {
+  stroke: #9edcff !important;
+  color: #9edcff !important;
+}
+
+:root[data-theme="dark"] .payment-method:hover,
+:root[data-theme="dark"] .payment-method.active {
+  background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(45,212,191,.12)) !important;
+  border-color: rgba(34,211,238,.55) !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.28) !important;
+}
+
+:root[data-theme="dark"] .payment-method.active .ui-icon,
+:root[data-theme="dark"] .payment-method:hover .ui-icon,
+:root[data-theme="dark"] .payment-method.active svg,
+:root[data-theme="dark"] .payment-method:hover svg {
+  stroke: #bff7ff !important;
+  color: #bff7ff !important;
+}
+
+:root[data-theme="dark"] .wallet-banner,
+:root[data-theme="dark"] .wallet-banner strong,
+:root[data-theme="dark"] .wallet-banner span {
+  color: var(--imp-dark-text) !important;
+}
+
+:root[data-theme="dark"] .wallet-banner.yape {
+  background: rgba(111,226,108,.10) !important;
+  border-color: rgba(111,226,108,.28) !important;
+}
+:root[data-theme="dark"] .wallet-banner.plin {
+  background: rgba(184,140,255,.12) !important;
+  border-color: rgba(184,140,255,.30) !important;
+}
+:root[data-theme="dark"] .wallet-banner.bank {
+  background: rgba(110,231,255,.10) !important;
+  border-color: rgba(110,231,255,.30) !important;
+}
+
+:root[data-theme="dark"] .secure-line {
+  background: rgba(16, 185, 129, .10) !important;
+  border-color: rgba(16, 185, 129, .25) !important;
+  color: #d7fff3 !important;
+}
+
+:root[data-theme="dark"] .payment-summary-grid > div strong,
+:root[data-theme="dark"] .access-summary div strong,
+:root[data-theme="dark"] .attendance-grid > div strong {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .badge,
+:root[data-theme="dark"] .tag,
+:root[data-theme="dark"] .mini-chip,
+:root[data-theme="dark"] .course-state-pill,
+:root[data-theme="dark"] .status-chip {
+  background: #14233b !important;
+  color: #e6f0ff !important;
+  border-color: var(--imp-dark-line) !important;
+}
+
+:root[data-theme="dark"] .badge.lock {
+  background: #1a2b44 !important;
+  color: #eaf2ff !important;
+  white-space: nowrap !important;
+  min-width: max-content !important;
+}
+
+:root[data-theme="dark"] .btn.ghost {
+  background: rgba(255,255,255,.08) !important;
+  color: #e6eefc !important;
+  border-color: var(--imp-dark-line) !important;
+}
+
+/* ---- Quiz y cajas especiales ---- */
+:root[data-theme="dark"] .question-option,
+:root[data-theme="dark"] .quiz-choice {
+  background: #13233b !important;
+  color: #eef5ff !important;
+  border: 1px solid rgba(148,163,184,.28) !important;
+}
+
+:root[data-theme="dark"] .question-option:hover,
+:root[data-theme="dark"] .quiz-choice:hover {
+  background: #19314e !important;
+  color: #ffffff !important;
+}
+
+/* ---- Barra inferior y textos dentro ---- */
+:root[data-theme="dark"] .figma-bottom-nav {
+  background: rgba(5, 14, 28, .98) !important;
+  border: 1px solid rgba(148, 163, 184, .26) !important;
+  box-shadow: 0 -12px 34px rgba(0, 0, 0, .55) !important;
+}
+
+:root[data-theme="dark"] .figma-bottom-nav button {
+  color: #b5c3df !important;
+}
+
+:root[data-theme="dark"] .figma-bottom-nav button small,
+:root[data-theme="dark"] .figma-bottom-nav button span {
+  color: inherit !important;
+}
+
+:root[data-theme="dark"] .figma-bottom-nav button .ui-icon,
+:root[data-theme="dark"] .figma-bottom-nav button svg {
+  stroke: currentColor !important;
+  color: currentColor !important;
+}
+
+:root[data-theme="dark"] .figma-bottom-nav button.active {
+  background: linear-gradient(135deg, #22d3ee, #20d39b) !important;
+  color: #031827 !important;
+}
+
+/* ---- Certificados / perfil / detalles ---- */
+:root[data-theme="dark"] .certificate-preview,
+:root[data-theme="dark"] .certificate {
+  background: #0e223d !important;
+  border-color: var(--imp-dark-line) !important;
+  color: var(--imp-dark-text) !important;
+}
+
+:root[data-theme="dark"] .certificate-label,
+:root[data-theme="dark"] .certificate-code {
+  color: #9fdcff !important;
+}
+
+:root[data-theme="dark"] .profile-info-card .ui-icon,
+:root[data-theme="dark"] .tool-icon .ui-icon,
+:root[data-theme="dark"] .quick-action-icon .ui-icon,
+:root[data-theme="dark"] .module-icon .ui-icon,
+:root[data-theme="dark"] .certificate-empty-icon .ui-icon {
+  stroke: #7dd3fc !important;
+}
+
+/* ---- Errores, overlays y textos críticos ---- */
+:root[data-theme="dark"] .error-box {
+  background: rgba(127, 29, 29, .22) !important;
+  border-color: rgba(248, 113, 113, .34) !important;
+  color: #ffd5d5 !important;
+}
+
+:root[data-theme="dark"] .payment-card.is-processing::after {
+  background: rgba(7,11,34,.82) !important;
+  color: #ffffff !important;
+}

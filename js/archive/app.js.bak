@@ -1,0 +1,1259 @@
+const App = (() => {
+  const validViews = ["home", "courses", "activities", "store", "premium", "profile"];
+  const initialView = validViews.includes((location.hash || "").replace("#", ""))
+    ? location.hash.replace("#", "")
+    : "home";
+
+  const state = {
+    view: initialView,
+    authMode: "login",
+    selectedCourse: null,
+    selectedModule: null,
+    quizCourse: null,
+    answers: {},
+    checkoutMethod: "card",
+    paymentProcessing: false
+  };
+
+  const $ = (selector) => document.querySelector(selector);
+  const app = () => $("#app");
+  const esc = (value = "") => String(value).replace(/[&<>'"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[c]));
+  const pct = (num, den) => den ? Math.round((num / den) * 100) : 0;
+  const today = () => new Date().toISOString().slice(0, 10);
+  const firstName = (user) => (user?.fullName || "Usuario").split(" ")[0];
+  const randomQuote = () => IMPERIA_DATA.quotes[new Date().getDate() % IMPERIA_DATA.quotes.length];
+
+  const iconSvg = (name, cls = "") => `<svg class="ui-icon ${cls}" aria-hidden="true"><use href="#i-${name}"></use></svg>`;
+  const iconName = (value) => ({
+    "badge-check":"check","x":"x","💸":"wallet","🏦":"bank","📊":"chart","📈":"trend","🚀":"rocket","🏛️":"landmark","🧠":"brain","📖":"book","⚡":"bolt","🥼":"shirt","🤵":"briefcase","📱":"phone","🦙":"paw","🌆":"city","🦅":"bird","👑":"crown","✅":"check","🔒":"lock","🎮":"gamepad","🎓":"graduation","⭐":"star","🪙":"coins","🔥":"flame","❤️":"heart","💚":"heart","📘":"book","📚":"book","🛒":"shopping","👤":"user","🗺️":"map","📣":"megaphone","💳":"card","🟣":"wallet","🧾":"receipt"
+  }[value] || value || "brain");
+  const icon = (value, cls = "") => iconSvg(iconName(value), cls);
+  const iconSprite = () => `<svg class="icon-sprite" aria-hidden="true" focusable="false" width="0" height="0"><defs>
+    <symbol id="i-brain" viewBox="0 0 24 24"><path d="M9 4a4 4 0 0 0-4 4v1a4 4 0 0 0 0 8 4 4 0 0 0 7 2 4 4 0 0 0 7-2 4 4 0 0 0 0-8V8a4 4 0 0 0-7-2 4 4 0 0 0-3-2Z"/><path d="M12 6v13M8 10h4m0 4h4"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 7h15a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h13"/><path d="M16 13h5"/></symbol>
+    <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 10h18L12 4 3 10Z"/><path d="M5 10v8m4-8v8m6-8v8m4-8v8M4 20h16"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16v-5m4 5V8m4 8v-7"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="M4 17 10 11l4 4 6-8"/><path d="M15 7h5v5"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M14 4c3 1 5 3 6 6l-7 7-6-6 7-7Z"/><path d="M8 16 4 20l1-5M13 17l-1 4 4-4M15 9h.01"/></symbol>
+    <symbol id="i-landmark" viewBox="0 0 24 24"><path d="M3 10h18L12 4 3 10Z"/><path d="M5 10v9m4-9v9m6-9v9m4-9v9M3 21h18"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a3 3 0 0 1 3-3h13v17H7a3 3 0 0 0-3 3V5Z"/><path d="M4 19a3 3 0 0 1 3-3h13"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="m13 2-9 13h7l-1 7 10-14h-7l0-6Z"/></symbol>
+    <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 4 4 6l2 5 2-1v10h8V10l2 1 2-5-4-2-4 3-4-3Z"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M9 6V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1"/><path d="M4 7h16v12H4z"/><path d="M4 12h16"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+    <symbol id="i-paw" viewBox="0 0 24 24"><path d="M12 13c3 0 6 4 4 7H8c-2-3 1-7 4-7Z"/><path d="M5 10c-2-2 1-5 3-3s-1 5-3 3Zm11-3c2-2 5 1 3 3s-5-1-3-3ZM9 6c0-3 4-3 4 0s-4 3-4 0Z"/></symbol>
+    <symbol id="i-city" viewBox="0 0 24 24"><path d="M4 20V8h6v12M14 20V4h6v16M2 20h20"/><path d="M7 11h.01M7 15h.01M17 8h.01M17 12h.01M17 16h.01"/></symbol>
+    <symbol id="i-bird" viewBox="0 0 24 24"><path d="M4 12c5-6 10-6 16-2-5 1-8 4-10 9-1-3-3-5-6-7Z"/><path d="M15 9c1-2 3-3 5-3"/></symbol>
+    <symbol id="i-crown" viewBox="0 0 24 24"><path d="M4 18h16l1-10-5 4-4-7-4 7-5-4 1 10Z"/><path d="M5 21h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-gamepad" viewBox="0 0 24 24"><path d="M7 8h10a5 5 0 0 1 4 8l-1 2a2 2 0 0 1-3 0l-1-2H8l-1 2a2 2 0 0 1-3 0l-1-2a5 5 0 0 1 4-8Z"/><path d="M8 12h4M10 10v4M17 12h.01"/></symbol>
+    <symbol id="i-graduation" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 12v4c3 3 9 3 12 0v-4"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 3 6 6 1-4.5 4.5 1 6.5-5.5-3.2L6.5 21l1-6.5L3 10l6-1 3-6Z"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><path d="M12 6c0 2-3 4-7 4s-7-2-7-4 3-4 7-4 7 2 7 4Z" transform="translate(2 2)"/><path d="M4 12c0 2 3 4 7 4s7-2 7-4M4 16c0 2 3 4 7 4s7-2 7-4"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 22c-4 0-7-3-7-7 0-4 4-7 5-12 4 3 7 6 7 12 1-1 2-3 2-5 2 2 3 4 3 7 0 3-3 5-6 5"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20 5c-2-2-5-2-8 1-3-3-6-3-8-1-3 3-1 8 8 15 9-7 11-12 8-15Z"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3Z"/><path d="M9 3v15M15 6v15"/></symbol>
+    <symbol id="i-shopping" viewBox="0 0 24 24"><path d="M6 7h15l-2 9H8L6 7Z"/><path d="M6 7 5 3H2"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="8" r="4"/></symbol>
+    <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M4 14h4l10 4V6L8 10H4v4Z"/><path d="m8 14 2 6"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+  </defs></svg>`;
+
+  const toast = (message) => {
+    const el = $("#toast");
+    el.textContent = message;
+    el.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => el.classList.remove("show"), 3200);
+  };
+
+  const courseProgress = (user, course) => {
+    const progress = user?.progress || ImperiaStore.makeProgress();
+    const done = course.modules.filter(m => progress.completedModules.includes(`${course.id}:${m.id}`)).length;
+    return { done, total: course.modules.length, percent: pct(done, course.modules.length), completed: progress.completedCourses.includes(course.id) };
+  };
+
+  const canAccessCourse = (user, course) => course.plan === "free" || ImperiaStore.hasPremium(user) || ImperiaStore.hasCourseAccess(user, course.id);
+
+  const render = () => {
+    const user = ImperiaStore.currentUser();
+    if (!user) return renderAuth();
+    renderApp(user);
+  };
+
+  const renderAuth = () => {
+    app().className = "auth-shell";
+    app().innerHTML = iconSprite() + `
+      <section class="auth-grid">
+        <aside class="auth-hero">
+          <div>
+            <div class="auth-logo-lockup"><img src="./img/LogoActual.png" alt="Logo IMPERIA" /><div><div class="badge premium">${icon("🏛️")} IMPERIA Pro</div><p class="muted small">Academia financiera gamificada</p></div></div>
+            <h1 class="h1">Construye tu futuro financiero.</h1>
+            <p class="muted">Una experiencia educativa con cursos, quizzes, prácticas, videos externos atribuidos, rachas, monedas y mentor virtual.</p>
+            <div class="row" style="margin-top:18px">
+              <span class="badge base">3 cursos base</span>
+              <span class="badge premium">3 cursos premium</span>
+              <span class="badge">Datos en navegador</span>
+            </div>
+          </div>
+          <div class="einstein-card app-card">
+            <div class="row">
+              <div class="avatar">${icon("brain")}</div>
+              <div class="stack" style="flex:1">
+                <strong>Einstein IMPERIA</strong>
+                <div class="speech">Primero crearemos tu cuenta y luego diseñaremos tu ruta financiera personalizada.</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <section class="auth-panel">
+          <div class="tabs" aria-label="Autenticación">
+            <button class="${state.authMode === "login" ? "active" : ""}" data-auth-mode="login">Iniciar sesión</button>
+            <button class="${state.authMode === "register" ? "active" : ""}" data-auth-mode="register">Crear cuenta</button>
+          </div>
+          <div class="hr"></div>
+          ${state.authMode === "login" ? loginForm() : registerForm()}
+        </section>
+      </section>`;
+    bindAuth();
+  };
+
+  const loginForm = () => `
+    <form id="loginForm" class="stack" novalidate>
+      <div>
+        <div class="kicker">Acceso obligatorio</div>
+        <h2 class="h2">Entra a tu academia</h2>
+        <p class="muted small">Para simular un sistema real, no se muestra la plataforma hasta iniciar sesión.</p>
+      </div>
+      <div id="loginErrors" class="error-box"></div>
+      <div class="field">
+        <label for="loginEmail">Correo electrónico o celular</label>
+        <input class="input" id="loginEmail" autocomplete="username" required placeholder="tu@email.com o 9XXXXXXXX" />
+      </div>
+      <div class="field">
+        <label for="loginPassword">Contraseña</label>
+        <input class="input" id="loginPassword" type="password" autocomplete="current-password" required placeholder="Tu contraseña" />
+      </div>
+      <label class="row small muted"><input type="checkbox" checked /> Mantener sesión en este navegador</label>
+      <button class="btn primary full" type="submit">Ingresar a IMPERIA</button>
+      <button class="btn ghost full" type="button" data-auth-mode="register">Crear una cuenta nueva</button>
+    </form>`;
+
+  const registerForm = () => `
+    <form id="registerForm" class="stack" novalidate>
+      <div>
+        <div class="kicker">Registro profesional</div>
+        <h2 class="h2">Crea tu cuenta y empieza</h2>
+        <p class="muted small">Puedes registrarte con correo y celular. Todos empiezan en el nivel gratuito con vidas y anuncios simulados.</p>
+      </div>
+      <div id="registerErrors" class="error-box"></div>
+      <div class="form-grid">
+        <div class="field wide">
+          <label for="fullName">Nombre completo</label>
+          <input class="input" id="fullName" required minlength="6" placeholder="Nombres y apellidos" />
+        </div>
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input class="input" id="email" type="email" required placeholder="tu@email.com" />
+        </div>
+        <div class="field">
+          <label for="phone">Número de celular</label>
+          <input class="input" id="phone" inputmode="numeric" maxlength="9" required placeholder="9XXXXXXXX" />
+        </div>
+        <div class="field">
+          <label for="birthdate">Fecha de nacimiento</label>
+          <input class="input" id="birthdate" type="date" required />
+        </div>
+        <div class="field">
+          <label for="region">Ciudad o región</label>
+          <select class="select" id="region" required>${IMPERIA_DATA.regions.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join("")}</select>
+        </div>
+        <div class="field">
+          <label for="userType">Tipo de usuario</label>
+          <select class="select" id="userType" required>${IMPERIA_DATA.userTypes.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join("")}</select>
+        </div>
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <input class="input" id="password" type="password" autocomplete="new-password" required placeholder="Mín. 8, mayúscula, número y símbolo" />
+          <div class="password-meter"><span id="passwordMeter"></span></div>
+        </div>
+        <div class="field">
+          <label for="confirmPassword">Confirmar contraseña</label>
+          <input class="input" id="confirmPassword" type="password" autocomplete="new-password" required placeholder="Repite la contraseña" />
+        </div>
+        <div class="field">
+          <label for="knowledge">¿Cuánto sabes de finanzas?</label>
+          <select class="select" id="knowledge"><option>Estoy empezando</option><option>Sé lo básico</option><option>Tengo experiencia</option></select>
+        </div>
+        <div class="field">
+          <label for="dailyTime">Tiempo disponible al día</label>
+          <select class="select" id="dailyTime"><option>5 minutos</option><option>10 minutos</option><option>15 minutos</option><option>30 minutos</option></select>
+        </div>
+        <div class="field wide">
+          <label for="goal">Objetivo principal</label>
+          <select class="select" id="goal"><option>Ahorrar mejor</option><option>Ordenar mis gastos</option><option>Emprender</option><option>Invertir en el futuro</option><option>Mejorar mi negocio</option></select>
+        </div>
+        <div class="field wide">
+          <label>Temas de interés</label>
+          <div class="chip-list">${IMPERIA_DATA.interests.map(i => `<label class="tag"><input type="checkbox" name="interests" value="${esc(i)}" /> ${esc(i)}</label>`).join("")}</div>
+        </div>
+        <label class="row small muted wide"><input id="terms" type="checkbox" required /> Acepto términos, uso local de datos del navegador y reproducción de videos desde YouTube.</label>
+      </div>
+      <button class="btn primary full" type="submit">Crear cuenta y empezar</button>
+    </form>`;
+
+  const bindAuth = () => {
+    document.querySelectorAll("[data-auth-mode]").forEach(btn => btn.addEventListener("click", () => {
+      state.authMode = btn.dataset.authMode;
+      renderAuth();
+    }));
+
+    const password = $("#password");
+    if (password) password.addEventListener("input", () => updatePasswordMeter(password.value));
+
+    const login = $("#loginForm");
+    if (login) login.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      showErrors("loginErrors", []);
+      try {
+        await ImperiaStore.login($("#loginEmail").value, $("#loginPassword").value);
+        toast("Bienvenido de vuelta a IMPERIA.");
+        state.view = "home";
+        render();
+      } catch (error) {
+        showErrors("loginErrors", [error.message]);
+      }
+    });
+
+    const register = $("#registerForm");
+    if (register) register.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const payload = collectRegisterPayload();
+      const errors = validateRegister(payload);
+      showErrors("registerErrors", errors);
+      if (errors.length) return;
+      try {
+        await ImperiaStore.createAccount(payload);
+        toast("Cuenta creada. Plan Base activado.");
+        state.view = "home";
+        render();
+      } catch (error) {
+        showErrors("registerErrors", [error.message]);
+      }
+    });
+  };
+
+  const collectRegisterPayload = () => ({
+    fullName: $("#fullName").value,
+    email: $("#email").value,
+    phone: $("#phone").value,
+    birthdate: $("#birthdate").value,
+    region: $("#region").value,
+    userType: $("#userType").value,
+    password: $("#password").value,
+    confirmPassword: $("#confirmPassword").value,
+    knowledge: $("#knowledge").value,
+    dailyTime: $("#dailyTime").value,
+    goal: $("#goal").value,
+    interests: Array.from(document.querySelectorAll("input[name='interests']:checked")).map(i => i.value),
+    terms: $("#terms").checked
+  });
+
+  const validateRegister = (p) => {
+    const errors = [];
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!p.fullName.trim() || p.fullName.trim().split(/\s+/).length < 2) errors.push("Ingresa nombre y apellido.");
+    if (!emailRegex.test(p.email)) errors.push("Ingresa un correo válido.");
+    if (!/^9\d{8}$/.test((p.phone || "").replace(/\D/g, ""))) errors.push("Ingresa un celular peruano válido de 9 dígitos.");
+    if (!p.birthdate || age(p.birthdate) < 13) errors.push("Debes tener al menos 13 años para usar esta demo educativa.");
+    if (passwordScore(p.password) < 4) errors.push("La contraseña debe tener mínimo 8 caracteres, mayúscula, minúscula, número y símbolo.");
+    if (p.password.toLowerCase().includes(p.email.split("@")[0].toLowerCase())) errors.push("La contraseña no debe contener tu correo o usuario.");
+    if (p.password !== p.confirmPassword) errors.push("Las contraseñas no coinciden.");
+    if (!p.terms) errors.push("Debes aceptar los términos de uso local y contenido externo.");
+    return errors;
+  };
+
+  const age = (date) => {
+    const birth = new Date(date);
+    const now = new Date();
+    let years = now.getFullYear() - birth.getFullYear();
+    const m = now.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) years--;
+    return years;
+  };
+
+  const passwordScore = (value) => {
+    let score = 0;
+    if ((value || "").length >= 8) score++;
+    if (/[a-z]/.test(value)) score++;
+    if (/[A-Z]/.test(value)) score++;
+    if (/\d/.test(value)) score++;
+    if (/[^A-Za-z0-9]/.test(value)) score++;
+    return score;
+  };
+
+  const updatePasswordMeter = (value) => {
+    const score = passwordScore(value);
+    const el = $("#passwordMeter");
+    if (!el) return;
+    el.style.width = `${Math.min(100, score * 20)}%`;
+    el.style.background = score >= 5 ? "var(--success)" : score >= 3 ? "var(--warning)" : "var(--danger)";
+  };
+
+  const showErrors = (id, errors) => {
+    const box = $(`#${id}`);
+    if (!box) return;
+    box.classList.toggle("show", errors.length > 0);
+    box.innerHTML = errors.map(e => `<div>• ${esc(e)}</div>`).join("");
+  };
+
+  const renderApp = (user) => {
+    app().className = "app-shell";
+    app().innerHTML = iconSprite() + `
+      <header class="app-header">
+        <div class="topbar">
+          <div class="brand">
+            <div class="logo-mark"><img src="./img/LogoActual.png" alt="Logo IMPERIA"></div>
+            <div>
+              <strong>IMPERIA</strong>
+              <div class="muted small">Educación financiera gamificada</div>
+            </div>
+          </div>
+          <div class="top-stats">
+            <span class="stat-pill user-pill">${avatarFor(user)} ${esc(firstName(user))}</span>
+            <span class="stat-pill">${icon("star")} ${user.xp || 0} XP</span>
+            <span class="stat-pill">${icon("coins")} ${user.coins || 0}</span>
+            <span class="stat-pill">${icon("flame")} ${user.progress?.streak || 1}</span>
+            ${lifePill(user)}
+            ${ImperiaStore.hasPremium(user)
+              ? `<span class="status-chip premium">${icon("crown")} Suscripción activa</span>`
+              : `<button class="btn compact premium-cta" type="button" data-view="premium">Suscribirme</button>`}
+          </div>
+        </div>
+      </header>
+      ${route(user)}
+      ${nav()}`;
+    bindApp(user);
+  };
+
+  const nav = () => {
+    const items = [
+      ["home", "map", "Inicio"], ["courses", "book", "Cursos"], ["activities", "gamepad", "Retos"],
+      ["store", "shopping", "Tienda"], ["premium", "crown", "Premium"], ["profile", "user", "Perfil"]
+    ];
+    return `<nav class="bottom-nav">${items.map(([view, icon, label]) => `<button class="${state.view === view ? "active" : ""}" data-view="${view}"><span>${iconSvg(icon)}</span>${label}</button>`).join("")}</nav>`;
+  };
+
+  const route = (user) => {
+    if (state.quizCourse) return renderFullQuiz(user, state.quizCourse);
+    if (state.selectedModule) return renderModulePage(user, state.selectedCourse, state.selectedModule);
+    if (state.selectedCourse) return renderCourseDetail(user, state.selectedCourse);
+    return ({ home: renderHome, courses: renderCourses, activities: renderActivities, store: renderStore, premium: renderPremium, profile: renderProfile }[state.view] || renderHome)(user);
+  };
+
+  const einsteinAvatar = (user, mood = "happy") => {
+    const item = IMPERIA_DATA.storeItems.find(i => i.id === user.progress?.equippedItem);
+    const planClass = ImperiaStore.hasPremium(user) ? "premium" : "base";
+    const accessory = icon(item?.icon || "brain", "einstein-accessory-icon");
+    return `<div class="einstein-avatar ${planClass} mood-${mood}" aria-label="Einstein IMPERIA animado">
+      <div class="einstein-glow"></div>
+      <div class="einstein-head">
+        <span class="hair hair-left"></span><span class="hair hair-top"></span><span class="hair hair-right"></span>
+        <span class="brow brow-left"></span><span class="brow brow-right"></span>
+        <span class="eye eye-left"></span><span class="eye eye-right"></span>
+        <span class="nose"></span><span class="mustache"></span><span class="mouth"></span>
+      </div>
+      <div class="einstein-body"><span class="tie"></span></div>
+      <div class="einstein-orbit orbit-one">${icon("star")}</div>
+      <div class="einstein-orbit orbit-two">${accessory}</div>
+      <div class="einstein-shadow"></div>
+    </div>`;
+  };
+
+  const avatarFor = (user) => einsteinAvatar(user, "happy");
+
+  const lifePill = (user) => {
+    const lives = ImperiaStore.livesToday(user);
+    return lives.unlimited
+      ? `<span class="stat-pill infinity">${icon("heart")} Vidas ∞</span>`
+      : `<span class="stat-pill hearts">${icon("heart")} ${lives.value}/${lives.max}</span>`;
+  };
+
+  const planRibbon = (user) => `<div class="plan-ribbon">
+    <div class="plan-tile"><strong>${icon("gamepad")} Nivel Gratuito</strong><span>Juega, gana vidas y desbloquea clases básicas con anuncios.</span></div>
+    <div class="plan-tile"><strong>${icon("graduation")} Pago por curso · S/ 80</strong><span>Acceso directo, asistencia Zoom, materiales y certificado oficial demo.</span></div>
+    <div class="plan-tile"><strong>${icon("crown")} Suscripción · S/ 35</strong><span>Sin anuncios, vidas ilimitadas y tienda completa de avatares.</span></div>
+  </div>`;
+
+  const renderHome = (user) => {
+    const completed = user.progress?.completedCourses?.length || 0;
+    const totalModules = IMPERIA_DATA.courses.reduce((sum, course) => sum + course.modules.length, 0);
+    const doneModules = user.progress?.completedModules?.length || 0;
+    return `
+      <section class="content-grid">
+        <div>
+          <div class="page-title">
+            <div>
+              <div class="kicker">Ruta personalizada</div>
+              <h1 class="h2">Hola, ${esc(firstName(user))}. Continúa tu aventura financiera.</h1>
+            </div>
+            <button class="btn primary" type="button" data-view="courses">Ver cursos</button>
+          </div>
+          ${planRibbon(user)}
+          <div class="reward-strip">
+            <div class="reward-box">${icon("star")} ${user.xp || 0}<br><span class="muted small">XP</span></div>
+            <div class="reward-box">${icon("coins")} ${user.coins || 0}<br><span class="muted small">Coins</span></div>
+            <div class="reward-box">${icon("flame")} ${user.progress?.streak || 1}<br><span class="muted small">Racha</span></div>
+            <div class="reward-box">${icon("heart")} ${ImperiaStore.livesToday(user).value}<br><span class="muted small">Vidas</span></div>
+            <div class="reward-box">${icon("book")} ${doneModules}/${totalModules}<br><span class="muted small">Clases</span></div>
+          </div>
+          <div class="path-map">
+            ${IMPERIA_DATA.courses.map((course, index) => mapNode(user, course, index)).join("")}
+          </div>
+          ${!ImperiaStore.hasPremium(user) ? adCard() : ""}
+        </div>
+        <aside class="stack">
+          <div class="app-card einstein-card">
+            <div class="row"><div class="avatar">${avatarFor(user)}</div><div><div class="kicker">Mentor</div><h3 class="h3">Einstein IMPERIA</h3></div></div>
+            <div class="speech" style="margin-top:16px">${esc(randomQuote())}</div>
+          </div>
+          <div class="app-card">
+            <div class="between"><h3 class="h3">Tu nivel</h3><span class="badge">Nivel ${user.level || 1}</span></div>
+            <p class="muted small">${esc(ImperiaStore.levelName(user.level || 1))}</p>
+            <div class="progress-track"><span style="width:${Math.min(100, pct((user.xp || 0) % 300, 300))}%"></span></div>
+          </div>
+          <div class="app-card">
+            <div class="between"><h3 class="h3">Misiones diarias</h3><span class="badge">Hoy</span></div>
+            <div class="stack" style="margin-top:12px">${IMPERIA_DATA.missions.map(m => missionItem(user, m)).join("")}</div>
+          </div>
+          <div class="app-card">
+            <h3 class="h3">Resumen</h3>
+            <p class="muted small">Cursos completados: ${completed}/${IMPERIA_DATA.courses.length}</p>
+            <p class="muted small">Objetivo: ${esc(user.goal)}</p>
+            <p class="muted small">Tiempo diario: ${esc(user.dailyTime)}</p>
+          </div>
+        </aside>
+      </section>`;
+  };
+
+  const mapNode = (user, course, index) => {
+    const access = canAccessCourse(user, course);
+    const progress = courseProgress(user, course);
+    const previousDone = index === 0 || courseProgress(user, IMPERIA_DATA.courses[index - 1]).percent >= 100;
+    const status = progress.completed ? "done" : access && previousDone ? "available" : "locked";
+    const nodeIcon = progress.completed ? "✅" : status === "available" ? course.icon : "🔒";
+    const label = course.plan === "premium" ? "Premium" : "Gratuito";
+    const action = status === "locked"
+      ? `<button class="btn ghost compact" type="button" data-view="${course.plan === "premium" ? "premium" : "courses"}">${course.plan === "premium" ? "Ver Premium" : "Bloqueado"}</button>`
+      : `<button class="btn primary compact" type="button" data-course="${course.id}">Continuar</button>`;
+    return `<div class="node ${status}">
+      <div class="node-bubble">${icon(nodeIcon)}</div>
+      <div class="node-card">
+        <div class="between node-head"><strong>${esc(course.world)} · ${esc(course.title)}</strong><span class="badge ${course.plan === "premium" ? "premium" : "base"}">${label}</span></div>
+        <p class="muted small">${esc(course.summary)}</p>
+        <div class="between node-action"><div class="progress-track"><span style="width:${progress.percent}%"></span></div>${action}</div>
+      </div>
+    </div>`;
+  };
+
+  const missionItem = (user, mission) => {
+    const done = !!(user.progress?.missions?.[today()] || []).includes(mission.id);
+    return `<div class="module-item">
+      <div class="module-icon">${icon(mission.icon)}</div><div><strong>${esc(mission.title)}</strong><div class="muted small">+${mission.rewardXp} XP · +${mission.rewardCoins} monedas</div></div>
+      <button class="btn ${done ? "ghost" : "gold"}" type="button" data-mission="${mission.id}" ${done ? "disabled" : ""}>${done ? "Hecha" : "Cobrar"}</button>
+    </div>`;
+  };
+
+  const adCard = () => `<div class="ad-card section"><strong>${icon("megaphone")} Anuncio educativo simulado</strong><p class="muted small">En Premium esta zona desaparece. Es solo una simulación visual dentro del navegador.</p></div>`;
+
+  const renderCourses = (user) => `
+    <section class="section courses-pro-screen" data-aos="fade-up">
+      <div class="page-title">
+        <div><div class="kicker">Academia IMPERIA · Perú</div><h1 class="h2">4 cursos gratuitos oficiales</h1><p class="muted">Ruta enfocada en finanzas personales, sistema financiero peruano, historial crediticio e inversión responsable.</p></div>
+      </div>
+      <div class="skeleton-grid" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="course-grid loaded-courses">${IMPERIA_DATA.courses.map(course => courseCard(user, course)).join("")}</div>
+      ${!ImperiaStore.hasPremium(user) ? adCard() : ""}
+    </section>`;
+
+  const courseCard = (user, course) => {
+    const progress = courseProgress(user, course);
+    const locked = !canAccessCourse(user, course);
+    const purchasable = course.plan !== "free" && !ImperiaStore.hasCourseAccess(user, course.id);
+    const label = course.plan === "free" ? "Gratuito" : ImperiaStore.hasCourseAccess(user, course.id) ? "Comprado" : "S/ 80";
+    return `<article class="app-card course-card pro-elevate ${locked ? "locked" : ""}" data-aos="zoom-in">
+      <div>
+        <div class="between"><div class="course-icon">${icon(course.icon)}</div><span class="badge ${course.plan === "premium" ? "premium" : "base"}">${label}</span></div>
+        <h3>${esc(course.title)}</h3>
+        <p class="muted small">${esc(course.summary)}</p>
+        <div class="chip-list"><span class="tag">${esc(course.level)}</span><span class="tag">${esc(course.duration)}</span><span class="tag">${course.modules.length} clases</span></div>
+      </div>
+      <div class="stack">
+        <div class="progress-track"><span style="width:${progress.percent}%"></span></div>
+        <button class="btn ${locked ? "purple" : "primary"} full" type="button" data-course="${course.id}">${locked ? "Comprar / Suscribirme" : "Entrar"}</button>
+      </div>
+      ${locked ? `<div class="lock-overlay"><div class="stack"><div class="lock-big">${icon("lock")}</div><strong>Contenido Premium</strong><p class="muted small">Compra este curso por S/ 80 o actívalo con suscripción mensual.</p><button class="btn gold full" type="button" data-buy-course="${course.id}">Simular pago S/ 80</button><button class="btn purple full" type="button" data-view="premium">Ver suscripción</button></div></div>` : ""}
+    </article>`;
+  };
+
+  const renderCourseDetail = (user, courseId) => {
+    const course = IMPERIA_DATA.courses.find(c => c.id === courseId);
+    if (!course) return notFound();
+    if (!canAccessCourse(user, course)) return renderPremium(user);
+    const progress = courseProgress(user, course);
+    const detailLabel = course.plan === "free" ? "Gratuito" : ImperiaStore.hasCourseAccess(user, course.id) ? "Curso comprado" : ImperiaStore.hasPremium(user) ? "Suscripción" : "S/ 80";
+    return `<section class="section">
+      <button class="btn ghost" type="button" data-back="courses">← Volver a cursos</button>
+      <div class="page-title">
+        <div>
+          <div class="kicker">${esc(course.world)} · ${esc(course.level)}</div>
+          <h1 class="h2 course-title-icon">${icon(course.icon)} ${esc(course.title)}</h1>
+          <p class="muted">${esc(course.summary)}</p>
+        </div>
+        <span class="badge ${course.plan === "premium" ? "premium" : "base"}">${detailLabel}</span>
+      </div>
+      <div class="module-grid">
+        <div class="app-card">
+          <div class="between"><h3 class="h3">Clases del curso</h3><span class="badge">${progress.done}/${progress.total}</span></div>
+          <div class="progress-track" style="margin:12px 0 18px"><span style="width:${progress.percent}%"></span></div>
+          <div class="module-list">${course.modules.map((m, index) => moduleRow(user, course, m, index)).join("")}</div>
+        </div>
+        <aside class="stack">
+          <div class="app-card">
+            <h3 class="h3">Video principal</h3>
+            ${videoEmbed(course.video.id, course.video.author)}
+            <p class="video-note">${esc(course.video.title)} · Crédito: ${esc(course.video.author)}.</p>
+          </div>
+          <div class="app-card attendance-card">
+            <h3 class="h3">Control de asistencia demo</h3>
+            <div class="attendance-grid"><div><strong>Zoom</strong><br><span class="muted small">Ingreso registrado localmente</span></div><div><strong>Máx. 2 faltas</strong><br><span class="muted small">3 faltas bloquean acceso demo</span></div><div><strong>Grabaciones</strong><br><span class="muted small">Disponibles 30 días</span></div></div>
+          </div>
+          <div class="app-card">
+            <h3 class="h3">Recompensa</h3>
+            <p class="muted small">Al completar el curso: +${course.xp} XP, +${course.coins} ImperiaCoins y certificado local.</p>
+            <button class="btn gold full" type="button" data-start-course-quiz="${course.id}">${icon("bolt")} Iniciar quiz final</button>
+          </div>
+        </aside>
+      </div>
+    </section>`;
+  };
+
+  const moduleRow = (user, course, module, index) => {
+    const done = user.progress?.completedModules?.includes(`${course.id}:${module.id}`);
+    const previousDone = index === 0 || user.progress?.completedModules?.includes(`${course.id}:${course.modules[index - 1].id}`);
+    const locked = !previousDone;
+    return `<div class="module-item">
+      <div class="module-icon">${icon(done ? "✅" : locked ? "🔒" : "📘")}</div>
+      <div><strong>${esc(module.title)}</strong><div class="muted small">${esc(module.type)} · ${module.minutes} min</div></div>
+      <button class="btn ${done ? "ghost" : "primary"}" type="button" data-module="${module.id}" ${locked ? "disabled" : ""}>${done ? "Revisar" : locked ? "Bloqueada" : "Abrir"}</button>
+    </div>`;
+  };
+
+  const renderModulePage = (user, courseId, moduleId) => {
+    const course = IMPERIA_DATA.courses.find(c => c.id === courseId);
+    const module = course?.modules.find(m => m.id === moduleId);
+    if (!course || !module) return notFound();
+    const done = user.progress?.completedModules?.includes(`${course.id}:${module.id}`);
+    return `<section class="section">
+      <button class="btn ghost" type="button" data-back="course">← Volver al curso</button>
+      <div class="page-title">
+        <div><div class="kicker">${esc(course.title)}</div><h1 class="h2">${esc(module.title)}</h1><p class="muted">Completa las actividades para desbloquear progreso, XP y monedas.</p></div>
+        <span class="badge">${module.minutes} min</span>
+      </div>
+      <div class="module-grid">
+        <div>
+          ${module.activities.map((activity, index) => activityCard(course, module, activity, index)).join("")}
+          <div class="app-card between">
+            <div><strong>${done ? "Clase completada" : "Finalizar clase"}</strong><p class="muted small">${done ? "Puedes volver a revisar el contenido." : "Guarda tu progreso local y gana recompensa."}</p></div>
+            <button class="btn primary" type="button" data-complete-module="${module.id}" ${done ? "disabled" : ""}>${done ? "Completada" : "Completar"}</button>
+          </div>
+        </div>
+        <aside class="stack">
+          <div class="app-card einstein-card">
+            <div class="row"><div class="avatar small">${einsteinAvatar(user, "happy")}</div><strong>Consejo de Einstein</strong></div>
+            <div class="speech" style="margin-top:15px">Lee, responde y escribe con tus propias palabras. Aprender finanzas es practicar decisiones.</div>
+          </div>
+          <div class="app-card"><h3 class="h3">Progreso</h3><p class="muted small">Esta clase da +30 XP y +15 monedas. El curso completo entrega recompensa mayor y certificado.</p></div>
+        </aside>
+      </div>
+    </section>`;
+  };
+
+  const activityCard = (course, module, activity, index) => {
+    const id = `${course.id}:${module.id}:${index}`;
+    if (activity.type === "reading") return `<article class="activity-card"><span class="badge">${icon("book")} Lectura</span><h3>${esc(activity.title)}</h3><p>${esc(activity.text)}</p><p class="muted small"><strong>Tip:</strong> ${esc(activity.tip || "")}</p></article>`;
+    if (activity.type === "video") return `<article class="activity-card"><span class="badge">${icon("book")} Video</span><h3>${esc(activity.title)}</h3><p class="muted small">${esc(activity.text)}</p>${videoEmbed(activity.videoId, activity.author)}<p class="video-note">Crédito: ${esc(activity.author)}. Reproducción externa desde YouTube.</p></article>`;
+    if (activity.type === "quiz") return `<article class="activity-card" data-quiz-card="${esc(id)}"><span class="badge">${icon("bolt")} Quiz</span><h3>${esc(activity.question)}</h3>${activity.options.map((option, i) => `<button class="question-option" type="button" data-quiz="${esc(id)}" data-answer="${i}">${esc(option)}</button>`).join("")}<p class="muted small" data-feedback="${esc(id)}"></p></article>`;
+    if (activity.type === "complete") return `<article class="activity-card"><span class="badge">${icon("receipt")} Completar</span><h3>${esc(activity.prompt)}</h3><div class="row"><input class="input" style="flex:1" data-complete-input="${esc(id)}" placeholder="Tu respuesta" /><button class="btn gold" type="button" data-complete-check="${esc(id)}" data-expected="${esc(activity.answer)}">Validar</button></div><p class="muted small">Pista: ${esc(activity.hint || "")}</p><p class="muted small" data-complete-feedback="${esc(id)}"></p></article>`;
+    if (activity.type === "practice") return `<article class="activity-card"><span class="badge">${icon("gamepad")} Práctica</span><h3>${esc(activity.title || "Ejercicio práctico")}</h3><p>${esc(activity.prompt)}</p><textarea class="textarea" data-practice="${esc(id)}" placeholder="${esc(activity.placeholder || "Escribe tu respuesta...")}"></textarea><div class="row" style="margin-top:8px"><button class="btn ghost" type="button" data-sample="${esc(id)}" data-sample-text="${esc(activity.sample || "")}">Ver ejemplo</button><span class="muted small" data-sample-box="${esc(id)}"></span></div></article>`;
+    return "";
+  };
+
+  const videoEmbed = (videoId, author) => `<iframe class="video-frame" src="https://www.youtube-nocookie.com/embed/${esc(videoId)}" title="Video de ${esc(author)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>`;
+
+  const renderActivities = (user) => `
+    <section class="section">
+      <div class="page-title"><div><div class="kicker">Minijuegos</div><h1 class="h2">Retos financieros</h1><p class="muted">Actividades simples que refuerzan presupuesto, ahorro y toma de decisiones.</p></div></div>
+      <div class="three-grid">
+        <div class="app-card stack"><div class="course-icon">${icon("chart")}</div><h3>Simulador de presupuesto</h3><p class="muted small">Distribuye ingresos entre necesidades, deseos y ahorro.</p><button class="btn primary" type="button" data-mini="budget">Abrir simulador</button></div>
+        <div class="app-card stack"><div class="course-icon">${icon("bolt")}</div><h3>Quiz relámpago</h3><p class="muted small">Responde preguntas rápidas para ganar XP.</p><button class="btn gold" type="button" data-mini="quickquiz">Jugar quiz</button></div>
+        <div class="app-card stack"><div class="course-icon">${icon("bank")}</div><h3>Reto de ahorro</h3><p class="muted small">Calcula una meta y un aporte semanal.</p><button class="btn purple" type="button" data-mini="savings">Crear reto</button></div>
+      </div>
+      <div id="miniGame" class="section"></div>
+      ${!ImperiaStore.hasPremium(user) ? adCard() : ""}
+    </section>`;
+
+  const renderStore = (user) => `
+    <section class="section">
+      <div class="page-title"><div><div class="kicker">Personalización</div><h1 class="h2">Tienda IMPERIA</h1><p class="muted">Compra elementos con ImperiaCoins y equipa a Einstein.</p></div><span class="stat-pill">${icon("coins")} ${user.coins || 0}</span></div>
+      <div class="course-grid">${IMPERIA_DATA.storeItems.map(item => storeCard(user, item)).join("")}</div>
+    </section>`;
+
+  const storeCard = (user, item) => {
+    const owned = user.progress?.purchasedItems?.includes(item.id);
+    const equipped = user.progress?.equippedItem === item.id;
+    const locked = item.plan === "premium" && !ImperiaStore.hasPremium(user);
+    return `<article class="app-card store-item">
+      <div class="store-emoji">${icon(item.icon)}</div>
+      <div class="stack">
+        <div class="between"><strong>${esc(item.name)}</strong><span class="badge ${item.plan === "premium" ? "premium" : "base"}">${item.plan === "premium" ? "Premium" : "Base"}</span></div>
+        <div class="muted small">${esc(item.type)} · ${item.price} monedas</div>
+        <button class="btn ${locked ? "purple" : owned ? "ghost" : "gold"}" type="button" data-buy="${item.id}" ${equipped ? "disabled" : ""}>${locked ? "Requiere Premium" : equipped ? "Equipado" : owned ? "Equipar" : "Comprar"}</button>
+      </div>
+    </article>`;
+  };
+
+  const renderPremium = (user) => {
+    const active = ImperiaStore.hasPremium(user);
+    const payment = user.subscription?.lastPayment;
+    return `<section class="section premium-page">
+      <div class="app-card premium-hero-card">
+        <div class="premium-glow"></div>
+        <div class="page-title premium-title">
+          <div>
+            <div class="kicker">Suscripción mensual</div>
+            <h1 class="h2">Desbloquea vidas ilimitadas y cero anuncios</h1>
+            <p class="muted">Paga de forma simulada dentro del navegador. Al aprobarse, se eliminan anuncios, se activan vidas ilimitadas y se libera la tienda completa.</p>
+          </div>
+          <div class="premium-price-card">
+            <img src="./img/LogoActual.png" alt="Logo IMPERIA" />
+            <strong>S/ 35.00</strong>
+            <span>mensual demo</span>
+            <em class="badge ${active ? "premium" : "lock"}">${active ? "Activo" : "Pendiente de pago"}</em>
+          </div>
+        </div>
+        <div class="two-grid plan-compare">
+          <div class="app-card plan-card base-plan"><h3>Nivel Gratuito incluido</h3>${IMPERIA_DATA.plans.free.benefits.map(b => `<p>${icon("check")} ${esc(b.replace("Gratis", "Base"))}</p>`).join("")}</div>
+          <div class="app-card plan-card premium-plan"><h3>Suscripción mensual</h3>${IMPERIA_DATA.plans.premium.benefits.map(b => `<p>${icon("crown")} ${esc(b)}</p>`).join("")}</div>
+        </div>
+      </div>
+      ${active ? premiumActivePanel(user, payment) : premiumCheckout()}
+      <div class="page-title section"><div><div class="kicker">Pago por curso · S/ 80</div><h2 class="h2">Cursos avanzados bajo demanda</h2><p class="muted">Módulo preparado para activar cursos por pago individual con asistencia, grabaciones, materiales y certificado. En esta demo se conserva sin backend.</p></div></div>
+      <div class="course-grid section"><article class="app-card course-card pro-elevate"><div class="between"><div class="course-icon">${icon("graduation")}</div><span class="badge premium">S/ 80 demo</span></div><h3>Programa avanzado de Finanzas y Negocios</h3><p class="muted small">Acceso directo sin anuncios, control de asistencia Zoom, materiales descargables y certificado oficial demo del Instituto Peruano de Negocios.</p><div class="chip-list"><span class="tag">Zoom</span><span class="tag">2 inasistencias máx.</span><span class="tag">Grabaciones 30 días</span></div><button class="btn gold full" type="button" data-view="premium">Solicitar activación demo</button></article></div>
+    </section>`;
+  };
+
+  const premiumActivePanel = (user, payment) => `
+    <div class="app-card premium-active-panel section">
+      <div class="success-burst">${icon("crown")}</div>
+      <div>
+        <div class="kicker">Suscripción activa</div>
+        <h2 class="h2">Suscripción habilitada correctamente</h2>
+        <p class="muted">Los anuncios fueron ocultados, las vidas ahora son ilimitadas y la tienda completa está disponible.</p>
+        <div class="payment-summary-grid">
+          <div><span class="muted small">Pago</span><strong>${esc(payment?.id || "PAY-LOCAL")}</strong></div>
+          <div><span class="muted small">Método</span><strong>${esc(payment?.methodLabel || "Simulado")}</strong></div>
+          <div><span class="muted small">Referencia</span><strong>${esc(payment?.reference || "Local")}</strong></div>
+          <div><span class="muted small">Renovación demo</span><strong>${user.subscription?.nextBillingAt ? new Date(user.subscription.nextBillingAt).toLocaleDateString("es-PE") : "Demo"}</strong></div>
+        </div>
+      </div>
+    </div>`;
+
+  const premiumCheckout = () => `
+    <div class="checkout-shell section">
+      <aside class="app-card checkout-resume">
+        <div class="kicker">Checkout simulado</div>
+        <h2 class="h2">Suscripción mensual</h2>
+        <p class="muted">Esta interfaz no cobra dinero real. Valida datos de prueba y guarda la suscripción en localStorage.</p>
+        <div class="checkout-total"><span>Total</span><strong>S/ 35.00</strong></div>
+        <div class="secure-line">${icon("lock")} Simulación segura · datos locales · sin pasarela externa</div>
+      </aside>
+      <section class="app-card payment-card">
+        <div class="between"><div><h3 class="h3">Elige método de pago</h3><p class="muted small">Completa los datos según el método. Al aprobarse se activa la suscripción mensual demo.</p></div><span class="badge lock">Demo</span></div>
+        <div class="payment-methods">
+          ${paymentMethodButton("card", "card", "Tarjeta")}
+          ${paymentMethodButton("yape", "phone", "Yape")}
+          ${paymentMethodButton("plin", "wallet", "Plin")}
+          ${paymentMethodButton("bank", "bank", "Transferencia")}
+        </div>
+        <form id="paymentForm" class="stack payment-form" novalidate>
+          <div id="paymentErrors" class="error-box"></div>
+          ${paymentFields(state.checkoutMethod)}
+          <label class="row small muted"><input id="paymentTerms" type="checkbox" required /> Confirmo que es una simulación local y acepto activar la suscripción en este navegador.</label>
+          <button class="btn purple full pay-button" type="submit">Pagar S/ 35.00 y activar suscripción</button>
+        </form>
+      </section>
+    </div>`;
+
+  const paymentMethodButton = (method, iconName, label) => `<button type="button" class="payment-method ${state.checkoutMethod === method ? "active" : ""}" data-payment-method="${method}"><span>${iconSvg(iconName)}</span><strong>${label}</strong></button>`;
+
+  const paymentFields = (method) => {
+    if (method === "card") return `
+      <div class="card-preview">
+        <div><span>IMPERIA PREMIUM</span><strong id="previewNumber">•••• •••• •••• ••••</strong></div>
+        <div class="between"><span id="previewName">NOMBRE DEL TITULAR</span><span id="previewExp">MM/AA</span></div>
+      </div>
+      <div class="form-grid">
+        <div class="field wide"><label for="cardName">Titular de la tarjeta</label><input class="input" id="cardName" autocomplete="cc-name" placeholder="Nombre como aparece en la tarjeta" required /></div>
+        <div class="field wide"><label for="cardNumber">Número de tarjeta</label><input class="input" id="cardNumber" inputmode="numeric" autocomplete="cc-number" maxlength="19" placeholder="4242 4242 4242 4242" required /></div>
+        <div class="field"><label for="cardExp">Vencimiento</label><input class="input" id="cardExp" inputmode="numeric" autocomplete="cc-exp" maxlength="5" placeholder="MM/AA" required /></div>
+        <div class="field"><label for="cardCvv">CVV</label><input class="input" id="cardCvv" inputmode="numeric" autocomplete="cc-csc" maxlength="4" placeholder="123" required /></div>
+        <div class="field wide"><label for="cardDni">DNI del titular</label><input class="input" id="cardDni" inputmode="numeric" maxlength="8" placeholder="8 dígitos" required /></div>
+      </div>`;
+    if (method === "yape") return `
+      <div class="wallet-banner yape"><strong>Yape demo</strong><span>Ingresa teléfono y código de operación simulado.</span></div>
+      <div class="form-grid">
+        <div class="field"><label for="walletPhone">Celular afiliado</label><input class="input" id="walletPhone" inputmode="numeric" maxlength="9" placeholder="9XXXXXXXX" required /></div>
+        <div class="field"><label for="walletCode">Código de operación</label><input class="input" id="walletCode" inputmode="numeric" maxlength="12" placeholder="12345678" required /></div>
+        <div class="field wide"><label for="walletName">Nombre del pagador</label><input class="input" id="walletName" placeholder="Nombre completo" required /></div>
+      </div>`;
+    if (method === "plin") return `
+      <div class="wallet-banner plin"><strong>Plin demo</strong><span>Simula el pago con celular, banco y operación.</span></div>
+      <div class="form-grid">
+        <div class="field"><label for="walletPhone">Celular afiliado</label><input class="input" id="walletPhone" inputmode="numeric" maxlength="9" placeholder="9XXXXXXXX" required /></div>
+        <div class="field"><label for="walletBank">Banco</label><select class="select" id="walletBank"><option>BCP</option><option>Interbank</option><option>BBVA</option><option>Scotiabank</option><option>Otro</option></select></div>
+        <div class="field wide"><label for="walletCode">Número de operación</label><input class="input" id="walletCode" inputmode="numeric" maxlength="12" placeholder="12345678" required /></div>
+      </div>`;
+    return `
+      <div class="wallet-banner bank"><strong>Transferencia bancaria demo</strong><span>Registra los datos del voucher simulado.</span></div>
+      <div class="form-grid">
+        <div class="field"><label for="transferBank">Banco origen</label><select class="select" id="transferBank"><option>BCP</option><option>Interbank</option><option>BBVA</option><option>Scotiabank</option><option>Caja / Otro</option></select></div>
+        <div class="field"><label for="transferOperation">Operación</label><input class="input" id="transferOperation" inputmode="numeric" maxlength="14" placeholder="000123456789" required /></div>
+        <div class="field wide"><label for="transferHolder">Titular / remitente</label><input class="input" id="transferHolder" placeholder="Nombre completo" required /></div>
+        <div class="field wide"><label for="transferDate">Fecha del pago</label><input class="input" id="transferDate" type="date" required /></div>
+      </div>`;
+  };
+
+  const renderProfile = (user) => {
+    const certs = user.progress?.certificates || [];
+    const completedCourses = user.progress?.completedCourses?.length || 0;
+    const totalCourses = IMPERIA_DATA.courses.length;
+    const lives = ImperiaStore.livesToday(user);
+    return `<section class="section profile-page">
+      <div class="profile-hero app-card">
+        <div class="profile-hero-bg"></div>
+        <div class="profile-copy">
+          <div class="kicker">Perfil financiero</div>
+          <h1 class="h2">${esc(user.fullName)}</h1>
+          <p class="muted">${esc(user.email)} · ${esc(user.phone || "Sin celular")} · ${esc(user.region)} · ${esc(user.userType)}</p>
+          <div class="profile-badges">
+            <span class="status-chip premium">${icon("star")} Nivel ${user.level || 1}</span>
+            <span class="status-chip">${icon("flame")} Racha ${user.progress?.streak || 1}</span>
+            <span class="status-chip ${ImperiaStore.hasPremium(user) ? "premium" : "base"}">${ImperiaStore.hasPremium(user) ? `${icon("crown")} Premium activo` : `${icon("check")} Plan gratuito`}</span>
+          </div>
+        </div>
+        <div class="profile-avatar-stage">
+          ${einsteinAvatar(user, "celebrate")}
+          <div class="speech profile-speech">¡Sigue avanzando! Tu progreso financiero ya está tomando forma.</div>
+        </div>
+      </div>
+      <div class="profile-progress app-card">
+        <div class="between"><div><h3 class="h3">Progreso general</h3><p class="muted small">Cursos, XP, monedas y vidas se guardan localmente en este dispositivo.</p></div><strong>${completedCourses}/${totalCourses}</strong></div>
+        <div class="progress-track tall"><span style="width:${pct(completedCourses,totalCourses)}%"></span></div>
+      </div>
+      <div class="three-grid profile-stats">
+        <div class="app-card stat-card animated-card"><span>${icon("graduation")}</span><h3>Cursos</h3><p class="h3">${completedCourses}/${totalCourses}</p><p class="muted small">Completados</p></div>
+        <div class="app-card stat-card animated-card"><span>${icon("star")}</span><h3>Experiencia</h3><p class="h3">${user.xp || 0} XP</p><p class="muted small">Nivel ${user.level || 1} · ${esc(ImperiaStore.levelName(user.level || 1))}</p></div>
+        <div class="app-card stat-card animated-card"><span>${icon("coins")}</span><h3>ImperiaCoins</h3><p class="h3">${user.coins || 0}</p><p class="muted small">Disponibles en tienda</p></div>
+      </div>
+      <div class="two-grid section">
+        <div class="app-card stack"><h3>Estado de acceso</h3><div class="access-summary"><div><strong>${lives.unlimited ? "∞" : `${lives.value}/${lives.max}`}</strong><span>Vidas</span></div><div><strong>${ImperiaStore.hasPremium(user) ? "Sin" : "Con"}</strong><span>Anuncios</span></div><div><strong>S/ 80</strong><span>Curso demo</span></div></div><p class="muted small">El sistema simula planes, vidas y compras sin base de datos ni cobros reales.</p></div>
+        <div class="app-card stack admin-demo"><h3>Panel de administración demo</h3><p class="muted small">Vista simulada para contenidos, horarios, bloqueos, pagos y reportes. Sin backend real.</p><div class="chip-list"><span class="tag">Cursos</span><span class="tag">Horarios</span><span class="tag">Asistencia</span><span class="tag">Pagos</span></div></div>
+      </div>
+      <div class="two-grid section">
+        <div class="app-card"><h3>Certificados</h3>${certs.length ? certs.map(c => certificateCard(c)).join("") : `<p class="muted small">Aún no tienes certificados. Completa un curso.</p>`}</div>
+        <div class="app-card stack"><h3>Cuenta</h3><p class="muted small">Tus datos están guardados solo en este navegador mediante localStorage.</p><button class="btn ghost" type="button" data-logout>Salir de la cuenta</button><button class="btn danger" type="button" data-reset>Reiniciar demo local</button></div>
+      </div>
+    </section>`;
+  };
+
+  const certificateCard = (cert) => {
+    const course = IMPERIA_DATA.courses.find(c => c.id === cert.courseId);
+    return `<div class="certificate" style="margin-top:12px"><div class="certificate-head"><img src="./img/LogoActual.png" alt="Logo IMPERIA"><strong>${esc(course?.title || cert.courseId)}</strong></div><p class="muted small">Código: ${esc(cert.id)}</p><p class="muted small">Emitido: ${new Date(cert.issuedAt).toLocaleDateString("es-PE")}</p><button class="btn gold" type="button" data-download-cert="${esc(cert.id)}">Descargar TXT</button></div>`;
+  };
+
+  const notFound = () => `<section class="app-card section"><h2>No encontrado</h2><button class="btn primary" type="button" data-view="home">Volver</button></section>`;
+
+  const bindApp = (user) => {
+    document.querySelectorAll("[data-view]").forEach(btn => btn.addEventListener("click", () => {
+      state.view = btn.dataset.view;
+      state.selectedCourse = null;
+      state.selectedModule = null;
+      state.quizCourse = null;
+      if (validViews.includes(state.view)) history.replaceState(null, "", `#${state.view}`);
+      render();
+    }));
+
+    document.querySelectorAll("[data-course]").forEach(btn => btn.addEventListener("click", () => {
+      const course = IMPERIA_DATA.courses.find(c => c.id === btn.dataset.course);
+      if (!canAccessCourse(user, course)) {
+        state.view = "premium";
+        state.selectedCourse = null;
+        toast("Este curso requiere compra individual o suscripción.");
+      } else {
+        state.selectedCourse = course.id;
+        state.selectedModule = null;
+      }
+      render();
+    }));
+
+    document.querySelectorAll("[data-module]").forEach(btn => btn.addEventListener("click", () => {
+      const course = IMPERIA_DATA.courses.find(c => c.id === state.selectedCourse);
+      const key = `${state.selectedCourse}:${btn.dataset.module}`;
+      const alreadyDone = user.progress?.completedModules?.includes(key);
+      if (course?.plan === "free" && !alreadyDone && !ImperiaStore.hasPremium(user)) {
+        if (!ImperiaStore.consumeLife()) {
+          toast("No tienes vidas disponibles. Juega el quiz financiero o suscríbete para vidas ilimitadas.");
+          state.view = "activities"; state.selectedCourse = null; state.selectedModule = null; render(); return;
+        }
+        toast("Usaste 1 vida para desbloquear esta clase gratuita.");
+      }
+      state.selectedModule = btn.dataset.module;
+      render();
+    }));
+
+    document.querySelectorAll("[data-start-course-quiz]").forEach(btn => btn.addEventListener("click", () => {
+      state.quizCourse = btn.dataset.startCourseQuiz;
+      state.selectedCourse = null;
+      state.selectedModule = null;
+      render();
+    }));
+
+    document.querySelectorAll("[data-back]").forEach(btn => btn.addEventListener("click", () => {
+      if (btn.dataset.back === "courses") { state.selectedCourse = null; state.selectedModule = null; state.view = "courses"; }
+      if (btn.dataset.back === "course") { state.selectedModule = null; }
+      render();
+    }));
+
+    const complete = $("[data-complete-module]");
+    if (complete) complete.addEventListener("click", () => {
+      ImperiaStore.completeModule(state.selectedCourse, complete.dataset.completeModule);
+      toast("Clase completada: +30 XP y +15 monedas.");
+      render();
+    });
+
+    document.querySelectorAll("[data-quiz]").forEach(btn => btn.addEventListener("click", () => handleQuiz(btn)));
+    document.querySelectorAll("[data-complete-check]").forEach(btn => btn.addEventListener("click", () => handleComplete(btn)));
+    document.querySelectorAll("[data-sample]").forEach(btn => btn.addEventListener("click", () => handleSample(btn)));
+    document.querySelectorAll("[data-mini]").forEach(btn => btn.addEventListener("click", () => renderMini(btn.dataset.mini)));
+    document.querySelectorAll("[data-buy]").forEach(btn => btn.addEventListener("click", () => handleBuy(btn.dataset.buy)));
+    document.querySelectorAll("[data-buy-course]").forEach(btn => btn.addEventListener("click", () => handleBuyCourse(btn.dataset.buyCourse)));
+    bindPayment();
+    document.querySelectorAll("[data-close-quiz]").forEach(btn => btn.addEventListener("click", () => { state.quizCourse = null; state.view = "courses"; render(); }));
+    document.querySelectorAll("[data-duo-answer]").forEach(btn => btn.addEventListener("click", () => handleDuoAnswer(btn)));
+    document.querySelectorAll("[data-next-duo]").forEach(btn => btn.addEventListener("click", () => { render(); }));
+    document.querySelectorAll("[data-quiz-retry]").forEach(btn => btn.addEventListener("click", () => { resetQuizState(user, btn.dataset.quizRetry); state.quizCourse = btn.dataset.quizRetry; render(); }));
+    document.querySelectorAll("[data-quiz-finish]").forEach(btn => btn.addEventListener("click", () => { const c = IMPERIA_DATA.courses.find(course => course.id === btn.dataset.quizFinish); if (c) ImperiaStore.completeModule(c.id, c.modules[c.modules.length - 1].id); ImperiaStore.addXpCoins(35, 18, `quiz-final:${btn.dataset.quizFinish}`); resetQuizState(user, btn.dataset.quizFinish); state.quizCourse = null; state.view = "courses"; render(); }));
+    document.querySelectorAll("[data-logout]").forEach(btn => btn.addEventListener("click", () => { ImperiaStore.logout(); state.authMode = "login"; render(); }));
+    document.querySelectorAll("[data-reset]").forEach(btn => btn.addEventListener("click", () => { if (confirm("¿Reiniciar todos los datos locales de IMPERIA?")) { ImperiaStore.resetDemo(); location.reload(); } }));
+    document.querySelectorAll("[data-mission]").forEach(btn => btn.addEventListener("click", () => claimMission(btn.dataset.mission)));
+    document.querySelectorAll("[data-download-cert]").forEach(btn => btn.addEventListener("click", () => downloadCertificate(btn.dataset.downloadCert)));
+  };
+
+
+
+
+  const quizKey = (user, courseId) => `imperia_quiz_${user.id}_${courseId}`;
+  const getQuizState = (user, courseId) => {
+    try { return JSON.parse(localStorage.getItem(quizKey(user, courseId))) || { index: 0, score: 0, answers: [] }; }
+    catch { return { index: 0, score: 0, answers: [] }; }
+  };
+  const setQuizState = (user, courseId, value) => localStorage.setItem(quizKey(user, courseId), JSON.stringify(value));
+  const resetQuizState = (user, courseId) => localStorage.removeItem(quizKey(user, courseId));
+
+  const renderFullQuiz = (user, courseId) => {
+    const course = IMPERIA_DATA.courses.find(c => c.id === courseId);
+    if (!course?.quiz) return notFound();
+    const quiz = course.quiz;
+    const qState = getQuizState(user, courseId);
+    const total = quiz.questions.length;
+    const index = Math.min(qState.index || 0, total);
+    const finished = index >= total;
+    if (finished) {
+      const score = qState.score || 0;
+      const percent = pct(score, total);
+      const passed = percent >= (quiz.passingScore || 70);
+      return `<section class="quiz-shell finish" data-aos="zoom-in">
+        <div class="quiz-result-card ${passed ? "passed" : "retry"}">
+          <div class="quiz-result-icon">${icon(passed ? "graduation" : "bolt")}</div>
+          <h1>${passed ? "¡Curso aprobado!" : "Puedes mejorar"}</h1>
+          <p class="muted">Puntaje: ${score}/${total} · ${percent}%</p>
+          <div class="progress-track tall"><span style="width:${percent}%"></span></div>
+          <p>${passed ? "Einstein registró tu logro y sumó recompensas en este dispositivo." : "Repite el quiz para reforzar conceptos clave."}</p>
+          <div class="row quiz-actions">
+            <button class="btn primary" type="button" data-quiz-finish="${course.id}">${passed ? "Guardar logro" : "Volver al curso"}</button>
+            <button class="btn ghost" type="button" data-quiz-retry="${course.id}">Reintentar</button>
+          </div>
+        </div>
+      </section>`;
+    }
+    const q = quiz.questions[index];
+    const progress = pct(index, total);
+    const lives = ImperiaStore.livesToday(user);
+    return `<section class="quiz-shell" data-course-quiz="${course.id}">
+      <div class="quiz-topbar">
+        <button class="btn ghost circle" type="button" data-close-quiz>${icon("x")}</button>
+        <div class="quiz-progress"><span style="width:${progress}%"></span></div>
+        <div class="quiz-life">${icon("heart")} ${lives.unlimited ? "∞" : lives.value}</div>
+      </div>
+      <article id="quizCard" class="quiz-card-duo animate__animated animate__fadeInRight">
+        <div class="quiz-meta"><span>${icon(course.icon)}</span><div><strong>${esc(course.title)}</strong><small>Pregunta ${index + 1} de ${total}</small></div></div>
+        <h1>${esc(q.question)}</h1>
+        <div class="quiz-options-duo">${q.options.map((option, i) => `<button type="button" data-duo-answer="${i}" data-course-id="${course.id}" class="quiz-choice">${esc(option)}</button>`).join("")}</div>
+      </article>
+      <div id="duoFeedback" class="duo-feedback"><div><h3 id="duoTitle"></h3><p id="duoText"></p></div><button class="btn primary" type="button" data-next-duo="${course.id}">Continuar</button></div>
+    </section>`;
+  };
+
+
+  const bindPayment = () => {
+    document.querySelectorAll("[data-payment-method]").forEach(btn => btn.addEventListener("click", () => {
+      state.checkoutMethod = btn.dataset.paymentMethod;
+      render();
+    }));
+
+    const form = $("#paymentForm");
+    if (!form) return;
+
+    const transferDate = $("#transferDate");
+    if (transferDate && !transferDate.value) transferDate.value = today();
+
+    const onlyDigits = (selector) => {
+      const input = $(selector);
+      if (!input) return;
+      input.addEventListener("input", () => input.value = input.value.replace(/\D/g, ""));
+    };
+    ["#cardCvv", "#cardDni", "#walletPhone", "#walletCode", "#transferOperation"].forEach(onlyDigits);
+
+    const cardNumber = $("#cardNumber");
+    if (cardNumber) cardNumber.addEventListener("input", () => {
+      cardNumber.value = formatCardNumber(cardNumber.value);
+      const preview = $("#previewNumber");
+      if (preview) preview.textContent = cardNumber.value || "•••• •••• •••• ••••";
+    });
+
+    const cardName = $("#cardName");
+    if (cardName) cardName.addEventListener("input", () => {
+      const preview = $("#previewName");
+      if (preview) preview.textContent = cardName.value.trim().toUpperCase() || "NOMBRE DEL TITULAR";
+    });
+
+    const cardExp = $("#cardExp");
+    if (cardExp) cardExp.addEventListener("input", () => {
+      let value = cardExp.value.replace(/\D/g, "").slice(0, 4);
+      if (value.length > 2) value = value.slice(0, 2) + "/" + value.slice(2);
+      cardExp.value = value;
+      const preview = $("#previewExp");
+      if (preview) preview.textContent = value || "MM/AA";
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const payload = collectPaymentPayload();
+      const errors = validatePayment(payload);
+      showErrors("paymentErrors", errors);
+      if (errors.length) return;
+      processPayment(payload);
+    });
+  };
+
+  const formatCardNumber = (value) => value.replace(/\D/g, "").slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
+
+  const collectPaymentPayload = () => {
+    const method = state.checkoutMethod;
+    if (method === "card") return {
+      method,
+      methodLabel: "Tarjeta",
+      cardName: $("#cardName")?.value || "",
+      cardNumber: ($("#cardNumber")?.value || "").replace(/\D/g, ""),
+      cardExp: $("#cardExp")?.value || "",
+      cardCvv: $("#cardCvv")?.value || "",
+      cardDni: $("#cardDni")?.value || "",
+      terms: $("#paymentTerms")?.checked || false
+    };
+    if (method === "yape") return {
+      method,
+      methodLabel: "Yape",
+      phone: $("#walletPhone")?.value || "",
+      code: $("#walletCode")?.value || "",
+      name: $("#walletName")?.value || "",
+      terms: $("#paymentTerms")?.checked || false
+    };
+    if (method === "plin") return {
+      method,
+      methodLabel: "Plin",
+      phone: $("#walletPhone")?.value || "",
+      code: $("#walletCode")?.value || "",
+      bank: $("#walletBank")?.value || "",
+      terms: $("#paymentTerms")?.checked || false
+    };
+    return {
+      method,
+      methodLabel: "Transferencia bancaria",
+      bank: $("#transferBank")?.value || "",
+      code: $("#transferOperation")?.value || "",
+      name: $("#transferHolder")?.value || "",
+      date: $("#transferDate")?.value || "",
+      terms: $("#paymentTerms")?.checked || false
+    };
+  };
+
+  const validatePayment = (p) => {
+    const errors = [];
+    if (!p.terms) errors.push("Confirma que entiendes que el pago es una simulación local.");
+    if (p.method === "card") {
+      if (p.cardName.trim().split(/\s+/).length < 2) errors.push("Ingresa nombre y apellido del titular.");
+      if (!/^\d{13,16}$/.test(p.cardNumber) || !luhn(p.cardNumber)) errors.push("Ingresa un número de tarjeta válido. Puedes probar con 4242 4242 4242 4242.");
+      if (!validExpiry(p.cardExp)) errors.push("Ingresa una fecha de vencimiento válida en formato MM/AA.");
+      if (!/^\d{3,4}$/.test(p.cardCvv)) errors.push("El CVV debe tener 3 o 4 dígitos.");
+      if (!/^\d{8}$/.test(p.cardDni)) errors.push("El DNI debe tener 8 dígitos.");
+    }
+    if (p.method === "yape") {
+      if (!/^9\d{8}$/.test(p.phone)) errors.push("El celular de Yape debe tener 9 dígitos y empezar con 9.");
+      if (!/^\d{6,12}$/.test(p.code)) errors.push("El código de operación de Yape debe tener entre 6 y 12 dígitos.");
+      if (p.name.trim().split(/\s+/).length < 2) errors.push("Ingresa nombre y apellido del pagador.");
+    }
+    if (p.method === "plin") {
+      if (!/^9\d{8}$/.test(p.phone)) errors.push("El celular de Plin debe tener 9 dígitos y empezar con 9.");
+      if (!/^\d{6,12}$/.test(p.code)) errors.push("El número de operación de Plin debe tener entre 6 y 12 dígitos.");
+    }
+    if (p.method === "bank") {
+      if (!/^\d{6,14}$/.test(p.code)) errors.push("El número de operación bancaria debe tener entre 6 y 14 dígitos.");
+      if (p.name.trim().split(/\s+/).length < 2) errors.push("Ingresa nombre y apellido del remitente.");
+      if (!p.date) errors.push("Selecciona la fecha de la transferencia.");
+    }
+    return errors;
+  };
+
+  const validExpiry = (value) => {
+    const match = /^(0[1-9]|1[0-2])\/(\d{2})$/.exec(value);
+    if (!match) return false;
+    const month = Number(match[1]);
+    const year = 2000 + Number(match[2]);
+    const now = new Date();
+    const end = new Date(year, month, 0, 23, 59, 59);
+    return end >= new Date(now.getFullYear(), now.getMonth(), 1);
+  };
+
+  const luhn = (number) => {
+    let sum = 0;
+    let shouldDouble = false;
+    for (let i = number.length - 1; i >= 0; i--) {
+      let digit = Number(number[i]);
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+    return sum % 10 === 0;
+  };
+
+  const processPayment = (payload) => {
+    const button = $(".pay-button");
+    if (button) {
+      button.disabled = true;
+      button.innerHTML = "Procesando pago simulado...";
+    }
+    const panel = $(".payment-card");
+    if (panel) panel.classList.add("is-processing");
+    setTimeout(() => {
+      const reference = paymentReference(payload);
+      ImperiaStore.activatePremium({ method: payload.method, methodLabel: payload.methodLabel, reference });
+      state.paymentProcessing = false;
+      toast("Pago simulado aprobado. Suscripción activada: sin anuncios y vidas ilimitadas.");
+      render();
+    }, 1100);
+  };
+
+  const paymentReference = (payload) => {
+    if (payload.method === "card") return "•••• " + payload.cardNumber.slice(-4);
+    if (payload.method === "yape" || payload.method === "plin") return payload.phone + " · Op. " + payload.code;
+    return payload.bank + " · Op. " + payload.code;
+  };
+
+
+
+  const handleDuoAnswer = (btn) => {
+    const user = ImperiaStore.currentUser();
+    const courseId = btn.dataset.courseId;
+    const course = IMPERIA_DATA.courses.find(c => c.id === courseId);
+    const qState = getQuizState(user, courseId);
+    const q = course.quiz.questions[qState.index || 0];
+    const selected = Number(btn.dataset.duoAnswer);
+    const ok = selected === q.correctIndex;
+    document.querySelectorAll("[data-duo-answer]").forEach(option => {
+      option.disabled = true;
+      const idx = Number(option.dataset.duoAnswer);
+      option.classList.toggle("correct", idx === q.correctIndex);
+      option.classList.toggle("wrong", idx === selected && !ok);
+    });
+    const card = document.getElementById("quizCard");
+    if (card) {
+      card.classList.remove("animate__fadeInRight");
+      card.classList.add(ok ? "animate__bounce" : "animate__shakeX");
+    }
+    const feedback = document.getElementById("duoFeedback");
+    const title = document.getElementById("duoTitle");
+    const text = document.getElementById("duoText");
+    if (feedback && title && text) {
+      feedback.classList.add("show", ok ? "success" : "danger");
+      title.textContent = ok ? "¡Correcto!" : "Casi. Revisa esto";
+      text.textContent = q.explanation || (ok ? "Muy bien." : "Inténtalo nuevamente.");
+    }
+    const next = { index: (qState.index || 0) + 1, score: (qState.score || 0) + (ok ? 1 : 0), answers: [...(qState.answers || []), { questionId: q.id, selected, ok }] };
+    setQuizState(user, courseId, next);
+    if (ok) ImperiaStore.addXpCoins(4, 2, `duo:${courseId}:${q.id}`);
+    if (!ok && !ImperiaStore.hasPremium(user)) ImperiaStore.consumeLife();
+  };
+
+  const handleQuiz = (btn) => {
+    const id = btn.dataset.quiz;
+    const selected = Number(btn.dataset.answer);
+    const [courseId, moduleId, index] = id.split(":");
+    const course = IMPERIA_DATA.courses.find(c => c.id === courseId);
+    const module = course.modules.find(m => m.id === moduleId);
+    const activity = module.activities[Number(index)];
+    const card = document.querySelector(`[data-quiz-card="${CSS.escape(id)}"]`);
+    card.querySelectorAll(".question-option").forEach((option, i) => {
+      option.classList.remove("correct", "wrong");
+      if (i === activity.answer) option.classList.add("correct");
+      if (i === selected && selected !== activity.answer) option.classList.add("wrong");
+    });
+    const fb = document.querySelector(`[data-feedback="${CSS.escape(id)}"]`);
+    fb.textContent = selected === activity.answer ? activity.feedback : "Revisa la explicación e inténtalo de nuevo.";
+    if (selected === activity.answer) { ImperiaStore.addXpCoins(5, 2, `quiz:${id}`); ImperiaStore.gainLife(); toast("Respuesta correcta: +XP, +monedas y +1 vida."); }
+  };
+
+  const handleComplete = (btn) => {
+    const id = btn.dataset.completeCheck;
+    const input = document.querySelector(`[data-complete-input="${CSS.escape(id)}"]`);
+    const feedback = document.querySelector(`[data-complete-feedback="${CSS.escape(id)}"]`);
+    const expected = (btn.dataset.expected || "").trim().toLowerCase();
+    const value = (input.value || "").trim().toLowerCase();
+    if (value === expected || (expected === "deuda" && value === "deudas")) {
+      feedback.textContent = "Correcto. Has ganado +5 XP.";
+      feedback.style.color = "var(--success)";
+      ImperiaStore.addXpCoins(5, 2, `complete:${id}`);
+    } else {
+      feedback.textContent = "Aún no. Revisa la pista y vuelve a intentar.";
+      feedback.style.color = "var(--danger)";
+    }
+  };
+
+  const handleSample = (btn) => {
+    const box = document.querySelector(`[data-sample-box="${CSS.escape(btn.dataset.sample)}"]`);
+    box.textContent = btn.dataset.sampleText;
+  };
+
+  const renderMini = (kind) => {
+    const holder = $("#miniGame");
+    if (!holder) return;
+    if (kind === "budget") holder.innerHTML = miniBudget();
+    if (kind === "quickquiz") holder.innerHTML = miniQuiz();
+    if (kind === "savings") holder.innerHTML = miniSavings();
+    bindMiniGame(kind);
+    holder.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const miniBudget = () => `<div class="app-card"><h2>${icon("chart")} Simulador de presupuesto 50/30/20</h2><div class="form-grid"><div class="field"><label>Ingreso mensual</label><input class="input" id="budgetIncome" type="number" value="1500"></div></div><button class="btn primary" type="button" id="calcBudget">Calcular</button><div id="budgetResult" class="section"></div></div>`;
+  const miniQuiz = () => `<div class="app-card"><h2>${icon("bolt")} Quiz relámpago</h2><p>¿Qué representa un fondo de emergencia?</p><button class="question-option" type="button" data-mini-answer="wrong">Dinero para compras impulsivas</button><button class="question-option" type="button" data-mini-answer="right">Dinero para imprevistos</button><button class="question-option" type="button" data-mini-answer="wrong">Dinero que nunca se registra</button><p id="miniFeedback" class="muted small"></p></div>`;
+  const miniSavings = () => `<div class="app-card"><h2>${icon("bank")} Reto de ahorro</h2><div class="form-grid"><div class="field"><label>Meta</label><input class="input" id="saveGoal" type="number" value="400"></div><div class="field"><label>Semanas</label><input class="input" id="saveWeeks" type="number" value="8"></div></div><button class="btn purple" type="button" id="calcSavings">Crear plan</button><div id="savingResult" class="section"></div></div>`;
+
+  const bindMiniGame = (kind) => {
+    if (kind === "budget") $("#calcBudget").addEventListener("click", () => {
+      const income = Number($("#budgetIncome").value || 0);
+      $("#budgetResult").innerHTML = `<div class="three-grid"><div class="app-card">Necesidades<br><strong>S/ ${(income * .5).toFixed(2)}</strong></div><div class="app-card">Deseos<br><strong>S/ ${(income * .3).toFixed(2)}</strong></div><div class="app-card">Ahorro/deuda<br><strong>S/ ${(income * .2).toFixed(2)}</strong></div></div>`;
+      ImperiaStore.addXpCoins(12, 6, `mini:budget:${today()}`);
+      toast("Simulación completada: +12 XP.");
+    });
+    if (kind === "quickquiz") document.querySelectorAll("[data-mini-answer]").forEach(btn => btn.addEventListener("click", () => {
+      const ok = btn.dataset.miniAnswer === "right";
+      $("#miniFeedback").textContent = ok ? "Correcto. +10 XP" : "No es correcto. Intenta de nuevo.";
+      if (ok) { ImperiaStore.addXpCoins(10, 5, `mini:quickquiz:${today()}`); ImperiaStore.gainLife(); toast("Quiz correcto: ganaste +1 vida."); }
+    }));
+    if (kind === "savings") $("#calcSavings").addEventListener("click", () => {
+      const goal = Number($("#saveGoal").value || 0);
+      const weeks = Math.max(1, Number($("#saveWeeks").value || 1));
+      $("#savingResult").innerHTML = `<div class="app-card">Debes separar aproximadamente <strong>S/ ${(goal / weeks).toFixed(2)}</strong> por semana para lograr S/ ${goal.toFixed(2)} en ${weeks} semanas.</div>`;
+      ImperiaStore.addXpCoins(12, 6, `mini:savings:${today()}`);
+      toast("Reto creado: +12 XP.");
+    });
+  };
+
+  const handleBuy = (itemId) => {
+    try {
+      ImperiaStore.buyItem(itemId);
+      toast("Tienda actualizada.");
+      render();
+    } catch (error) {
+      toast(error.message);
+      if (error.message.includes("Premium")) { state.view = "premium"; render(); }
+    }
+  };
+
+  const handleBuyCourse = (courseId) => {
+    try {
+      ImperiaStore.buyCourse(courseId);
+      toast("Pago por curso aprobado en modo demo: acceso directo activado.");
+      state.selectedCourse = courseId;
+      state.selectedModule = null;
+      render();
+    } catch (error) { toast(error.message); }
+  };
+
+  const claimMission = (missionId) => {
+    const user = ImperiaStore.currentUser();
+    const mission = IMPERIA_DATA.missions.find(m => m.id === missionId);
+    const missions = user.progress?.missions || {};
+    const doneToday = missions[today()] || [];
+    if (doneToday.includes(missionId)) return;
+    missions[today()] = [...doneToday, missionId];
+    ImperiaStore.updateProgress({ missions });
+    const multiplier = ImperiaStore.hasPremium(user) ? 2 : 1;
+    ImperiaStore.addXpCoins(mission.rewardXp * multiplier, mission.rewardCoins * multiplier, `mission:${today()}:${missionId}`);
+    toast(`Misión cobrada: +${mission.rewardXp * multiplier} XP.`);
+    render();
+  };
+
+  const downloadCertificate = (certId) => {
+    const user = ImperiaStore.currentUser();
+    const cert = user.progress?.certificates?.find(c => c.id === certId);
+    const course = IMPERIA_DATA.courses.find(c => c.id === cert.courseId);
+    const text = `IMPERIA - Certificado local\n\nOtorgado a: ${user.fullName}\nCurso: ${course.title}\nCódigo: ${cert.id}\nFecha: ${new Date(cert.issuedAt).toLocaleDateString("es-PE")}\n\nEste certificado es generado localmente por el prototipo sin backend.`;
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${cert.id}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  window.addEventListener("hashchange", () => {
+    const nextView = (location.hash || "").replace("#", "");
+    if (validViews.includes(nextView) && nextView !== state.view) {
+      state.view = nextView;
+      state.selectedCourse = null;
+      state.selectedModule = null;
+      render();
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", render);
+  return { render };
+})();

@@ -1,0 +1,54 @@
+/* V42 · Fix específico de métodos de pago en modo oscuro
+   Se aumenta especificidad para superar estilos claros heredados con #app + !important */
+
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method {
+  background: var(--imp-dark-surface-2) !important;
+  color: var(--imp-dark-text) !important;
+  border: 1px solid var(--imp-dark-line-strong) !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method span,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method strong,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method small,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method .muted,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method * {
+  color: var(--imp-dark-text) !important;
+  -webkit-text-fill-color: var(--imp-dark-text) !important;
+  opacity: 1 !important;
+}
+
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method svg,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method svg *,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method .ui-icon {
+  stroke: #9edcff !important;
+  color: #9edcff !important;
+  fill: none !important;
+  opacity: 1 !important;
+}
+
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method:hover,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method.active,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method:focus-visible {
+  background: linear-gradient(135deg, rgba(34,211,238,.22), rgba(45,212,191,.15)) !important;
+  border-color: rgba(34,211,238,.68) !important;
+  box-shadow: 0 14px 32px rgba(0,0,0,.28) !important;
+}
+
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method:hover strong,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method.active strong,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method:focus-visible strong,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method:hover span,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method.active span,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method:focus-visible span {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method.active svg,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method.active svg *,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method:hover svg,
+:root[data-theme="dark"] #app .payment-card .payment-methods .payment-method:hover svg * {
+  stroke: #dffbff !important;
+  color: #dffbff !important;
+}

@@ -1,0 +1,628 @@
+:root{
+  color-scheme: light;
+  --imperia-text-strong:#16316f;
+  --imperia-text-main:#17306b;
+  --imperia-text-soft:#5f6f8d;
+  --imperia-text-soft-2:#71819d;
+  --imperia-line:#dde5f2;
+  --imperia-card-2:#ffffff;
+}
+
+html,body,#app{color:var(--imperia-text-main)!important;}
+body{background:var(--imperia-bg,#f4f6fb)!important;}
+
+/* Base de lectura global */
+#app, #app *{
+  text-shadow:none !important;
+}
+
+#app p,
+#app li,
+#app label,
+#app span,
+#app strong,
+#app small,
+#app h1,
+#app h2,
+#app h3,
+#app h4,
+#app h5,
+#app h6{
+  color:inherit;
+}
+
+/* Contenedores principales claros y legibles */
+.app-card,
+.activity-card,
+.course-card,
+.course-list-card,
+.tool-card-mobile,
+.mobile-cert-card,
+.mobile-account-card,
+.profile-info-card,
+.auth-mobile-card,
+.ad-card,
+.certificate,
+.quiz-card-duo,
+.quiz-result-card,
+.attendance-card,
+.payment-card,
+.plan-card,
+.premium-price-card,
+.paywall-card,
+.checkout-shell,
+.premium-active-panel,
+.profile-stat-box,
+.quick-action-card,
+.home-course-card,
+.module-item,
+.node-card{
+  color:var(--imperia-text-main)!important;
+}
+
+.app-card h1,.app-card h2,.app-card h3,.app-card strong,
+.activity-card h1,.activity-card h2,.activity-card h3,.activity-card strong,
+.course-list-card h1,.course-list-card h2,.course-list-card h3,.course-list-card strong,
+.tool-card-mobile h1,.tool-card-mobile h2,.tool-card-mobile h3,.tool-card-mobile strong,
+.mobile-cert-card h1,.mobile-cert-card h2,.mobile-cert-card h3,.mobile-cert-card strong,
+.mobile-account-card h1,.mobile-account-card h2,.mobile-account-card h3,.mobile-account-card strong,
+.profile-info-card h1,.profile-info-card h2,.profile-info-card h3,.profile-info-card strong,
+.quiz-card-duo h1,.quiz-card-duo h2,.quiz-card-duo h3,.quiz-card-duo strong,
+.quiz-result-card h1,.quiz-result-card h2,.quiz-result-card h3,.quiz-result-card strong,
+.payment-card h1,.payment-card h2,.payment-card h3,.payment-card strong,
+.checkout-shell h1,.checkout-shell h2,.checkout-shell h3,.checkout-shell strong,
+.certificate h1,.certificate h2,.certificate h3,.certificate strong,
+.premium-page h1,.premium-page h2,.premium-page h3,
+.courses-screen h1,.courses-screen h2,.courses-screen h3,
+.tools-screen h1,.tools-screen h2,.tools-screen h3,
+.profile-screen h1,.profile-screen h2,.profile-screen h3{
+  color:var(--imperia-text-strong)!important;
+}
+
+/* Textos secundarios */
+#app .muted,
+#app .small,
+#app .video-note,
+#app .auth-mobile-note,
+#app .secure-line,
+#app .screen-brand small,
+#app .quick-action-card small,
+#app .home-course-content p,
+#app .course-list-body p,
+#app .tool-card-mobile p,
+#app .profile-info-card p,
+#app .auth-mobile-copy p,
+#app .auth-profile-text small,
+#app .page-copy-block p,
+#app .payment-card p,
+#app .checkout-shell p,
+#app .attendance-grid span,
+#app .course-meta-row,
+#app .course-list-meta,
+#app .progress-label,
+#app .mobile-account-card p,
+#app .certificate p,
+#app .profile-stat-box small,
+#app .ad-card p,
+#app .speech p,
+#app .quiz-result-card p{
+  color:var(--imperia-text-soft)!important;
+}
+
+/* Etiquetas pequeñas / kicker */
+#app .kicker,
+#app .page-copy-block .kicker,
+#app .progress-label,
+#app .link-button,
+#app .auth-mobile-note strong{
+  color:#5579c9 !important;
+}
+
+/* Badges y tags legibles */
+#app .badge,
+#app .tag,
+#app .mini-chip,
+#app .course-state-pill{
+  color:var(--imperia-text-main)!important;
+  background:#eef3fb!important;
+  border:1px solid #dbe4f3!important;
+}
+#app .badge.premium,
+#app .mini-chip.premium,
+#app .course-state-pill.premium{color:#fff!important;border-color:transparent!important;}
+#app .course-state-pill.free{color:#fff!important;border-color:transparent!important;}
+#app .badge.base{color:#10633d!important;background:#e9fbf1!important;border-color:#c9efd9!important;}
+#app .badge.lock{color:#7b879c!important;background:#f3f5f8!important;border-color:#dfe5ee!important;}
+
+/* Speech / notas */
+#app .speech,
+#app .profile-speech,
+#app .video-note,
+#app .auth-legal-v14,
+#app .error-box{
+  color:var(--imperia-text-main)!important;
+}
+
+/* Inputs y placeholders */
+#app input,
+#app select,
+#app textarea{
+  color:var(--imperia-text-main)!important;
+  background:#fff!important;
+  border-color:var(--imperia-line)!important;
+}
+#app input::placeholder,
+#app textarea::placeholder{
+  color:#8b97ad!important;
+  opacity:1;
+}
+#app option{color:var(--imperia-text-main)!important;background:#fff!important;}
+
+/* Quiz */
+#app .question-option,
+#app .quiz-choice{
+  color:var(--imperia-text-main)!important;
+  background:#fff!important;
+  border:2px solid #dbe4f3!important;
+}
+#app .question-option:hover,
+#app .quiz-choice:hover{background:#eff7ff!important;color:var(--imperia-text-strong)!important;}
+#app [data-feedback],
+#app [data-complete-feedback],
+#app [data-sample-box],
+#app #miniFeedback{color:var(--imperia-text-soft)!important;}
+
+/* Navegación inferior */
+#app .figma-bottom-nav button{color:#7a869b!important;}
+#app .figma-bottom-nav button.active{color:#06253a!important;}
+#app .figma-bottom-nav button small{color:inherit!important;}
+
+/* Hero oscuro: mantener texto blanco */
+#app .home-hero,
+#app .auth-mobile-hero,
+#app .profile-hero-mobile,
+#app .hero-progress-panel,
+#app .profile-summary-card,
+#app .home-hero *,
+#app .auth-mobile-hero *,
+#app .profile-hero-mobile *,
+#app .hero-progress-panel *,
+#app .profile-summary-card *{
+  color:#fff;
+}
+#app .home-brand strong,
+#app .screen-brand strong,
+#app .auth-mobile-hero h1{color:var(--imperia-gold)!important;}
+#app .screen-brand small,
+#app .auth-mobile-hero p{color:#d9e3ff!important;}
+#app .user-circle,
+#app .profile-mini-button{color:var(--imperia-blue)!important;}
+
+/* Certificados / detalle */
+#app .certificate{background:#fff!important;border:1px solid var(--imperia-line)!important;}
+#app .certificate-head{color:var(--imperia-text-strong)!important;}
+
+/* Tarjetas de pago y paneles premium */
+#app .payment-method,
+#app .payment-summary-grid > div,
+#app .access-summary div,
+#app .attendance-grid > div{
+  background:#f8fbff!important;
+  border:1px solid var(--imperia-line)!important;
+  color:var(--imperia-text-main)!important;
+}
+#app .payment-method .muted,
+#app .payment-summary-grid .muted,
+#app .access-summary span,
+#app .attendance-grid .muted{color:var(--imperia-text-soft)!important;}
+
+/* Evita textos invisibles dentro de rows combinadas */
+#app .row.small,
+#app .row.small *{color:var(--imperia-text-soft)!important;}
+#app .row.small input[type="checkbox"]{accent-color:#1bc7aa;}
+
+/* Asegura visibilidad en pantallas de perfil y herramientas */
+#app .profile-info-card span,
+#app .tool-icon,
+#app .quick-action-icon,
+#app .course-thumb,
+#app .module-icon{
+  color:var(--imperia-blue)!important;
+}
+#app .course-thumb,
+#app .module-icon{color:#fff!important;}
+
+/* estado de éxito/error en feedback */
+#app .success,
+#app .success-burst,
+#app .duo-feedback.success{color:#0f8a52!important;}
+#app .danger,
+#app .duo-feedback.error{color:#b42318!important;}
+
+@media (max-width:760px){
+  #app .section,
+  #app .mobile-screen{padding-left:16px!important;padding-right:16px!important;}
+}
+
+
+/* V28 · apartado de certificados y descargas */
+.certificates-screen .page-copy-block {
+  margin-top: 8px;
+}
+
+.certificate-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0 20px;
+}
+
+.certificate-summary-card,
+.certificate-empty-card,
+.certificate-course-card,
+.certificate-full-card {
+  background: #ffffff !important;
+  color: var(--imperia-text-main) !important;
+  border: 1px solid var(--imperia-line) !important;
+  border-radius: 24px;
+  box-shadow: 0 10px 24px rgba(28,49,111,.08);
+}
+
+.certificate-summary-card {
+  padding: 18px;
+  text-align: center;
+}
+
+.certificate-summary-card strong {
+  display: block;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--imperia-text-strong) !important;
+}
+
+.certificate-summary-card span {
+  display: block;
+  margin-top: 8px;
+  color: var(--imperia-text-soft) !important;
+  font-weight: 700;
+  font-size: .86rem;
+}
+
+.certificate-list {
+  display: grid;
+  gap: 16px;
+}
+
+.certificate-empty-card {
+  padding: 22px;
+  text-align: center;
+}
+
+.certificate-empty-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 14px;
+  background: #eef4ff;
+  color: var(--imperia-blue);
+}
+
+.certificate-empty-icon .ui-icon {
+  width: 34px;
+  height: 34px;
+}
+
+.certificate-course-card,
+.certificate-full-card {
+  padding: 16px;
+}
+
+.certificate-course-card {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.certificate-course-card .course-thumb {
+  width: 82px;
+  height: 82px;
+  border-radius: 20px;
+}
+
+.certificate-course-body h3,
+.certificate-info h3 {
+  margin: 0;
+  color: var(--imperia-text-strong) !important;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.certificate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.certificate-actions .btn {
+  flex: 1 1 auto;
+  min-width: 140px;
+  border-radius: 16px;
+}
+
+.certificate-preview {
+  border-radius: 22px;
+  background: linear-gradient(180deg, #f8fbff, #eef4ff);
+  border: 1px solid #dbe4f3;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.certificate-logo-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--imperia-blue) !important;
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.certificate-logo-line img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.certificate-label {
+  display: inline-flex;
+  padding: 8px 14px;
+  border-radius: 999px;
+  margin: 16px 0 10px;
+  background: #ffffff;
+  color: var(--imperia-blue) !important;
+  font-size: .76rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+
+.certificate-preview h3 {
+  margin: 6px 0;
+  color: var(--imperia-text-strong) !important;
+  font-size: 1.35rem;
+}
+
+.certificate-preview h4 {
+  margin: 8px 0 12px;
+  color: var(--imperia-blue) !important;
+  font-size: 1.12rem;
+  line-height: 1.25;
+}
+
+.certificate-preview p,
+.certificate-code {
+  color: var(--imperia-text-soft) !important;
+}
+
+.certificate-code {
+  font-weight: 800;
+  font-size: .85rem;
+}
+
+#app .figma-bottom-nav {
+  gap: 9px !important;
+}
+
+#app .figma-bottom-nav button {
+  min-width: 96px !important;
+  max-width: 96px !important;
+}
+
+@media (max-width: 380px) {
+  .certificate-summary-grid,
+  .certificate-course-card {
+    grid-template-columns: 1fr;
+  }
+
+  .certificate-course-card .course-thumb {
+    width: 100%;
+    height: 96px;
+  }
+
+  .certificate-actions {
+    flex-direction: column;
+  }
+
+  .certificate-actions .btn {
+    width: 100%;
+  }
+
+  #app .figma-bottom-nav button {
+    min-width: 92px !important;
+    max-width: 92px !important;
+  }
+}
+
+
+/* V29 · corrección de botón secundario en login */
+.auth-mobile-form .btn.ghost,
+.auth-mobile-card .btn.ghost,
+.auth-form-v13 .btn.ghost {
+  background: #eef4ff !important;
+  color: #17306b !important;
+  border: 1px solid #dbe4f3 !important;
+  box-shadow: 0 8px 18px rgba(28,49,111,.08) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.auth-mobile-form .btn.ghost:hover,
+.auth-mobile-card .btn.ghost:hover,
+.auth-form-v13 .btn.ghost:hover {
+  background: #e2ebff !important;
+  color: #112f86 !important;
+}
+
+.auth-mobile-form .btn.ghost:disabled,
+.auth-mobile-card .btn.ghost:disabled,
+.auth-form-v13 .btn.ghost:disabled {
+  background: #e8edf6 !important;
+  color: #64748b !important;
+  opacity: 1 !important;
+}
+
+.auth-mobile-form .auth-submit-v13 + .btn.ghost,
+.auth-mobile-submit + .btn.ghost {
+  margin-top: 12px !important;
+  min-height: 52px;
+  font-weight: 900 !important;
+  letter-spacing: .01em;
+}
+
+/* V30 · visibilidad completa en Certificados */
+.certificates-screen .btn.ghost,
+.certificate-actions .btn.ghost,
+.certificate-empty-card .btn.ghost {
+  background: #eef4ff !important;
+  color: #17306b !important;
+  border: 1px solid #dbe4f3 !important;
+  box-shadow: 0 8px 18px rgba(28,49,111,.08) !important;
+  opacity: 1 !important;
+}
+
+.certificates-screen .btn.ghost:hover,
+.certificate-actions .btn.ghost:hover,
+.certificate-empty-card .btn.ghost:hover {
+  background: #e2ebff !important;
+  color: #112f86 !important;
+}
+
+.certificates-screen .btn.ghost:disabled,
+.certificate-actions .btn.ghost:disabled,
+.certificate-empty-card .btn.ghost:disabled {
+  background: #edf2f8 !important;
+  color: #7b879c !important;
+  border: 1px solid #d8e1ee !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: #7b879c !important;
+}
+
+.certificates-screen .badge.lock,
+.certificates-screen .badge.pending,
+.certificates-screen .badge.base,
+.certificates-screen .badge {
+  color: #64748b !important;
+}
+
+.certificates-screen .muted,
+.certificates-screen .small,
+.certificates-screen p {
+  color: var(--imperia-text-soft) !important;
+}
+
+.certificates-screen h1,
+.certificates-screen h2,
+.certificates-screen h3,
+.certificates-screen strong,
+.certificates-screen .kicker {
+  color: var(--imperia-text-strong) !important;
+}
+
+
+/* V35 · Preview certificado estilo UTP */
+.certificate-preview-utp {
+  background:
+    linear-gradient(135deg, rgba(0,43,92,.08), rgba(227,6,19,.04)),
+    #ffffff !important;
+  border: 2px solid #d9e2ef !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.certificate-preview-utp::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 2px solid #002b5c;
+  border-radius: 18px;
+  pointer-events: none;
+  opacity: .18;
+}
+
+.certificate-preview-utp::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-top: 56px solid #e30613;
+  border-left: 56px solid transparent;
+  opacity: .95;
+}
+
+.certificate-logo-utp {
+  position: relative;
+  z-index: 1;
+}
+
+.certificate-logo-utp img {
+  width: 96px !important;
+  height: auto !important;
+  max-height: 46px;
+  object-fit: contain;
+}
+
+.certificate-logo-utp span {
+  color: #002b5c !important;
+  letter-spacing: .08em !important;
+  font-weight: 900;
+}
+
+.certificate-preview-utp .certificate-label {
+  color: #002b5c !important;
+  border: 1px solid #d9e2ef;
+}
+
+.certificate-preview-utp h3 {
+  color: #1f2937 !important;
+}
+
+.certificate-preview-utp h4 {
+  color: #002b5c !important;
+}
+
+.certificate-mini-signatures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+  font-size: .68rem;
+  font-weight: 800;
+  color: #5f6b7a;
+}
+
+.certificate-mini-signatures span {
+  border-top: 1px solid #1f2937;
+  padding-top: 6px;
+  color: #5f6b7a !important;
+}
+
+:root[data-theme="dark"] .certificate-preview-utp {
+  background:
+    linear-gradient(135deg, rgba(0,43,92,.72), rgba(227,6,19,.16)),
+    #0d1a2e !important;
+  border-color: rgba(148,163,184,.35) !important;
+}
+
+:root[data-theme="dark"] .certificate-logo-utp span,
+:root[data-theme="dark"] .certificate-preview-utp .certificate-label,
+:root[data-theme="dark"] .certificate-preview-utp h4 {
+  color: #8fdcff !important;
+}
+
+:root[data-theme="dark"] .certificate-preview-utp h3 {
+  color: #ffffff !important;
+}
